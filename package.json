@@ -1,8 +1,8 @@
 {
-  "name": "react-homework-template",
+  "name": "filmoteka",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://goitacademy.github.io/react-homework-template/",
+  "homepage": "https://artemlytvynenkoa.github.io/filmoteka/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
