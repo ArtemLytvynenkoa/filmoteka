@@ -1,4 +1,4 @@
-export default {
+const formComponentTypes = {
   INPUT: 'input',
   NUMBER: 'number',
   SELECT: 'select',
@@ -13,3 +13,5 @@ export default {
   HIDDEN: 'hidden',
   ADDRESS: 'addressAutocomplete',
 };
+
+export default formComponentTypes;

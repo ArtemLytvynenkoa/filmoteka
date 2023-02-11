@@ -7,7 +7,6 @@ import {
   setDoc,
   doc,
   updateDoc,
-  deleteDoc,
 } from 'firebase/firestore';
 
 const firebaseConfig = {

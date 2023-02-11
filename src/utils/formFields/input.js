@@ -2,7 +2,6 @@ import {
   getEmailField,
   getInputField,
   getPassword,
-  getPhoneField,
 } from './formFieldsUtils';
 
 export const email = getEmailField({

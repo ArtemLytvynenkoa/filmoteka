@@ -3,7 +3,6 @@ import {
   Input,
   Form,
 } from 'antd';
-import { TextAreaProps } from 'antd/lib/input';
 
 const { TextArea } = Input;
 const { Item } = Form;
@@ -21,7 +20,6 @@ const FormTextArea = ({
     label={ field.formItemProps.label }
   >
     <TextArea
-      // placeholder={ placeholder }
       disabled={ disabled }
       autoSize={ field.componentProps.autoSize }
       bordered={ bordered }

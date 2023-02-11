@@ -50,7 +50,7 @@ const SignUp = () => {
 
   const [form] = useForm();
 
-  if (loading) {
+  if (loading || isCollectionloading) {
     return <LoadingIndicator />;
   }
 
