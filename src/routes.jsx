@@ -112,7 +112,7 @@ const getPublicRoutes = routes => Object
 // );
 
 const AppRoutes = () => (
-  <BrowserRouter>
+  <BrowserRouter basename="/filmoteka/">
     <CoreLayout>
       <Routes>
         { getPublicRoutes(routes.public) }
