@@ -51,7 +51,7 @@ export const RightHeader = () => {
           {/* { admins.includes(user.uid) && */}
             <Dropdown
               trigger={ ['hover'] }
-              overlay={
+              menu={
                 <Menu
                   theme="dark"
                   style={ {
