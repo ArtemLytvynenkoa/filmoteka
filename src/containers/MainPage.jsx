@@ -1,3 +1,3 @@
-const MainPage = () => <div>Hello</div>;
+const MainPage = () => <div>Hell</div>;
 
 export default MainPage;
