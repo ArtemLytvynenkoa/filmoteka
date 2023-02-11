@@ -3,7 +3,7 @@ import {
   Route,
   Routes,
   BrowserRouter,
-  Navigate,
+  // Navigate,
 } from 'react-router-dom';
 import links from 'links';
 import {
@@ -112,7 +112,7 @@ const getPublicRoutes = routes => Object
 // );
 
 const AppRoutes = () => (
-  <BrowserRouter basename="/filmoteka/">
+  <BrowserRouter >
     <CoreLayout>
       <Routes>
         { getPublicRoutes(routes.public) }

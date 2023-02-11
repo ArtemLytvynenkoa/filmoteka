@@ -1,4 +1,4 @@
-export default {
+const links = {
   // public
   main: '/main',
   signIn: '/signIn',
@@ -9,3 +9,5 @@ export default {
   users: '/users',
   basket: '/basket',
 };
+
+export default links
