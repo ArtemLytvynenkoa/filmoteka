@@ -32,7 +32,7 @@ export const RightHeader = () => {
             type="link"
             style={ { padding: '0' } }
           >
-            <Link to={ `${links.users}/${user.uid}` }>
+            <Link to={ links.user }>
               <UserOutlined />
             </Link>
           </Button>

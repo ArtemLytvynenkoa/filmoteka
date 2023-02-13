@@ -6,7 +6,7 @@ const links = {
   // private
   goods: '/goods',
   orders: '/orders',
-  users: '/users',
+  user: '/user',
   basket: '/basket',
 };
 

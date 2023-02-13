@@ -11,12 +11,7 @@ import {
   MainPage,
   SignIn,
   SignUp,
-  // User,
-  // Product,
-  // Products,
-  // Orders,
-  // Users,
-  // Basket,
+  UserProfile,
 } from 'containers';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from 'myFirebase';
@@ -37,7 +32,10 @@ export const routes = {
     },
   },
   private: {
-    
+    user: {
+      path: links.user,
+      component: UserProfile,
+    },
   },
 };
 
