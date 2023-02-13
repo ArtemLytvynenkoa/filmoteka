@@ -2,7 +2,7 @@ import links from 'links';
 
 const menus = {
   main: {
-    title: 'Головна',
+    title: 'Filmoteka',
     url: links.main,
   },
 };
