@@ -3,13 +3,16 @@ import {
   RightHeader,
   LeftHeader,
 } from 'components';
+import './styles.scss'
 
 const Header = () => (
   <header
+    className='header'
     style={ {
-      maxHeight: '48px',
-      height: '48px',
-      minHeight: '48px',
+      maxWidth: '1600px',
+      maxHeight: '230px',
+      height: '230px',
+      minHeight: '230px',
       padding: '0 1rem',
       display: 'flex',
       alignContent: 'center',

@@ -24,6 +24,7 @@ export const RightHeader = () => {
         height: '100%',
         textAlign: 'right',
         flex: '0 1 auto',
+        marginRight: '208px'
       } }
     >
       { user &&
