@@ -9,3 +9,24 @@ export const isFieldDisabled = (field, getFieldValue) => {
 
   return false;
 };
+
+export const getGenresTextArray = (fimsGenres, allGenres) => {
+  const genresName = fimsGenres.map(genreId => {
+    return allGenres.find(genreObject => genreObject.id === genreId).name;
+  });
+  if (genresName.length <= 3) {
+    return genresName.join(', ');
+  }
+  genresName[2] = 'Other';
+  return genresName.slice(0, 3).join(', ');
+}
+
+export const getReleaseDate = releaseDate => {
+  const date = new Date(releaseDate);
+
+  if (releaseDate === "") {
+    return  "";
+  };
+  
+  return date.getFullYear();
+}

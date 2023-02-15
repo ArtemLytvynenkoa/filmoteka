@@ -5,6 +5,8 @@ import {
   BrowserRouter,
   Navigate,
 } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store }  from 'redux/store';
 import links from 'links';
 import {
   CoreLayout,
@@ -84,13 +86,15 @@ const getPrivateRoutes = (routes, parentPath = '') => (
 
 const AppRoutes = () => (
   <BrowserRouter>
-    <CoreLayout>
-      <Routes>
-        { getPublicRoutes(routes.public) }
-        { getPrivateRoutes(routes.private) }
-        <Route path="*" element={ <MainPage /> } />
-      </Routes>
-    </CoreLayout>
+    <Provider store={ store }>
+      <CoreLayout>
+        <Routes>
+          { getPublicRoutes(routes.public) }
+          { getPrivateRoutes(routes.private) }
+          <Route path="*" element={ <MainPage /> } />
+        </Routes>
+      </CoreLayout>
+    </Provider>
   </BrowserRouter>
 );
 

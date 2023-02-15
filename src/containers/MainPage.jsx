@@ -1,7 +1,6 @@
 import {
   Col,
    Divider,
-   Image,
    Pagination,
    Row, 
    Space,
@@ -13,6 +12,10 @@ import {
   useState
 } from "react";
 import { apiServices } from "services";
+import { setGenres } from "redux/genresSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { getGenresTextArray, getReleaseDate } from "utils";
+import { defaultImg } from "images";
 
 const { Text } = Typography;
 
@@ -21,17 +24,21 @@ const MainPage = () => {
   const [ isLoading, setIsLoading] = useState(false);
   const [ popularMovies, setPopularMovies ] = useState(null);
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    apiServices.fetchGenres().then(data => dispatch(setGenres(data)))
+  }, [dispatch]);
+
+  const allGenres = useSelector(state => state.genres.value);
+
   useEffect(() => {
     setIsLoading(true);
     apiServices.fetchPopularMovies(pageNum).then(data => setPopularMovies(data));
     setIsLoading(false);
-  }, [pageNum])
+  }, [pageNum]);
 
-  if (isLoading || !popularMovies) return <LoadingIndicator /> 
-
-  console.log(popularMovies.results);
-
-  const releaseDate = new Date();
+  if (isLoading || !popularMovies) return <LoadingIndicator />;
 
   return (
     <> 
@@ -39,16 +46,18 @@ const MainPage = () => {
         { popularMovies.results.map(({ 
           title,
           poster_path,
-          release_date
+          release_date,
+          genre_ids,
+          id
         }) => (
-          <Col span={ 8 }>
+          <Col span={ 8 } key={id}>
             <Space direction="vertical">
-              <img src={`https://image.tmdb.org/t/p/w500${poster_path}`} />
+              <img src={poster_path ? `https://image.tmdb.org/t/p/w500${poster_path}` : defaultImg} alt={title}/>
               <Text>{title}</Text>
               <Space>
-                <Text></Text>
-                <Divider />
-                <Text>{releaseDate.getFullYear()}</Text>
+                <Text>{getGenresTextArray(genre_ids, allGenres)}</Text>
+                <Divider type="vertical"/>
+                <Text>{getReleaseDate(release_date)}</Text>
               </Space>
             </Space>
           </Col>
