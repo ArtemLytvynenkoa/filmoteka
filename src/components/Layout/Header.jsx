@@ -13,7 +13,7 @@ const Header = () => (
       maxHeight: '230px',
       height: '230px',
       minHeight: '230px',
-      padding: '0 1rem',
+      padding: '0 2rem',
       display: 'flex',
       alignContent: 'center',
       borderBottom: '1px solid #d9d9d9',

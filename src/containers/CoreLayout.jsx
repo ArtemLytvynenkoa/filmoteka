@@ -76,6 +76,7 @@ const CoreLayout = ({ children }) => (
             flex: '1 1 auto',
             position: 'relative',
             padding: '1rem 3rem 2rem 3rem',
+            margin: '0 208px'
           } }
         >
           <ErrorBoundary
