@@ -1,5 +1,6 @@
 const links = {
   // public
+  main: '/',
   filmsPage: '/films',
   tvPage: '/tv',
   signInPage: '/signIn',

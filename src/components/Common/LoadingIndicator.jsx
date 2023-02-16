@@ -6,7 +6,14 @@ import {
 } from 'antd';
 
 const LoadingInicator = () => (
-  <Row style={ { height: '100%' } } justify="center" align="middle">
+  <Row 
+    style={ { 
+      height: '100%',
+      padding: '50px'
+    } } 
+    justify="center" 
+    align="middle"
+  >
     <Col>
       <Spin spinning />
     </Col>

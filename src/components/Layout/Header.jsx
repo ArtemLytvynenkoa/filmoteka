@@ -4,10 +4,11 @@ import {
   LeftHeader,
 } from 'components';
 import './styles.scss'
+import CentralHeader from './CentralHeader';
 
-const Header = () => (
+const Header = ({ className }) => (
   <header
-    className='header'
+    className={`header ${className}`}
     style={ {
       maxWidth: '1600px',
       maxHeight: '230px',
@@ -15,10 +16,10 @@ const Header = () => (
       minHeight: '230px',
       padding: '0 2rem',
       display: 'flex',
-      alignContent: 'center',
     } }
   >
     <LeftHeader />
+    <CentralHeader />
     <RightHeader />
   </header>
 );

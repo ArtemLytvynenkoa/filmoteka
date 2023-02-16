@@ -6,8 +6,8 @@ const menus = {
     url: links.filmsPage,
   },
   tvPage: {
-    title: 'Films',
-    url: links.filmsPage,
+    title: 'TV',
+    url: links.tvPage,
   }
 };
 
