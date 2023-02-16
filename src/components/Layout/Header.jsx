@@ -16,7 +16,6 @@ const Header = () => (
       padding: '0 2rem',
       display: 'flex',
       alignContent: 'center',
-      borderBottom: '1px solid #d9d9d9',
     } }
   >
     <LeftHeader />

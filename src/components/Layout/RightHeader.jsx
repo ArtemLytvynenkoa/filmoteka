@@ -33,7 +33,7 @@ export const RightHeader = () => {
             type="link"
             style={ { padding: '0' } }
           >
-            <Link to={ links.user }>
+            <Link to={ links.userProfilePage }>
               <UserOutlined />
             </Link>
           </Button>
@@ -48,10 +48,10 @@ export const RightHeader = () => {
       { !user && 
         <Space>
           <Button type="primary">
-            <Link to={ links.signIn }>Увійти</Link>
+            <Link to={ links.signInPage }>Увійти</Link>
           </Button>
           <Button type="primary">
-            <Link to={ links.signUp }>Зареєструватися</Link>
+            <Link to={ links.signUpPage }>Зареєструватися</Link>
           </Button>
         </Space>
       }

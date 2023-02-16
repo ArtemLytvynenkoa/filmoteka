@@ -1,10 +1,14 @@
 import links from 'links';
 
 const menus = {
-  main: {
-    title: 'Filmoteka',
-    url: links.main,
+  filmsPage: {
+    title: 'Films',
+    url: links.filmsPage,
   },
+  tvPage: {
+    title: 'Films',
+    url: links.filmsPage,
+  }
 };
 
 export default menus;

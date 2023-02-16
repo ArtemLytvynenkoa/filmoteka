@@ -1,25 +1,17 @@
-import {
-  Col,
-   Divider,
-   Pagination,
-   Row, 
-   Space,
-   Typography
-} from "antd";
+import { Col, Pagination, Row } from "antd";
 import { LoadingIndicator } from "components";
 import { 
-  useEffect,
-  useState
+  useState, 
+  useEffect 
 } from "react";
-import { apiServices } from "services";
+import { 
+  useDispatch,
+} from "react-redux";
 import { setGenres } from "redux/genresSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { getGenresTextArray, getReleaseDate } from "utils";
-import { defaultImg } from "images";
+import { apiServices } from "services";
+import FilmCard from "./FilmCard";
 
-const { Text } = Typography;
-
-const MainPage = () => {
+const FilmList = () => {
   const [ pageNum, setPageNum ] = useState(1);
   const [ isLoading, setIsLoading] = useState(false);
   const [ popularMovies, setPopularMovies ] = useState(null);
@@ -30,8 +22,6 @@ const MainPage = () => {
     apiServices.fetchGenres().then(data => dispatch(setGenres(data)))
   }, [dispatch]);
 
-  const allGenres = useSelector(state => state.genres.value);
-
   useEffect(() => {
     setIsLoading(true);
     apiServices.fetchPopularMovies(pageNum).then(data => setPopularMovies(data));
@@ -41,7 +31,7 @@ const MainPage = () => {
   if (isLoading || !popularMovies) return <LoadingIndicator />;
 
   return (
-    <> 
+    <>
       <Row gutter={ 16 }>
         { popularMovies.results.map(({ 
           title,
@@ -50,16 +40,14 @@ const MainPage = () => {
           genre_ids,
           id
         }) => (
-          <Col span={ 8 } key={id}>
-            <Space direction="vertical">
-              <img src={poster_path ? `https://image.tmdb.org/t/p/w500${poster_path}` : defaultImg} alt={title}/>
-              <Text>{title}</Text>
-              <Space>
-                <Text>{getGenresTextArray(genre_ids, allGenres)}</Text>
-                <Divider type="vertical"/>
-                <Text>{getReleaseDate(release_date)}</Text>
-              </Space>
-            </Space>
+          <Col span={ 8 } key={ id }>
+            <FilmCard 
+              title={ title }
+              posterPath={ poster_path }
+              releaseDate={ release_date }
+              genreIds={ genre_ids }
+              id={ id }
+            />
           </Col>
         )) }
       </Row>
@@ -73,6 +61,6 @@ const MainPage = () => {
       />
     </>
   )
-};
+}
 
-export default MainPage;
+export default FilmList;

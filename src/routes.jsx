@@ -8,35 +8,35 @@ import {
 import { Provider } from 'react-redux';
 import { store }  from 'redux/store';
 import links from 'links';
-import {
-  CoreLayout,
-  MainPage,
-  SignIn,
-  SignUp,
-  UserProfile,
-} from 'containers';
+import { CoreLayout } from 'containers';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from 'myFirebase';
+import { 
+  FilmsPage, 
+  SignInPage, 
+  SignUpPage, 
+  UserProfilePage
+} from 'pages';
 
 export const routes = {
   public: {
-    signIn: {
-      path: links.signIn,
-      component: SignIn,
+    signInPage: {
+      path: links.signInPage,
+      component: SignInPage,
     },
-    register: {
-      path: links.signUp,
-      component: SignUp,
+    signUpPage: {
+      path: links.signUpPage,
+      component: SignUpPage,
     },
-    main: {
-      path: links.main,
-      component: MainPage,
+    filmsPage: {
+      path: links.filmsPage,
+      component: FilmsPage,
     },
   },
   private: {
     user: {
-      path: links.user,
-      component: UserProfile,
+      path: links.userProfilePage,
+      component: UserProfilePage,
     },
   },
 };
@@ -91,7 +91,7 @@ const AppRoutes = () => (
         <Routes>
           { getPublicRoutes(routes.public) }
           { getPrivateRoutes(routes.private) }
-          <Route path="*" element={ <MainPage /> } />
+          <Route path="*" element={ <FilmsPage /> } />
         </Routes>
       </CoreLayout>
     </Provider>

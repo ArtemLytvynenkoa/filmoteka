@@ -14,8 +14,8 @@ export const LeftHeader = () => (
       flex: '1 1 auto',
     } }
   >
-    <Link to={ links.main }>
-      <img src={logo} alt='logo' width='100px'/>
+    <Link to={ links.filmsPage }>
+      <img src={ logo } alt='logo' width='100px'/>
       Filmoteka
     </Link>
   </div>
