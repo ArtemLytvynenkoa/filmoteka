@@ -49,11 +49,11 @@ const FilmList = () => {
   if (isLoading || !popularMovies) return <LoadingIndicator />;
 
   return (
-    <>
+    <div className="mainContent">
       { popularMovies.results.length === 0 
         ? 'Sorry!' 
         : (
-          <div className="mainContent">
+          <>
             <Row 
               gutter={ [ 8, 8 ] } 
             >
@@ -78,9 +78,10 @@ const FilmList = () => {
           <Pagination  
             totalResults={ popularMovies.total_results }
           />
-        </div>
-      )}
-    </>
+          </>
+        )
+      }
+    </div>
   )
 }
 

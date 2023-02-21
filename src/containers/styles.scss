@@ -10,18 +10,18 @@ div.ant-col, form.ant-form {
   }
 }
 
- .ant-layout-content  {
-  // background-color: transparent;
+.ant-layout-content  {
   background-image: 
     linear-gradient(
         to right,
         rgba(255, 255, 255, 0.8),
         rgba(255, 255, 255, 0.8)),
     url(../images/main-bg.jpeg);
-    max-width: '1600px';
+    min-height: 100vh;
 }
 
 .ant-layout-content .mainContent {
   padding: 50px;
   text-align: center;
+  min-height: 100vh;
 } 

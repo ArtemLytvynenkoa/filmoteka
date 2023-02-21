@@ -1,3 +1,19 @@
 .header  {
   background-image: url(../../images/desctop1x.jpg);
 }
+
+.searchInput .ant-input-wrapper .ant-input {
+  background-color: #f5b98e45;
+  border: 2px solid #ff6b01;
+  color: #ff6b01
+}
+
+.searchInput .ant-input-wrapper .ant-btn {
+  background-color: #f5b98e45;
+  border: 2px solid #ff6b01;
+  height: 34px;
+
+  .anticon {
+    color: #ff6b01;
+  }
+}

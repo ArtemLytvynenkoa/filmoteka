@@ -49,7 +49,15 @@ const FallbackComponent = ({ resetErrorBoundary }) => (
 );
 
 const CoreLayout = ({ children }) => (
-  <ConfigProvider>
+  <ConfigProvider
+    theme={{
+      token: {
+        colorPrimary: '#ff6b01',
+        colorLink: '#ff6b01',
+        colorLinkHover: '#ff8929'
+      },
+    }}
+  >
     <Layout
       
       style={ {

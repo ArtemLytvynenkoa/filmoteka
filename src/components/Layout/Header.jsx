@@ -14,10 +14,8 @@ const Header = ({ className }) => (
       maxHeight: '230px',
       height: '230px',
       minHeight: '230px',
-      padding: '0 2rem',
+      padding: '0 15rem',
       display: 'flex',
-      marginRight: 'auto',
-      marginLeft: 'auto',
     } }
   >
     <LeftHeader />
