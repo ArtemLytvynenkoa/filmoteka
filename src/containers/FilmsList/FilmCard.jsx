@@ -23,7 +23,13 @@ const FilmCard = ({
 
   return(
   <Space direction="vertical">
-    <img src={posterPath ? `https://image.tmdb.org/t/p/w500${posterPath}` : defaultImg} alt={title}/>
+    <img 
+      src={posterPath ? `https://image.tmdb.org/t/p/w500${posterPath}` : defaultImg} alt={title}
+      style={{
+        width: '300px',
+        height: '450px'
+      }}
+    />
     <Text>{title}</Text>
     <Space>
       <Text>{getGenresTextArray(genreIds, allGenres)}</Text>

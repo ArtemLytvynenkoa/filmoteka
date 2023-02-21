@@ -51,6 +51,7 @@ const FallbackComponent = ({ resetErrorBoundary }) => (
 const CoreLayout = ({ children }) => (
   <ConfigProvider>
     <Layout
+      
       style={ {
         height: '100%',
         width: '100vw',
@@ -59,6 +60,7 @@ const CoreLayout = ({ children }) => (
       } }
     >
       <Layout
+        className='layout'
         style={ {
           overflow: 'overlay',
           display: 'flex',

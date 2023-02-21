@@ -4,6 +4,7 @@ import { FilmList } from "containers";
 const FilmsPage = () => (
   <>
     <Header/>
+    
     <FilmList />
   </>
 );

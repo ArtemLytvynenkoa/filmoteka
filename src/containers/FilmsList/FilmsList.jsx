@@ -1,9 +1,11 @@
 import { 
-  Col, 
-  Pagination, 
+  Col,
   Row 
 } from "antd";
-import { LoadingIndicator } from "components";
+import { 
+  LoadingIndicator, 
+  Pagination 
+} from "components";
 import { 
   useState, 
   useEffect 
@@ -15,7 +17,6 @@ import {
 import { setGenres } from "redux/genresSlice";
 import { apiServices } from "services";
 import FilmCard from "./FilmCard";
-import { setPageNum } from "redux/pageNumSlice";
 
 const FilmList = () => {
   const [ isLoading, setIsLoading] = useState(false);
@@ -52,8 +53,10 @@ const FilmList = () => {
       { popularMovies.results.length === 0 
         ? 'Sorry!' 
         : (
-          <>
-            <Row gutter={ [ 16, 16 ] }>
+          <div className="mainContent">
+            <Row 
+              gutter={ [ 8, 8 ] } 
+            >
             { popularMovies.results.map(({ 
               title,
               poster_path,
@@ -61,7 +64,7 @@ const FilmList = () => {
               genre_ids,
               id
             }) => (
-              <Col span={ 8 } key={ id }>
+              <Col span={ 6 } key={ id }>
                 <FilmCard 
                   title={ title }
                   posterPath={ poster_path }
@@ -72,15 +75,10 @@ const FilmList = () => {
               </Col>
             )) }
           </Row>
-          <Pagination
-            current={ pageNum }
-            total={ popularMovies.total_results }
-            pageSize={ 20 }
-            showSizeChanger={ false }
-            showQuickJumper
-            onChange={ page => dispatch(setPageNum(page)) }
-          /> 
-        </>
+          <Pagination  
+            totalResults={ popularMovies.total_results }
+          />
+        </div>
       )}
     </>
   )
