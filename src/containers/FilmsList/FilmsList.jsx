@@ -54,6 +54,9 @@ const FilmList = () => {
         ? 'Sorry!' 
         : (
           <>
+            <Pagination  
+              totalResults={ popularMovies.total_results }
+            />
             <Row 
               gutter={ [ 8, 8 ] } 
             >

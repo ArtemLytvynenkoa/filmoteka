@@ -14,11 +14,8 @@ export const getGenresTextArray = (fimsGenres, allGenres) => {
   const genresName = fimsGenres.map(genreId => {
     return allGenres.find(genreObject => genreObject.id === genreId).name;
   });
-  if (genresName.length <= 3) {
-    return genresName.join(', ');
-  }
-  genresName[2] = 'Other';
-  return genresName.slice(0, 3).join(', ');
+  
+  return genresName.join(', ');
 }
 
 export const getReleaseDate = releaseDate => {

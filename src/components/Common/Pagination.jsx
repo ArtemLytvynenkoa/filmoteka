@@ -11,7 +11,7 @@ const Pagination = ({
 
   return (
     <AndPagination
-      style={ { marginTop: '50px' } }
+      style={ { margin: '50px 0' } }
       current={ pageNum }
       total={ totalResults }
       pageSize={ 20 }

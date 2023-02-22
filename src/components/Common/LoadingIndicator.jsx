@@ -8,7 +8,7 @@ import {
 const LoadingInicator = () => (
   <Row 
     style={ { 
-      height: '100%',
+      height: '100vh',
       padding: '50px'
     } } 
     justify="center" 

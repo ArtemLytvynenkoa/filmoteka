@@ -22,19 +22,55 @@ const FilmCard = ({
   const allGenres = useSelector(state => state.genres.value);
 
   return(
-  <Space direction="vertical">
+  <Space direction="vertical"
+    style={{
+      textAlign: 'start',
+    }}
+  >
     <img 
       src={posterPath ? `https://image.tmdb.org/t/p/w500${posterPath}` : defaultImg} alt={title}
       style={{
         width: '300px',
-        height: '450px'
+        height: '450px',
+        borderRadius: '10px',
       }}
     />
-    <Text>{title}</Text>
-    <Space>
-      <Text>{getGenresTextArray(genreIds, allGenres)}</Text>
-      <Divider type="vertical"/>
-      <Text>{getReleaseDate(releaseDate)}</Text>
+    <Text
+      style={{
+        width: '300px'
+      }} 
+      copyable
+      ellipsis={{
+        tooltip: true
+      }}
+    >
+      { title.toUpperCase() }
+    </Text>
+    <Space size={ 0 }>
+      <Text 
+        style={{ 
+          color: '#ff6b01',
+          maxWidth: '250px'
+        }}
+        ellipsis={{
+        tooltip: true
+        }}
+      >
+        { getGenresTextArray(genreIds, allGenres) }
+      </Text>
+      <Divider 
+        type="vertical"
+        style={{
+          backgroundColor: '#ff6b01'
+        }}
+      />
+      <Text 
+        style={{ 
+          color: '#ff6b01'
+        }}
+      >
+        { getReleaseDate(releaseDate) }
+      </Text>
     </Space>
   </Space>
 )};
