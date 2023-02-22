@@ -16,18 +16,17 @@ const Header = ({ className }) => (
       height: '230px',
       minHeight: '230px',
       padding: '0 15rem',
-      // display: 'flex',
     } }
   >
     <Row style={{alignItems: 'end', justifyContent: 'space-around', height: '100%'}}>
       <Col flex="1" style={{height: '100%'}}>
-      <LeftHeader />
+        <LeftHeader />
       </Col>
       <Col flex="1" style={{height: '100%'}}>
-      <CentralHeader />
+        <CentralHeader />
       </Col>
       <Col flex="1" style={{height: '100%'}}>
-      <RightHeader />
+        <RightHeader />
       </Col>
     </Row>
     

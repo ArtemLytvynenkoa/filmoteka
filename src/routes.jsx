@@ -15,6 +15,7 @@ import {
   FilmsPage, 
   SignInPage, 
   SignUpPage, 
+  TVPage, 
   UserProfilePage
 } from 'pages';
 
@@ -31,6 +32,10 @@ export const routes = {
     filmsPage: {
       path: links.filmsPage,
       component: FilmsPage,
+    },
+    tvPage: {
+      path: links.tvPage,
+      component: TVPage,
     },
   },
   private: {

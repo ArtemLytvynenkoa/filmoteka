@@ -2,9 +2,10 @@ import {
   Space, 
   Input,
   Menu,
-  Typography, 
+  Typography,
 } from 'antd';
 import menus from 'menus';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { setPageNum } from 'redux/pageNumSlice';
@@ -14,7 +15,11 @@ const { Search } = Input;
 const { Text } = Typography;
 
 const CentralHeader = () => {
+  const [current, setCurrent] = useState('');
+
   const dispatch = useDispatch();
+
+  console.log(current);
 
   return (
     <div
@@ -31,22 +36,32 @@ const CentralHeader = () => {
       >
         <Menu
           mode="horizontal"
-          defaultActiveFirst
           style={ {
             boxShadow: 'none',
             borderBottom: 'none',
             background: 'none',
-            color: '#ff6b01',
             justifyContent: 'center'
           } }
+          onClick={ ({ key }) => {
+            setCurrent(key);
+            dispatch(setPageNum(1));
+            dispatch(setSearchQuery(''));
+            setCurrent(key);
+          }}
+          selectedKeys={[current]}
           items={ Object.entries(menus).map(([, value]) => ({
             key: value.url,
             label: (
-              <Link to={ value.url } key={ value.title }>
+              <>
+              <Link 
+                to={ value.url } 
+                key={ value.title }
+              >
                 <Text style={{ color: '#ff6b01' }}>
                   { value.title }
                 </Text>
               </Link>
+              </>
             ),
           })) }
         />

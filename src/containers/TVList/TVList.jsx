@@ -14,64 +14,64 @@ import {
   useDispatch,
   useSelector,
 } from "react-redux";
-import { setMoviesGenres } from "redux/moviesGenresSlice";
 import { apiServices } from "services";
-import FilmCard from "./FilmCard";
+import { setTVGenres } from "redux/tvGenresSlice";
+import TVCard from "./TVCard";
 
-const FilmList = () => {
+const TVList = () => {
   const [ isLoading, setIsLoading] = useState(false);
-  const [ popularMovies, setPopularMovies ] = useState(null);
+  const [ popularTV, setPopularTV ] = useState(null);
 
   const dispatch = useDispatch();
   const searchQuery = useSelector(state => state.searchQuery.value);
   const pageNum = useSelector(state => state.pageNum.value);
 
   useEffect(() => {
-    apiServices.fetchMoviesGenres().then(data => dispatch(setMoviesGenres(data)));
+    apiServices.fetchTVGenres().then(data => dispatch(setTVGenres(data)));
   }, [dispatch]);
 
   useEffect(() => {
     if (searchQuery) {
       setIsLoading(true);
  
-      apiServices.fetchSearchMovies({ searchQuery, pageNum}).then(data => setPopularMovies(data));
+      apiServices.fetchSearchTV({ searchQuery, pageNum}).then(data => setPopularTV(data));
       return setIsLoading(false);
     };
 
     if (!searchQuery) {
       setIsLoading(true);
 
-      apiServices.fetchPopularMovies(pageNum).then(data => setPopularMovies(data));
+      apiServices.fetchPopularTV(pageNum).then(data => setPopularTV(data));
       return setIsLoading(false);
     }
   }, [pageNum, searchQuery]);
 
-  if (isLoading || !popularMovies) return <LoadingIndicator />;
+  if (isLoading || !popularTV) return <LoadingIndicator />;
 
   return (
     <div className="mainContent">
-      { popularMovies.results.length === 0 
+      { popularTV.results.length === 0 
         ? 'Sorry!' 
         : (
           <>
             <Pagination  
-              totalResults={ popularMovies.total_results }
+              totalResults={ popularTV.total_results }
             />
             <Row 
               gutter={ [ 8, 8 ] } 
             >
-            { popularMovies.results.map(({ 
-              title,
+            { popularTV.results.map(({ 
+              name,
               poster_path,
-              release_date,
+              first_air_date,
               genre_ids,
               id
             }) => (
               <Col span={ 6 } key={ id }>
-                <FilmCard 
-                  title={ title }
+                <TVCard 
+                  title={ name }
                   posterPath={ poster_path }
-                  releaseDate={ release_date }
+                  releaseDate={ first_air_date }
                   genreIds={ genre_ids }
                   id={ id }
                 />
@@ -79,7 +79,7 @@ const FilmList = () => {
             )) }
           </Row>
           <Pagination  
-            totalResults={ popularMovies.total_results }
+            totalResults={ popularTV.total_results }
           />
           </>
         )
@@ -88,4 +88,4 @@ const FilmList = () => {
   )
 }
 
-export default FilmList;
+export default TVList;

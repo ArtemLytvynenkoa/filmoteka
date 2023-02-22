@@ -12,14 +12,14 @@ import {
 
 const {Text} = Typography;
 
-const FilmCard = ({
+const TVCard = ({
   title,
   posterPath,
   releaseDate,
   genreIds,
   id,
 }) => {
-  const allGenres = useSelector(state => state.moviesGenres.value);
+  const allGenres = useSelector(state => state.tvGenres.value);
 
   return(
   <Space direction="vertical"
@@ -75,4 +75,4 @@ const FilmCard = ({
   </Space>
 )};
 
-export default FilmCard;
+export default TVCard;
