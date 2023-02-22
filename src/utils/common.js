@@ -14,6 +14,8 @@ export const getGenresTextArray = (fimsGenres, allGenres) => {
   const genresName = fimsGenres.map(genreId => {
     return allGenres.find(genreObject => genreObject.id === genreId).name;
   });
+
+  if (genresName.length === 0 ) return "Other"
   
   return genresName.join(', ');
 }
