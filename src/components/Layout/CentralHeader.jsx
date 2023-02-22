@@ -20,13 +20,15 @@ const CentralHeader = () => {
     <div
       style={ {
         display: 'flex',
-        alignItems: "flex-end",
+        alignItems: 'center',
+        justifyContent: 'center',
         height: '100%',
-        padding: '0 0 25px',
-        flex: '1 1 auto',
       } }
     >
-      <Space direction="vertical" size={ 35 } style={{ textAlign: "center" }}>
+      <Space 
+        direction="vertical" 
+        size={ 35 }
+      >
         <Menu
           mode="horizontal"
           defaultActiveFirst

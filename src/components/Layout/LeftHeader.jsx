@@ -13,7 +13,6 @@ export const LeftHeader = () => (
       alignItems: 'center',
       textAlign: 'center',
       height: '100%',
-      flex: '1 1 auto',
     } }
   >
     <Link to={ links.filmsPage }>

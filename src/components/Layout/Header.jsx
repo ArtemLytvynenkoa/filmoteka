@@ -5,6 +5,7 @@ import {
 } from 'components';
 import './styles.scss'
 import CentralHeader from './CentralHeader';
+import { Col, Row } from 'antd';
 
 const Header = ({ className }) => (
   <header
@@ -15,12 +16,23 @@ const Header = ({ className }) => (
       height: '230px',
       minHeight: '230px',
       padding: '0 15rem',
-      display: 'flex',
+      // display: 'flex',
     } }
   >
-    <LeftHeader />
-    <CentralHeader />
-    <RightHeader />
+    <Row style={{alignItems: 'end', justifyContent: 'space-around', height: '100%'}}>
+      <Col flex="1" style={{height: '100%'}}>
+      <LeftHeader />
+      </Col>
+      <Col flex="1" style={{height: '100%'}}>
+      <CentralHeader />
+      </Col>
+      <Col flex="1" style={{height: '100%'}}>
+      <RightHeader />
+      </Col>
+    </Row>
+    
+    
+    
   </header>
 );
 

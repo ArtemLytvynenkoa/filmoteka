@@ -19,11 +19,8 @@ export const RightHeader = () => {
     <div
       style={ {
         display: 'flex',
-        alignItems: 'center',
         justifyContent: 'flex-end',
         height: '100%',
-        textAlign: 'right',
-        flex: '0 1 auto',
       } }
     >
       { user &&
@@ -33,7 +30,7 @@ export const RightHeader = () => {
             style={ { padding: '0' } }
           >
             <Link to={ links.userProfilePage }>
-              <UserOutlined />
+              <UserOutlined style={{ fontSize: '24px' }}/>
             </Link>
           </Button>
           <Button 
