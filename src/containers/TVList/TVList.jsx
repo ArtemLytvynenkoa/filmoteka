@@ -48,14 +48,20 @@ const TVList = () => {
 
   if (isLoading || !popularTV) return <LoadingIndicator />;
 
+  const maxItemCount = 10000;
+
   return (
     <div className="mainContent">
       { popularTV.results.length === 0 
         ? 'Sorry!' 
         : (
           <>
-            <Pagination  
-              totalResults={ popularTV.total_results }
+            <Pagination 
+              totalResults={
+                popularTV.total_results > maxItemCount 
+                  ? maxItemCount 
+                  : popularTV.total_results
+              }
             />
             <Row 
               gutter={ [ 8, 8 ] } 
@@ -78,9 +84,13 @@ const TVList = () => {
               </Col>
             )) }
           </Row>
-          <Pagination  
-            totalResults={ popularTV.total_results }
-          />
+          <Pagination 
+              totalResults={
+                popularTV.total_results > maxItemCount 
+                  ? maxItemCount 
+                  : popularTV.total_results
+              }
+            />
           </>
         )
       }

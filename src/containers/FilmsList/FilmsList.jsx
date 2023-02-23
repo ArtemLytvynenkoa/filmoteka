@@ -41,12 +41,14 @@ const FilmList = () => {
     if (!searchQuery) {
       setIsLoading(true);
 
-      apiServices.fetchPopularMovies(pageNum).then(data => setPopularMovies(data));
+      apiServices.fetchPopularMovies(pageNum).then(data =>  setPopularMovies(data));
       return setIsLoading(false);
     }
   }, [pageNum, searchQuery]);
 
   if (isLoading || !popularMovies) return <LoadingIndicator />;
+
+  const maxItemCount = 10000;
 
   return (
     <div className="mainContent">
@@ -55,7 +57,11 @@ const FilmList = () => {
         : (
           <>
             <Pagination  
-              totalResults={ popularMovies.total_results }
+              totalResults={ 
+                popularMovies.total_results > maxItemCount 
+                  ? maxItemCount 
+                  : popularMovies.total_results
+              }
             />
             <Row 
               gutter={ [ 8, 8 ] } 
@@ -79,7 +85,11 @@ const FilmList = () => {
             )) }
           </Row>
           <Pagination  
-            totalResults={ popularMovies.total_results }
+            totalResults={ 
+              popularMovies.total_results > maxItemCount 
+                ? maxItemCount 
+                : popularMovies.total_results
+            }
           />
           </>
         )

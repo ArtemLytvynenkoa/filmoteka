@@ -4,10 +4,11 @@ import {
   Menu,
   Typography,
 } from 'antd';
+import links from 'links';
 import menus from 'menus';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { setActivePage } from 'redux/activePageSlice';
 import { setPageNum } from 'redux/pageNumSlice';
 import { setSearchQuery } from 'redux/searchQuerySlice';
 
@@ -15,11 +16,9 @@ const { Search } = Input;
 const { Text } = Typography;
 
 const CentralHeader = () => {
-  const [current, setCurrent] = useState('');
-
   const dispatch = useDispatch();
 
-  console.log(current);
+  const activePage = useSelector(state => state.activePage.value)
 
   return (
     <div
@@ -36,6 +35,7 @@ const CentralHeader = () => {
       >
         <Menu
           mode="horizontal"
+          selectedKeys={[activePage]}
           style={ {
             boxShadow: 'none',
             borderBottom: 'none',
@@ -43,12 +43,10 @@ const CentralHeader = () => {
             justifyContent: 'center'
           } }
           onClick={ ({ key }) => {
-            setCurrent(key);
             dispatch(setPageNum(1));
             dispatch(setSearchQuery(''));
-            setCurrent(key);
+            dispatch(setActivePage(key));
           }}
-          selectedKeys={[current]}
           items={ Object.entries(menus).map(([, value]) => ({
             key: value.url,
             label: (
@@ -66,7 +64,11 @@ const CentralHeader = () => {
           })) }
         />
         <Search
-          placeholder="Search"
+          placeholder={ 
+            activePage === links.filmsPage
+              ? 'Film search'
+              : 'TV search'
+          }
           color='#ff6b01'
           className='searchInput'
           // onChange={ e => {
