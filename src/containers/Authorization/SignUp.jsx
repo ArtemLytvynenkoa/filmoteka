@@ -26,6 +26,8 @@ import {
 } from 'react-firebase-hooks/auth';
 import errorMessages from 'errorMessages';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { setActivePage } from 'redux/activePageSlice';
+import { useDispatch } from 'react-redux';
 
 const SignUp = () => {
   const [user, loading] = useAuthState(auth);
@@ -36,6 +38,8 @@ const SignUp = () => {
   const [values, isCollectionloading] = useCollectionData(
     usersRef,
   );
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (error) {
@@ -56,6 +60,7 @@ const SignUp = () => {
 
   if (user) {
     const isExistingUser = values?.find(({ uid }) => uid === user.uid);
+
     if (!isExistingUser) {
       setUser({
         uid: user.uid,
@@ -64,14 +69,18 @@ const SignUp = () => {
       });
     }
 
+    dispatch(setActivePage(links.filmsPage))
+
     return <Navigate to={ links.filmsPage } replace />;
   }
 
   return (
     <Row
       justify="center"
-      style={ { height: '100%' } }
-      align="middle"
+      style={ { 
+        height: '100vh',
+        marginTop: '50px' 
+      } }
     >
       <Col
         xs={ 24 }
@@ -80,7 +89,7 @@ const SignUp = () => {
         <Form
           form={ form }
           isLoading={ isUserLoading }
-          buttonText="Зареєструватися"
+          buttonText="Sign up"
           initialValues={ { remember: true } }
           onSubmit={ values => createUserWithEmailAndPassword(values.email, values.password) }
           fields={ [
@@ -98,7 +107,7 @@ const SignUp = () => {
                 loading={ isGoogleUserLoading }
                 onClick={ () => signInWithGoogle() }
               >
-                Увійти за допомогою Google
+                Sign in with Google
               </Button>
             </Space>
           }

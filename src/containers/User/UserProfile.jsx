@@ -69,10 +69,9 @@ const UserProfile = () => {
     <Row
       justify="center"
       style={ {
-        height: '100%',
-        textAlign: 'center',
+        height: '100vh',
+        marginTop: '50px',
       } }
-      align="middle"
     >
       <Col span={ 5 }>
         <Form
@@ -82,6 +81,7 @@ const UserProfile = () => {
           //   name: user?.displayName,
           //   email: user?.email,
           // } }
+          style={{textAlign: 'center'}}
           fields={ [
             <Item key="userAvatar" name="photoURL" noStyle>
               <UserAvatarUpload userName={ userData?.userName } />

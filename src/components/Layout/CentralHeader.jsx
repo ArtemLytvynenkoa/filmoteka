@@ -63,23 +63,25 @@ const CentralHeader = () => {
             ),
           })) }
         />
-        <Search
-          placeholder={ 
-            activePage === links.filmsPage
-              ? 'Film search'
-              : 'TV search'
-          }
-          color='#ff6b01'
-          className='searchInput'
-          // onChange={ e => {
-          //   dispatch(setPageNum(1))
-          //   dispatch(setSearchQuery(e.currentTarget.value.trim()))}
-          // }
-          onSearch={ searchQuery => {
-            dispatch(setPageNum(1))
-            dispatch(setSearchQuery(searchQuery))
-          }}
-        />
+        { activePage &&
+          <Search
+            placeholder={ 
+              activePage === links.filmsPage
+                ? 'Film search'
+                : 'TV search'
+            }
+            color='#ff6b01'
+            className='searchInput'
+            // onChange={ e => {
+            //   dispatch(setPageNum(1))
+            //   dispatch(setSearchQuery(e.currentTarget.value.trim()))}
+            // }
+            onSearch={ searchQuery => {
+              dispatch(setPageNum(1))
+              dispatch(setSearchQuery(searchQuery))
+            }}
+          />
+        }
       </Space>
     </div>
   );
