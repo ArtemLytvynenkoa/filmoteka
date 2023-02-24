@@ -1,7 +1,7 @@
 import { Header } from "components";
 import { FilmList } from "containers";
 
-const FilmsPage = () => (
+const FilmsListPage = () => (
   <>
     <Header/>
     
@@ -9,4 +9,4 @@ const FilmsPage = () => (
   </>
 );
 
-export default FilmsPage;
+export default FilmsListPage;

@@ -12,10 +12,11 @@ import { CoreLayout } from 'containers';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from 'myFirebase';
 import { 
-  FilmsPage, 
+  FilmPage,
+  FilmsListPage, 
   SignInPage, 
   SignUpPage, 
-  TVPage, 
+  TVListPage, 
   UserProfilePage
 } from 'pages';
 
@@ -31,11 +32,23 @@ export const routes = {
     },
     filmsPage: {
       path: links.filmsPage,
-      component: FilmsPage,
+      component: FilmsListPage,
+      children: {
+        customer: {
+          path: '/:filmId',
+          component: FilmPage,
+        },
+      },
     },
     tvPage: {
       path: links.tvPage,
-      component: TVPage,
+      component: TVListPage,
+      children: {
+        customer: {
+          path: '/:tvId',
+          component: TVListPage,
+        },
+      },
     },
   },
   private: {
@@ -56,16 +69,27 @@ const PrivateRoute = ({ component: Component }) => {
   return <Navigate to={ links.signIn } />;
 };
 
-const getPublicRoutes = routes => Object
-  .values(routes)
-  .map(({ path, component: Component }) => (
-    Component &&
-    <Route
-      key={ path }
-      path={ path }
-      element={ <Component /> }
-    />
-  ));
+const getPublicRoutes = (routes, parentPath = '') => (
+  Object
+    .values(routes)
+    .reduce((acc, { path, component: Component, children }) => {
+      if (Component) {
+        acc.push(
+          <Route
+            key={ parentPath ? `${parentPath}${path}` : path }
+            path={ parentPath ? `${parentPath}${path}` : path }
+            element={ <Component /> } 
+          />,
+        );
+      }
+
+      if (children) {
+        return acc.concat(getPublicRoutes(children, `${parentPath}${path}`));
+      }
+
+      return acc;
+    }, [])
+);
 
 const getPrivateRoutes = (routes, parentPath = '') => (
   Object
@@ -96,7 +120,7 @@ const AppRoutes = () => (
         <Routes>
           { getPublicRoutes(routes.public) }
           { getPrivateRoutes(routes.private) }
-          <Route path="*" element={ <FilmsPage /> } />
+          <Route path="*" element={ <FilmsListPage /> } />
         </Routes>
       </CoreLayout>
     </Provider>

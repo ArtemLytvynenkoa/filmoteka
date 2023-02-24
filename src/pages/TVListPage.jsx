@@ -1,11 +1,11 @@
 import { Header } from "components";
 import { TVList } from "containers";
 
-const TVPage = () => (
+const TVListPage = () => (
   <>
     <Header/>
     <TVList />
   </>
 );
 
-export default TVPage;
+export default TVListPage;
