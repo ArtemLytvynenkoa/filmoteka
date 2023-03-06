@@ -71,7 +71,8 @@ const FilmList = () => {
               poster_path,
               release_date,
               genre_ids,
-              id
+              id,
+              vote_average,
             }) => (
               <Col span={ 6 } key={ id }>
                 <FilmCard 
@@ -80,6 +81,7 @@ const FilmList = () => {
                   releaseDate={ release_date }
                   genreIds={ genre_ids }
                   id={ id }
+                  rating={ vote_average }
                 />
               </Col>
             )) }

@@ -71,7 +71,8 @@ const TVList = () => {
               poster_path,
               first_air_date,
               genre_ids,
-              id
+              id,
+              vote_average
             }) => (
               <Col span={ 6 } key={ id }>
                 <TVCard 
@@ -80,6 +81,7 @@ const TVList = () => {
                   releaseDate={ first_air_date }
                   genreIds={ genre_ids }
                   id={ id }
+                  rating={ vote_average }
                 />
               </Col>
             )) }
