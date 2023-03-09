@@ -138,18 +138,20 @@ const FilmDitails = () => {
                   textAlign: "center",
                 }}
               >
-                <Image 
-                  alt={ filmDitails?.production_companies[0].name }
-                  src={ 
-                    filmDitails?.poster_path 
-                      ? `https://image.tmdb.org/t/p/w500${filmDitails.production_companies[0].logo_path}` 
-                      : null 
-                  }
-                  preview={false}
-                  width={ 300 }
-                  onClick={ () => window.open(filmDitails?.homepage)}
-                  style={{ cursor: "pointer" }}
-                />
+               { filmDitails?.production_companies[0].logo_path &&
+                  <Image 
+                    alt={ filmDitails?.production_companies[0].name }
+                    src={ 
+                      filmDitails?.poster_path 
+                        ? `https://image.tmdb.org/t/p/w500${filmDitails.production_companies[0].logo_path}` 
+                        : null 
+                    }
+                    preview={false}
+                    width={ 300 }
+                    onClick={ () => window.open(filmDitails?.homepage)}
+                    style={{ cursor: "pointer" }}
+                  />
+                }
               </Col>
             </Row>
             <Divider 
@@ -164,6 +166,7 @@ const FilmDitails = () => {
             <Text>
               { filmDitails?.overview }
             </Text>
+            
           </Space>
         </Col>
       </Row>
