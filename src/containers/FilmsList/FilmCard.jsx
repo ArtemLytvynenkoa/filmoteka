@@ -34,9 +34,7 @@ const FilmCard = ({
           textAlign: 'start',
           cursor: 'pointer',
         }}
-        onClick={ () => {
-          window.open(`${links.filmsPage}/${id}`);
-        } }
+        onClick={ () => window.open(`${links.filmsPage}/${id}`) }
       >
         <img 
           src={posterPath ? `https://image.tmdb.org/t/p/w500${posterPath}` : defaultImg} alt={title}

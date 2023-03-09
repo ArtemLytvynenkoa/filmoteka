@@ -31,7 +31,71 @@ const fetchPopularTV = async pageNum => {
   } catch (error) {
     console.log(error);
   };
-}
+};
+
+const fetchMovieDetails = async movieId => {
+  const url = `${BASE_URL}movie/${movieId}?api_key=${API_KEY}&language=en-US`;
+  
+  try {
+    const result = await fetch(url);
+
+    if (!result.ok) {
+      throw new Error(result.status);
+    }
+    const data = await result.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  };
+};
+
+const fetchMovieCast = async movieId => {
+  const url = `${BASE_URL}movie/${movieId}/credits?api_key=${API_KEY}&language=en-US`;
+  
+  try {
+    const result = await fetch(url);
+
+    if (!result.ok) {
+      throw new Error(result.status);
+    }
+    const data = await result.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  };
+};
+
+const fetchMovieReviews = async movieId => {
+  const url = `${BASE_URL}movie/${movieId}/reviews?api_key=${API_KEY}&language=en-US&page=1`;
+  
+  try {
+    const result = await fetch(url);
+
+    if (!result.ok) {
+      throw new Error(result.status);
+    }
+    const data = await result.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  };
+};
+
+const fetchMovieTrailer = async movieId => {
+  const url = `${BASE_URL}movie/${movieId}/videos?language=en-US&api_key=${API_KEY}`;
+  
+  try {
+    const result = await fetch(url);
+
+    if (!result.ok) {
+      throw new Error(result.status);
+    }
+    const data = await result.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  };
+};
 
 const fetchSearchMovies = async ({ searchQuery, pageNum }) => {
   const url = `${BASE_URL}search/movie?api_key=${API_KEY}&language=en-US&query=${searchQuery}&page=${pageNum}&include_adult=true`;
@@ -98,8 +162,12 @@ const fetchTVGenres = async () => {
 export const apiServices = {
   fetchPopularMovies,
   fetchPopularTV,
+  fetchMovieDetails,
   fetchSearchMovies,
   fetchSearchTV,
   fetchMoviesGenres,
   fetchTVGenres,
+  fetchMovieCast,
+  fetchMovieReviews,
+  fetchMovieTrailer,
 }
