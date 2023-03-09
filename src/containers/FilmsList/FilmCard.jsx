@@ -7,6 +7,7 @@ import {
 import { defaultImg } from "images";
 import links from "links";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { 
   getGenresTextArray, 
   getReleaseDate 
@@ -24,6 +25,8 @@ const FilmCard = ({
 }) => {
   const allGenres = useSelector(state => state.moviesGenres.value);
 
+  const navigate = useNavigate();
+
   return (
     <Badge
       count={ rating }
@@ -34,7 +37,7 @@ const FilmCard = ({
           textAlign: 'start',
           cursor: 'pointer',
         }}
-        onClick={ () => window.open(`${links.filmsPage}/${id}`) }
+        onClick={ () => navigate(`${links.filmsPage}/${id}`) }
       >
         <img 
           src={posterPath ? `https://image.tmdb.org/t/p/w500${posterPath}` : defaultImg} alt={title}
