@@ -4,6 +4,7 @@ import {
   Image, 
   Row, 
   Space,
+  Tabs,
   Tag,
   Typography 
 } from "antd";
@@ -15,6 +16,9 @@ import {
 } from "react";
 import { useParams } from "react-router-dom";
 import { apiServices } from "services";
+import { 
+  CastTab,
+  TrailerTab } from ".";
 
 const { Text, Title } = Typography;
 
@@ -23,9 +27,9 @@ const FilmDitails = () => {
 
   const [ isLoading, setIsLoading] = useState(true);
   const [ filmDitails, setFilmDitails ] = useState(null);
-  // const [ cast, setCast ] = useState(null);
+  const [ cast, setCast ] = useState(null);
   // const [ reviews, setReviews ] = useState(null);
-  // const [ trailerKey, setTrailerKey ] = useState('');
+  const [ trailerKey, setTrailerKey ] = useState('');
 
   useEffect(() => {
     if (!filmId) return;
@@ -33,19 +37,19 @@ const FilmDitails = () => {
     setIsLoading(true);
 
     apiServices.fetchMovieDetails(filmId).then(ditails => setFilmDitails(ditails));
-    // apiServices.fetchMovieCast(filmId).then(({ cast }) => setCast(cast));
+    apiServices.fetchMovieCast(filmId).then(({ cast }) => setCast(cast));
     // apiServices.fetchMovieReviews(filmId).then(({ results }) => setReviews(results));
-    // apiServices.fetchMovieTrailer(filmId).then( ({ results }) => {
-    //   const trailerObj = results.find(({ type }) => type === 'Trailer');
+    apiServices.fetchMovieTrailer(filmId).then( ({ results }) => {
+      const trailerObj = results.find(({ type }) => type === 'Trailer');
 
-    //   setTrailerKey(trailerObj && trailerObj.key ? trailerObj.key : '')
-    // } );
+      setTrailerKey(trailerObj && trailerObj.key ? trailerObj.key : '')
+    } );
     
     setIsLoading(false);
 
   }, [filmId]);
 
-  console.log(filmDitails);
+  console.log(cast);
 
   if (isLoading && !filmDitails) {
     return <LoadingIndicator />
@@ -59,23 +63,7 @@ const FilmDitails = () => {
           width: '100%'
         }}
       >
-
-        {/* <Button onClick={ () => {
-           setIsOpen(true)
-        } }>Open</Button>
-        <Button onClick={ () => {
-           setIsOpen(false)
-        } }>Close</Button>
-        {
-          isOpen && 
-          <iframe width="640" height="360"
-            src={`https://www.youtube.com/embed/${trailerKey}`}
-            title={`${trailerKey}`} frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen 
-          />
-        } */}
-        <Col span={ 6 }>
+        <Col span={ 8 }>
           <Image 
             alt={ filmDitails?.title }
             src={ 
@@ -83,13 +71,13 @@ const FilmDitails = () => {
                 ? `https://image.tmdb.org/t/p/w500${filmDitails.poster_path}` 
                 : defaultImg 
             }
-            preview={false}
-            width={ 300 }
-            height={ 450 }
+            // preview={false}
+            width={ 400 }
+            height={ 550 }
             style={{ borderRadius: '15px' }}
           />
         </Col>
-        <Col span={ 18 }>
+        <Col span={ 16 }>
           <Space direction="vertical" style={{ width: '100%',  textAlign: "start" }}>
             <Title type="secondary">
               { filmDitails?.original_title }
@@ -166,7 +154,22 @@ const FilmDitails = () => {
             <Text>
               { filmDitails?.overview }
             </Text>
-            
+            <Tabs
+              defaultActiveKey="1"
+              items={[{
+                key: 'trailer',
+                label: 'Trailer',
+                children: <TrailerTab trailerKey={ trailerKey }/>,
+              }, {
+                key: 'cast',
+                label: 'Cast',
+                children: <CastTab cast={ cast }/>,
+              }, {
+                key: 'reviews',
+                label: 'Reviews',
+                children: `Content of Tab Pane 2`,
+              }]}
+            />
           </Space>
         </Col>
       </Row>
