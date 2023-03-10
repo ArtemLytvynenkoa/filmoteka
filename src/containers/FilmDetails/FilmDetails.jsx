@@ -1,4 +1,5 @@
 import { 
+  Button,
   Col,
   Divider,
   Image, 
@@ -127,20 +128,27 @@ const FilmDitails = () => {
                   textAlign: "center",
                 }}
               >
-               { filmDitails?.production_companies[0].logo_path &&
-                  <Image 
-                    alt={ filmDitails?.production_companies[0].name }
-                    src={ 
-                      filmDitails?.poster_path 
-                        ? `https://image.tmdb.org/t/p/w500${filmDitails.production_companies[0].logo_path}` 
-                        : null 
-                    }
-                    preview={false}
-                    width={ 300 }
-                    onClick={ () => window.open(filmDitails?.homepage)}
-                    style={{ cursor: "pointer" }}
-                  />
-                }
+                <Space direction="vertical" size={ 30 }>
+
+                { filmDitails?.production_companies[0].logo_path &&
+                    <Image 
+                      alt={ filmDitails?.production_companies[0].name }
+                      src={ 
+                        filmDitails?.poster_path 
+                          ? `https://image.tmdb.org/t/p/w500${filmDitails.production_companies[0].logo_path}` 
+                          : null 
+                      }
+                      preview={false}
+                      width={ 300 }
+                      onClick={ () => window.open(filmDitails?.homepage)}
+                      style={{ cursor: "pointer" }}
+                    />
+                  }
+                  <Space>
+                    <Button type="primary">ADD TO WATCHED</Button>
+                    <Button type="primary">ADD TO QUEUE</Button>
+                  </Space>
+                </Space>
               </Col>
             </Row>
             <Divider 
