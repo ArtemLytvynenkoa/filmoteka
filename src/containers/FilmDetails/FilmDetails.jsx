@@ -18,6 +18,7 @@ import { useParams } from "react-router-dom";
 import { apiServices } from "services";
 import { 
   CastTab,
+  ReviewsTab,
   TrailerTab } from ".";
 
 const { Text, Title } = Typography;
@@ -28,7 +29,7 @@ const FilmDitails = () => {
   const [ isLoading, setIsLoading] = useState(true);
   const [ filmDitails, setFilmDitails ] = useState(null);
   const [ cast, setCast ] = useState(null);
-  // const [ reviews, setReviews ] = useState(null);
+  const [ reviews, setReviews ] = useState(null);
   const [ trailerKey, setTrailerKey ] = useState('');
 
   useEffect(() => {
@@ -38,7 +39,7 @@ const FilmDitails = () => {
 
     apiServices.fetchMovieDetails(filmId).then(ditails => setFilmDitails(ditails));
     apiServices.fetchMovieCast(filmId).then(({ cast }) => setCast(cast));
-    // apiServices.fetchMovieReviews(filmId).then(({ results }) => setReviews(results));
+    apiServices.fetchMovieReviews(filmId).then(({ results }) => setReviews(results));
     apiServices.fetchMovieTrailer(filmId).then( ({ results }) => {
       const trailerObj = results.find(({ type }) => type === 'Trailer');
 
@@ -49,7 +50,7 @@ const FilmDitails = () => {
 
   }, [filmId]);
 
-  console.log(cast);
+  console.log(reviews);
 
   if (isLoading && !filmDitails) {
     return <LoadingIndicator />
@@ -167,7 +168,7 @@ const FilmDitails = () => {
               }, {
                 key: 'reviews',
                 label: 'Reviews',
-                children: `Content of Tab Pane 2`,
+                children: <ReviewsTab reviews={ reviews }/>,
               }]}
             />
           </Space>
