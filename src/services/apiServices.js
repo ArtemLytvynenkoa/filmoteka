@@ -127,6 +127,69 @@ const fetchSearchTV = async ({ searchQuery, pageNum }) => {
   };
 };
 
+const fetchTVDetails = async tvId => {
+  const url = `${BASE_URL}tv/${tvId}?api_key=${API_KEY}&language=en-US`;
+  
+  try {
+    const result = await fetch(url);
+
+    if (!result.ok) {
+      throw new Error(result.status);
+    }
+    const data = await result.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  };
+};
+
+const fetchTVCast = async tvId => {
+  const url = `${BASE_URL}tv/${tvId}/credits?api_key=${API_KEY}&language=en-US`;
+  
+  try {
+    const result = await fetch(url);
+
+    if (!result.ok) {
+      throw new Error(result.status);
+    }
+    const data = await result.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  };
+};
+const fetchTVReviews = async tvId => {
+  const url = `${BASE_URL}tv/${tvId}/reviews?api_key=${API_KEY}&language=en-US&page=1`;
+  
+  try {
+    const result = await fetch(url);
+
+    if (!result.ok) {
+      throw new Error(result.status);
+    }
+    const data = await result.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  };
+};
+
+const fetchTVTrailer = async tvId => {
+  const url = `${BASE_URL}tv/${tvId}/videos?language=en-US&api_key=${API_KEY}`;
+  
+  try {
+    const result = await fetch(url);
+
+    if (!result.ok) {
+      throw new Error(result.status);
+    }
+    const data = await result.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  };
+};
+
 const fetchMoviesGenres = async () => {
   const url = `${BASE_URL}genre/movie/list?api_key=${API_KEY}&language=en-US`;
 
@@ -170,4 +233,8 @@ export const apiServices = {
   fetchMovieCast,
   fetchMovieReviews,
   fetchMovieTrailer,
+  fetchTVCast,
+  fetchTVDetails,
+  fetchTVReviews,
+  fetchTVTrailer,
 }

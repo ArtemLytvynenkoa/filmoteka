@@ -23,17 +23,18 @@ import { apiServices } from "services";
 import { 
   CastTab,
   ReviewsTab,
-  TrailerTab } from ".";
+  TrailerTab 
+} from "containers";
 import links from "links";
 import { LeftOutlined } from "@ant-design/icons";
 
 const { Text, Title } = Typography;
 
-const FilmDitails = () => {
-  const { filmId } = useParams();
+const TVDetails = () => {
+  const { tvId } = useParams();
 
   const [ isLoading, setIsLoading] = useState(true);
-  const [ filmDitails, setFilmDitails ] = useState(null);
+  const [ tvDitails, setTVDitails ] = useState(null);
   const [ cast, setCast ] = useState(null);
   const [ reviews, setReviews ] = useState(null);
   const [ trailerKey, setTrailerKey ] = useState('');
@@ -41,14 +42,14 @@ const FilmDitails = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!filmId) return;
+    if (!tvId) return;
     
     setIsLoading(true);
 
-    apiServices.fetchMovieDetails(filmId).then(ditails => setFilmDitails(ditails));
-    apiServices.fetchMovieCast(filmId).then(({ cast }) => setCast(cast));
-    apiServices.fetchMovieReviews(filmId).then(({ results }) => setReviews(results));
-    apiServices.fetchMovieTrailer(filmId).then( ({ results }) => {
+    apiServices.fetchTVDetails(tvId).then(ditails => setTVDitails(ditails));
+    apiServices.fetchTVCast(tvId).then(({ cast }) => setCast(cast));
+    apiServices.fetchTVReviews(tvId).then(({ results }) => setReviews(results));
+    apiServices.fetchTVTrailer(tvId).then( ({ results }) => {
       const trailerObj = results.find(({ type }) => type === 'Trailer');
 
       setTrailerKey(trailerObj && trailerObj.key ? trailerObj.key : '')
@@ -56,9 +57,11 @@ const FilmDitails = () => {
     
     setIsLoading(false);
 
-  }, [filmId]);
+  }, [tvId]);
 
-  if (isLoading && !filmDitails) {
+  console.log(tvDitails);
+
+  if (isLoading && !tvDitails) {
     return <LoadingIndicator />
   }
 
@@ -74,11 +77,11 @@ const FilmDitails = () => {
               margin: '20px 0 0',
             }}
             type="link"
-            onClick={ () => navigate(links.filmsPage) }
+            onClick={ () => navigate(links.tvPage) }
           >
             <LeftOutlined /> 
             { ' ' }
-            Back to Films
+            Back to TV
           </Button>
         </Col>
         <Col>
@@ -97,10 +100,10 @@ const FilmDitails = () => {
       >
         <Col flex="1">
           <Image 
-            alt={ filmDitails?.title }
+            alt={ tvDitails?.title }
             src={ 
-              filmDitails?.poster_path 
-                ? `https://image.tmdb.org/t/p/w500${filmDitails.poster_path}` 
+              tvDitails?.poster_path 
+                ? `https://image.tmdb.org/t/p/w500${tvDitails.poster_path}` 
                 : defaultImg 
             }
             // preview={false}
@@ -113,7 +116,7 @@ const FilmDitails = () => {
           
           <Space direction="vertical" style={{ width: '100%',  textAlign: "start" }}>
             <Title type="secondary">
-              { filmDitails?.original_title }
+              { tvDitails?.original_title }
             </Title>
             <Divider 
               style={{
@@ -130,6 +133,7 @@ const FilmDitails = () => {
                   <Text type="secondary">Popularity</Text>
                   <Text type="secondary">Original Title</Text>
                   <Text type="secondary">Genre</Text>
+                  <Text type="secondary">Seasons/Episodes</Text>
                 </Space>
               </Col>
               <Col span={ 6 }>
@@ -138,19 +142,33 @@ const FilmDitails = () => {
                     <Tag
                       color="#ff6b01"
                     >
-                      { filmDitails?.vote_average }
+                      { tvDitails?.vote_average }
                     </Tag>
                     /
                     { ' ' }
                     <Tag
                       color="gray"
                     >
-                      { filmDitails?.vote_count }
+                      { tvDitails?.vote_count }
                     </Tag>
                   </Text>
-                  <Text strong>{ filmDitails?.popularity }</Text>
-                  <Text strong>{ filmDitails?.original_title }</Text>
-                  <Text strong>{ filmDitails?.genres.map(({ name }) => name).join(', ') }</Text>
+                  <Text strong>{ tvDitails?.popularity }</Text>
+                  <Text strong>{ tvDitails?.original_name }</Text>
+                  <Text strong>{ tvDitails?.genres.map(({ name }) => name).join(', ') }</Text>
+                  <Text>
+                    <Tag
+                      color="#ff6b01"
+                    >
+                      { tvDitails?.number_of_seasons }
+                    </Tag>
+                    /
+                    { ' ' }
+                    <Tag
+                      color="gray"
+                    >
+                      { tvDitails?.number_of_episodes}
+                    </Tag>
+                  </Text>
                 </Space>
               </Col>
               <Col
@@ -159,19 +177,25 @@ const FilmDitails = () => {
                   textAlign: "center",
                 }}
               >
-                { filmDitails?.production_companies[0].logo_path &&
-                  <Image 
-                    alt={ filmDitails?.production_companies[0].name }
-                    src={ 
-                      filmDitails?.poster_path 
-                        ? `https://image.tmdb.org/t/p/w500${filmDitails.production_companies[0].logo_path}` 
-                        : null 
-                    }
-                    preview={false}
-                    width={ 300 }
-                    onClick={ () => window.open(filmDitails?.homepage)}
-                    style={{ cursor: "pointer" }}
-                  />
+                { (tvDitails?.production_companies.length !== 0 ) 
+                  && tvDitails?.production_companies.filter(({logo_path}) => logo_path).map(({logo_path, name}) => (
+                    <Image 
+                      key={ logo_path } 
+                      alt={ name }
+                      src={ 
+                        tvDitails?.poster_path 
+                          ? `https://image.tmdb.org/t/p/w500${logo_path}` 
+                          : null 
+                      }
+                      preview={false}
+                      width={ tvDitails?.production_companies.length > 1 ? 150 : 300}
+                      onClick={() => tvDitails?.homepage && window.open(tvDitails?.homepage)}
+                      style={{ 
+                        cursor: "pointer",
+                        padding: "0 5px"
+                      }}
+                    />
+                  ))
                 }
               </Col>
             </Row>
@@ -185,7 +209,7 @@ const FilmDitails = () => {
               Overview
             </Title>
             <Text>
-              { filmDitails?.overview }
+              { tvDitails?.overview }
             </Text>
             <Divider 
               style={{
@@ -216,4 +240,4 @@ const FilmDitails = () => {
   )
 };
 
-export default FilmDitails;
+export default TVDetails;

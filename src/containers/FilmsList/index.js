@@ -1,1 +1,0 @@
-export { default as FilmList } from './FilmsList';
