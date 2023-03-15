@@ -1,0 +1,1 @@
+export { default as TVDetails } from './TVDetails';

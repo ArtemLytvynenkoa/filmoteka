@@ -21,6 +21,7 @@ const CentralHeader = () => {
   const { filmId, tvId } = useParams();
 
   const activePage = useSelector(state => state.activePage.value)
+  const searchQuery = useSelector(state => state.searchQuery.value)
 
   const isSearchVisible = activePage && !filmId && !tvId;
 
@@ -74,6 +75,7 @@ const CentralHeader = () => {
                 ? 'Film search'
                 : 'TV search'
             }
+            defaultValue={ searchQuery }
             color='#ff6b01'
             className='searchInput'
             // onChange={ e => {

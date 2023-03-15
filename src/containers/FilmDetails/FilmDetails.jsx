@@ -15,12 +15,17 @@ import {
   useEffect, 
   useState 
 } from "react";
-import { useParams } from "react-router-dom";
+import { 
+  useNavigate,
+  useParams 
+} from "react-router-dom";
 import { apiServices } from "services";
 import { 
   CastTab,
   ReviewsTab,
   TrailerTab } from ".";
+import links from "links";
+import { LeftOutlined } from "@ant-design/icons";
 
 const { Text, Title } = Typography;
 
@@ -32,6 +37,8 @@ const FilmDitails = () => {
   const [ cast, setCast ] = useState(null);
   const [ reviews, setReviews ] = useState(null);
   const [ trailerKey, setTrailerKey ] = useState('');
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!filmId) return;
@@ -51,21 +58,44 @@ const FilmDitails = () => {
 
   }, [filmId]);
 
-  console.log(reviews);
-
   if (isLoading && !filmDitails) {
     return <LoadingIndicator />
   }
 
   return (
     <div className="mainContent">
+      <Row 
+        justify="space-between"
+        align="middle"
+      >
+        <Col>
+          <Button
+            style={{
+              margin: '20px 0 0',
+            }}
+            type="link"
+            onClick={ () => navigate(links.filmsPage) }
+          >
+            <LeftOutlined /> 
+            { ' ' }
+            Back to Films
+          </Button>
+        </Col>
+        <Col>
+          <Space>
+            <Button type="primary">ADD TO WATCHED</Button>
+            <Button type="primary">ADD TO QUEUE</Button>
+          </Space>
+        </Col>
+      </Row>
       <Row
+        gutter={[20, 20]}
         style={{
-          padding: '50px 0',
+          padding: '0 0 50px',
           width: '100%'
         }}
       >
-        <Col span={ 8 }>
+        <Col flex="1">
           <Image 
             alt={ filmDitails?.title }
             src={ 
@@ -79,7 +109,8 @@ const FilmDitails = () => {
             style={{ borderRadius: '15px' }}
           />
         </Col>
-        <Col span={ 16 }>
+        <Col flex="3">
+          
           <Space direction="vertical" style={{ width: '100%',  textAlign: "start" }}>
             <Title type="secondary">
               { filmDitails?.original_title }
@@ -128,27 +159,20 @@ const FilmDitails = () => {
                   textAlign: "center",
                 }}
               >
-                <Space direction="vertical" size={ 30 }>
-
                 { filmDitails?.production_companies[0].logo_path &&
-                    <Image 
-                      alt={ filmDitails?.production_companies[0].name }
-                      src={ 
-                        filmDitails?.poster_path 
-                          ? `https://image.tmdb.org/t/p/w500${filmDitails.production_companies[0].logo_path}` 
-                          : null 
-                      }
-                      preview={false}
-                      width={ 300 }
-                      onClick={ () => window.open(filmDitails?.homepage)}
-                      style={{ cursor: "pointer" }}
-                    />
-                  }
-                  <Space>
-                    <Button type="primary">ADD TO WATCHED</Button>
-                    <Button type="primary">ADD TO QUEUE</Button>
-                  </Space>
-                </Space>
+                  <Image 
+                    alt={ filmDitails?.production_companies[0].name }
+                    src={ 
+                      filmDitails?.poster_path 
+                        ? `https://image.tmdb.org/t/p/w500${filmDitails.production_companies[0].logo_path}` 
+                        : null 
+                    }
+                    preview={false}
+                    width={ 300 }
+                    onClick={ () => window.open(filmDitails?.homepage)}
+                    style={{ cursor: "pointer" }}
+                  />
+                }
               </Col>
             </Row>
             <Divider 
@@ -163,6 +187,12 @@ const FilmDitails = () => {
             <Text>
               { filmDitails?.overview }
             </Text>
+            <Divider 
+              style={{
+                backgroundColor: '#ff6b01',
+                margin: '0'
+              }}
+            />
             <Tabs
               defaultActiveKey="1"
               items={[{

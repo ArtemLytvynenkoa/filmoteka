@@ -17,6 +17,7 @@ import {
   SignInPage, 
   SignUpPage, 
   TVListPage, 
+  TVPage, 
   UserProfilePage
 } from 'pages';
 
@@ -46,7 +47,7 @@ export const routes = {
       children: {
         customer: {
           path: '/:tvId',
-          component: TVListPage,
+          component: TVPage,
         },
       },
     },

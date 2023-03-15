@@ -35,6 +35,7 @@ const TVCard = ({
     <Space direction="vertical"
       style={{
         textAlign: 'start',
+        cursor: 'pointer',
       }}
       onClick={ () => navigate(`${links.tvPage}/${id}`) }
     >
