@@ -7,7 +7,8 @@ import {
   Space,
   Tabs,
   Tag,
-  Typography 
+  Typography, 
+  message
 } from "antd";
 import { LoadingIndicator } from "components";
 import { defaultImg } from "images";
@@ -26,13 +27,18 @@ import {
   TrailerTab } from "containers";
 import links from "links";
 import { LeftOutlined } from "@ant-design/icons";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { addingFilmToQueueList, addingFilmToWachedList, auth } from "myFirebase";
 
 const { Text, Title } = Typography;
 
 const FilmDitails = () => {
   const { filmId } = useParams();
 
+  const [user] = useAuthState(auth);
+
   const [ isLoading, setIsLoading] = useState(true);
+  const [ isButtonLoading, setIsButtonLoading] = useState(false);
   const [ filmDitails, setFilmDitails ] = useState(null);
   const [ cast, setCast ] = useState(null);
   const [ reviews, setReviews ] = useState(null);
@@ -60,7 +66,7 @@ const FilmDitails = () => {
 
   if (isLoading && !filmDitails) {
     return <LoadingIndicator />
-  }
+  };
 
   return (
     <div className="mainContent">
@@ -83,8 +89,54 @@ const FilmDitails = () => {
         </Col>
         <Col>
           <Space>
-            <Button type="primary">ADD TO WATCHED</Button>
-            <Button type="primary">ADD TO QUEUE</Button>
+            <Button 
+              type="primary"
+              loading={ isButtonLoading }
+              onClick={ async () => {
+                setIsButtonLoading(true)
+                if (!user) {
+                  message.warning("Login to your profile or register!!!")
+                } else {
+                  try {
+                    await addingFilmToWachedList({
+                      data: filmDitails,
+                      uid: user.uid, 
+                      filmId: `${filmDitails.id}`,
+                    });
+                    message.success('Done');
+                  } catch (error) {
+                    message.error(error.message);
+                  }
+                }
+                setIsButtonLoading(false)
+              }}
+            >
+              ADD TO WATCHED
+            </Button>
+            <Button 
+              type="primary"
+              loading={ isButtonLoading }
+              onClick={ async () => {
+                setIsButtonLoading(true)
+                if (!user) {
+                  message.warning("Login to your profile or register!!!")
+                } else {
+                  try {
+                    await addingFilmToQueueList({
+                      data: filmDitails,
+                      uid: user.uid, 
+                      filmId: `${filmDitails.id}`,
+                    });
+                    message.success('Done');
+                  } catch (error) {
+                    message.error(error.message);
+                  }
+                }
+                setIsButtonLoading(false)
+              }}
+            >
+              ADD TO QUEUE
+            </Button>
           </Space>
         </Col>
       </Row>

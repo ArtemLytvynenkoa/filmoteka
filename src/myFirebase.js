@@ -7,6 +7,7 @@ import {
   setDoc,
   doc,
   updateDoc,
+  deleteDoc,
 } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -24,11 +25,13 @@ const db = getFirestore(app);
 
 export const storage = getStorage(app);
 
-export const usersRef = collection(db, 'users');
-
 export const auth = getAuth(app);
 
+export const usersRef = collection(db, 'users');
+
 export const getUserRef = userId => doc(getFirestore(app), 'users', userId);
+export const getWachedListRef = uid => collection(db, `users/${uid}/wachedList`);
+export const getQueueListRef = uid => collection(db, `users/${uid}/queueList`);
 
 export const setUser = async data => {
   await setDoc(doc(usersRef, data.uid), data);
@@ -36,4 +39,20 @@ export const setUser = async data => {
 
 export const updateUser = async (data, id) => {
   await updateDoc(doc(usersRef, id), data);
+};
+
+export const addingFilmToWachedList = async ({ data, uid, filmId }) => {
+  await setDoc(doc(getWachedListRef(uid), filmId), data);
+};
+
+export const deleteFilmFromWachedList = async (uid, filmId) => {
+  await deleteDoc(getWachedListRef(uid, filmId));
+};
+
+export const addingFilmToQueueList = async ({ data, uid, filmId }) => {
+  await setDoc(doc(getQueueListRef(uid), filmId), data);
+};
+
+export const deleteFilmFromQueueList = async (uid, filmId) => {
+  await deleteDoc(getQueueListRef(uid, filmId));
 };
