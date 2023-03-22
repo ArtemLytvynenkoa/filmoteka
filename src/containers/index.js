@@ -1,7 +1,5 @@
-export { default as CoreLayout } from './CoreLayout';
+export * from './Common';
 export * from './User';
-export * from './Films';
-export * from './TV';
+export * from './FilmsAndTVs';
 export * from './Authorization';
-export * from './Tabs';
 

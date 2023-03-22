@@ -5,8 +5,7 @@ import {
   Typography,
 } from "antd";
 import { defaultImg } from "images";
-import links from "links";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setActivePage } from "redux/activePageSlice";
 import { 
@@ -14,18 +13,18 @@ import {
   getReleaseDate 
 } from "utils";
 
-const {Text} = Typography;
+const { Text } = Typography;
 
-const FilmCard = ({
+const Card = ({
   title,
   posterPath,
   releaseDate,
   genreIds,
+  rating,
   id,
-  rating
+  allGenres,
+  navigateLink
 }) => {
-  const allGenres = useSelector(state => state.moviesGenres.value);
-
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -42,7 +41,7 @@ const FilmCard = ({
         }}
         onClick={ () => {
           dispatch(setActivePage(''))
-          navigate(`${links.filmsPage}/${id}`)
+          navigate(`${navigateLink}/${id}`)
         } }
       >
         <img 
@@ -95,4 +94,4 @@ const FilmCard = ({
   );
 };
 
-export default FilmCard;
+export default Card;

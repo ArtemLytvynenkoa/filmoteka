@@ -1,5 +1,5 @@
 import 'antd/dist/reset.css';
-import './styles.scss';
+import './../styles.scss';
 import {
   ConfigProvider,
   Layout,

@@ -10,48 +10,49 @@ import {
   Typography, 
   message
 } from "antd";
-import { LoadingIndicator } from "components";
 import { defaultImg } from "images";
 import { 
-  useEffect, 
-  useState 
-} from "react";
-import { 
-  useNavigate,
-  useParams 
-} from "react-router-dom";
-import { apiServices } from "services";
+  useNavigate, useParams} from "react-router-dom";
 import { 
   CastTab,
   ReviewsTab,
-  TrailerTab } from "containers";
+  TrailerTab 
+} from "containers";
 import links from "links";
 import { LeftOutlined } from "@ant-design/icons";
+import { useDispatch } from "react-redux";
+import { setActivePage } from "redux/activePageSlice";
+import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { addingFilmToQueueList, addingFilmToWachedList, auth } from "myFirebase";
+import { apiServices } from "services";
+import { LoadingIndicator } from "components";
 
 const { Text, Title } = Typography;
 
-const FilmDitails = () => {
-  const { filmId } = useParams();
+const Details = () => {
+  const { tvId, filmId } = useParams();
+
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
+  const [ isButtonLoading, setIsButtonLoading] = useState(false);
 
   const [user] = useAuthState(auth);
 
   const [ isLoading, setIsLoading] = useState(true);
-  const [ isButtonLoading, setIsButtonLoading] = useState(false);
-  const [ filmDitails, setFilmDitails ] = useState(null);
+  const [ details, setDetails ] = useState(null);
   const [ cast, setCast ] = useState(null);
   const [ reviews, setReviews ] = useState(null);
   const [ trailerKey, setTrailerKey ] = useState('');
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (!filmId) return;
     
     setIsLoading(true);
 
-    apiServices.fetchMovieDetails(filmId).then(ditails => setFilmDitails(ditails));
+    apiServices.fetchMovieDetails(filmId).then(details => setDetails(details));
     apiServices.fetchMovieCast(filmId).then(({ cast }) => setCast(cast));
     apiServices.fetchMovieReviews(filmId).then(({ results }) => setReviews(results));
     apiServices.fetchMovieTrailer(filmId).then( ({ results }) => {
@@ -64,7 +65,25 @@ const FilmDitails = () => {
 
   }, [filmId]);
 
-  if (isLoading && !filmDitails) {
+  useEffect(() => {
+    if (!tvId) return;
+    
+    setIsLoading(true);
+
+    apiServices.fetchTVDetails(tvId).then(details => setDetails(details));
+    apiServices.fetchTVCast(tvId).then(({ cast }) => setCast(cast));
+    apiServices.fetchTVReviews(tvId).then(({ results }) => setReviews(results));
+    apiServices.fetchTVTrailer(tvId).then( ({ results }) => {
+      const trailerObj = results.find(({ type }) => type === 'Trailer');
+
+      setTrailerKey(trailerObj && trailerObj.key ? trailerObj.key : '')
+    } );
+    
+    setIsLoading(false);
+
+  }, [tvId]);
+
+  if (isLoading && !details) {
     return <LoadingIndicator />
   };
 
@@ -80,34 +99,42 @@ const FilmDitails = () => {
               margin: '20px 0 0',
             }}
             type="link"
-            onClick={ () => navigate(links.filmsPage) }
+            onClick={ () => {
+              navigate( filmId ? links.filmsPage : links.tvPage)
+              dispatch(setActivePage(filmId ? links.filmsPage : links.tvPage))
+            } }
           >
             <LeftOutlined /> 
             { ' ' }
-            Back to Films
+            {
+              filmId ? 'Back to Films' : 'Back to TV'
+            }
           </Button>
         </Col>
         <Col>
-          <Space>
+        <Space>
             <Button 
               type="primary"
               loading={ isButtonLoading }
               onClick={ async () => {
                 setIsButtonLoading(true)
+
                 if (!user) {
                   message.warning("Login to your profile or register!!!")
                 } else {
                   try {
                     await addingFilmToWachedList({
-                      data: filmDitails,
+                      data: details,
                       uid: user.uid, 
-                      filmId: `${filmDitails.id}`,
+                      filmId: `${details.id}-${details.name || details.title }`,
                     });
+
                     message.success('Done');
                   } catch (error) {
                     message.error(error.message);
                   }
                 }
+
                 setIsButtonLoading(false)
               }}
             >
@@ -118,15 +145,17 @@ const FilmDitails = () => {
               loading={ isButtonLoading }
               onClick={ async () => {
                 setIsButtonLoading(true)
+
                 if (!user) {
                   message.warning("Login to your profile or register!!!")
                 } else {
                   try {
                     await addingFilmToQueueList({
-                      data: filmDitails,
+                      data: details,
                       uid: user.uid, 
-                      filmId: `${filmDitails.id}`,
+                      filmId: `${details.id}-${details.name || details.title }`,
                     });
+
                     message.success('Done');
                   } catch (error) {
                     message.error(error.message);
@@ -149,10 +178,10 @@ const FilmDitails = () => {
       >
         <Col flex="1">
           <Image 
-            alt={ filmDitails?.title }
+            alt={ details?.title || details?.name}
             src={ 
-              filmDitails?.poster_path 
-                ? `https://image.tmdb.org/t/p/w500${filmDitails.poster_path}` 
+              details?.poster_path 
+                ? `https://image.tmdb.org/t/p/w500${details.poster_path}` 
                 : defaultImg 
             }
             // preview={false}
@@ -165,7 +194,7 @@ const FilmDitails = () => {
           
           <Space direction="vertical" style={{ width: '100%',  textAlign: "start" }}>
             <Title type="secondary">
-              { filmDitails?.original_title }
+              { details?.title || details?.name }
             </Title>
             <Divider 
               style={{
@@ -182,6 +211,7 @@ const FilmDitails = () => {
                   <Text type="secondary">Popularity</Text>
                   <Text type="secondary">Original Title</Text>
                   <Text type="secondary">Genre</Text>
+                  { tvId && <Text type="secondary">Seasons/Episodes</Text> }
                 </Space>
               </Col>
               <Col span={ 6 }>
@@ -190,19 +220,35 @@ const FilmDitails = () => {
                     <Tag
                       color="#ff6b01"
                     >
-                      { filmDitails?.vote_average }
+                      { details?.vote_average }
                     </Tag>
                     /
                     { ' ' }
                     <Tag
                       color="gray"
                     >
-                      { filmDitails?.vote_count }
+                      { details?.vote_count }
                     </Tag>
                   </Text>
-                  <Text strong>{ filmDitails?.popularity }</Text>
-                  <Text strong>{ filmDitails?.original_title }</Text>
-                  <Text strong>{ filmDitails?.genres.map(({ name }) => name).join(', ') }</Text>
+                  <Text strong>{ details?.popularity }</Text>
+                  <Text strong>{ details?.original_name }</Text>
+                  <Text strong>{ details?.genres.map(({ name }) => name).join(', ') }</Text>
+                  { tvId && (
+                    <Text>
+                      <Tag
+                        color="#ff6b01"
+                      >
+                        { details?.number_of_seasons }
+                      </Tag>
+                      /
+                      { ' ' }
+                      <Tag
+                        color="gray"
+                      >
+                        { details?.number_of_episodes}
+                      </Tag>
+                    </Text>)
+                  }
                 </Space>
               </Col>
               <Col
@@ -211,19 +257,19 @@ const FilmDitails = () => {
                   textAlign: "center",
                 }}
               >
-                { (filmDitails?.production_companies.length !== 0 ) 
-                  && filmDitails?.production_companies.filter(({logo_path}) => logo_path).map(({logo_path, name}) => (
-                    <Image
+                { (details?.production_companies.length !== 0 ) 
+                  && details?.production_companies.filter(({logo_path}) => logo_path).map(({logo_path, name}) => (
+                    <Image 
                       key={ logo_path } 
                       alt={ name }
                       src={ 
-                        filmDitails?.poster_path 
+                        details?.poster_path 
                           ? `https://image.tmdb.org/t/p/w500${logo_path}` 
                           : null 
                       }
                       preview={false}
-                      width={ filmDitails?.production_companies.length > 1 ? 150 : 300}
-                      onClick={ () => filmDitails?.homepage && window.open(filmDitails?.homepage)}
+                      width={ details?.production_companies.length > 1 ? 150 : 300}
+                      onClick={() => details?.homepage && window.open(details?.homepage)}
                       style={{ 
                         cursor: "pointer",
                         padding: "0 5px"
@@ -243,7 +289,7 @@ const FilmDitails = () => {
               Overview
             </Title>
             <Text>
-              { filmDitails?.overview }
+              { details?.overview }
             </Text>
             <Divider 
               style={{
@@ -274,4 +320,4 @@ const FilmDitails = () => {
   )
 };
 
-export default FilmDitails;
+export default Details;

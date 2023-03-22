@@ -8,46 +8,45 @@ import {
 import { Provider } from 'react-redux';
 import { store }  from 'redux/store';
 import links from 'links';
-import { CoreLayout } from 'containers';
+import { 
+  CoreLayout, 
+  Details, 
+  FilmList, 
+  SignIn, 
+  SignUp, 
+  TVList, 
+  UserProfile 
+} from 'containers';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from 'myFirebase';
-import { 
-  FilmPage,
-  FilmsListPage, 
-  SignInPage, 
-  SignUpPage, 
-  TVListPage, 
-  TVPage, 
-  UserProfilePage
-} from 'pages';
 
 export const routes = {
   public: {
     signInPage: {
       path: links.signInPage,
-      component: SignInPage,
+      component: SignIn,
     },
     signUpPage: {
       path: links.signUpPage,
-      component: SignUpPage,
+      component: SignUp,
     },
     filmsPage: {
       path: links.filmsPage,
-      component: FilmsListPage,
+      component: FilmList,
       children: {
         customer: {
           path: '/:filmId',
-          component: FilmPage,
+          component: Details,
         },
       },
     },
     tvPage: {
       path: links.tvPage,
-      component: TVListPage,
+      component: TVList,
       children: {
         customer: {
           path: '/:tvId',
-          component: TVPage,
+          component: Details,
         },
       },
     },
@@ -55,7 +54,7 @@ export const routes = {
   private: {
     user: {
       path: links.userProfilePage,
-      component: UserProfilePage,
+      component: UserProfile,
     },
   },
 };
@@ -121,7 +120,7 @@ const AppRoutes = () => (
         <Routes>
           { getPublicRoutes(routes.public) }
           { getPrivateRoutes(routes.private) }
-          <Route path="*" element={ <FilmsListPage /> } />
+          <Route path="*" element={ <FilmList /> } />
         </Routes>
       </CoreLayout>
     </Provider>
