@@ -3,6 +3,7 @@ import {
 } from '@ant-design/icons';
 import {
   Button,
+  Dropdown,
   Space,
 } from 'antd';
 import { auth } from 'myFirebase';
@@ -29,17 +30,50 @@ export const RightHeader = () => {
     >
       { user &&
         <Space size={ 20 }>
-          <Button
+          <Dropdown
+            trigger={ ['hover'] }
+            menu={{
+                theme: "dark",
+                style: {
+                  padding: '0.7rem',
+                  marginTop: '0.5rem',
+                },
+                items: [{
+                  key: 'profile',
+                  label: (
+                    <Link 
+                      to={ links.userProfilePage }
+                      onClick={ () => dispatch(setActivePage('')) }  
+                    >
+                      Profile
+                    </Link>
+                  )
+                }, {
+                  key: 'usserList',
+                  label: (
+                    <Link 
+                      to={ links.userList }
+                      onClick={ () => dispatch(setActivePage('')) }  
+                    >
+                      User List
+                    </Link>
+                  )
+                }]
+            }}
+          >
+            {/* <Button
             type="link"
             style={ { padding: '0' } }
-          >
-            <Link to={ links.userProfilePage }>
-              <UserOutlined 
-                style={{ fontSize: '24px' }}
-                onClick={ () => dispatch(setActivePage('')) }
-              />
-            </Link>
-          </Button>
+            > */}
+                <UserOutlined 
+                  style={{ 
+                    fontSize: '24px',
+                    color: '#ff6b01'
+                  }}
+                />
+            {/* </Button> */}
+          </Dropdown>
+          
           <Button 
             type="primary"
             onClick={ () => {

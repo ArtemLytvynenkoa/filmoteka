@@ -7,6 +7,7 @@ const links = {
   signUpPage: '/signUp',
   // private
   userProfilePage: '/user',
+  userList: '/userList',
 };
 
 export default links
