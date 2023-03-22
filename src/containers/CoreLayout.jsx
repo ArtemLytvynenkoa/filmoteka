@@ -15,7 +15,10 @@ import {
 } from '@ant-design/icons';
 import { ErrorBoundary } from 'react-error-boundary';
 import React from 'react';
-import { CenterBox } from '../components';
+import { 
+  CenterBox,
+  Header 
+} from 'components';
 
 Spin.setDefaultIndicator(<LoadingOutlined style={ { fontSize: 24 } } spin />);
 
@@ -59,7 +62,6 @@ const CoreLayout = ({ children }) => (
     }}
   >
     <Layout
-      
       style={ {
         height: '100%',
         width: '100vw',
@@ -77,6 +79,7 @@ const CoreLayout = ({ children }) => (
           backgroundColor: 'white',
         } }
       >
+        <Header/>
         <Content
           style={ {
             flex: '1 1 auto',

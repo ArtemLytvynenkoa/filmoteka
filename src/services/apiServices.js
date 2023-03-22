@@ -1,6 +1,21 @@
 const API_KEY = '9e0534c53eaa3e6b360c0df64c81dcbe';
 const BASE_URL = 'https://api.themoviedb.org/3/';
 
+const fetchTrendingMovies = async pageNum => {
+  const url = `${BASE_URL}trending/all/da?api_key=${API_KEY}&language=en-US&page=${pageNum}`;
+  try {
+    const result = await fetch(url);
+
+    if (!result.ok) {
+      throw new Error(result.status);
+    }
+    const data = await result.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  };
+};
+
 const fetchPopularMovies = async pageNum => {
   const url = `${BASE_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${pageNum}`;
   
@@ -223,6 +238,7 @@ const fetchTVGenres = async () => {
 };
 
 export const apiServices = {
+  fetchTrendingMovies,
   fetchPopularMovies,
   fetchPopularTV,
   fetchMovieDetails,

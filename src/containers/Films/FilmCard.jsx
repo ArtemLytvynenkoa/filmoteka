@@ -6,8 +6,9 @@ import {
 } from "antd";
 import { defaultImg } from "images";
 import links from "links";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { setActivePage } from "redux/activePageSlice";
 import { 
   getGenresTextArray, 
   getReleaseDate 
@@ -27,6 +28,8 @@ const FilmCard = ({
 
   const navigate = useNavigate();
 
+  const dispatch = useDispatch();
+
   return (
     <Badge
       count={ rating }
@@ -37,7 +40,10 @@ const FilmCard = ({
           textAlign: 'start',
           cursor: 'pointer',
         }}
-        onClick={ () => navigate(`${links.filmsPage}/${id}`) }
+        onClick={ () => {
+          dispatch(setActivePage(''))
+          navigate(`${links.filmsPage}/${id}`)
+        } }
       >
         <img 
           src={posterPath ? `https://image.tmdb.org/t/p/w500${posterPath}` : defaultImg} alt={title}

@@ -6,8 +6,11 @@ import {
 } from 'antd';
 import links from 'links';
 import menus from 'menus';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { 
+  useDispatch,
+  useSelector 
+} from 'react-redux';
+import { Link } from 'react-router-dom';
 import { setActivePage } from 'redux/activePageSlice';
 import { setPageNum } from 'redux/pageNumSlice';
 import { setSearchQuery } from 'redux/searchQuerySlice';
@@ -18,12 +21,10 @@ const { Text } = Typography;
 const CentralHeader = () => {
   const dispatch = useDispatch();
 
-  const { filmId, tvId } = useParams();
-
   const activePage = useSelector(state => state.activePage.value)
   const searchQuery = useSelector(state => state.searchQuery.value)
 
-  const isSearchVisible = activePage && !filmId && !tvId;
+  const isSearchVisible = activePage === '/films' || activePage === '/tv';
 
   return (
     <div
