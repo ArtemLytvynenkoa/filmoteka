@@ -1,9 +1,12 @@
 import { 
   Col,
   Row, 
-  message
 } from "antd";
-import { Card, Pagination } from ".";
+import { 
+  Card, 
+  Notification, 
+  Pagination 
+} from ".";
 
 const List = ({
   data,
@@ -15,7 +18,7 @@ const List = ({
   return (
     <div className="mainContent">
       { data.results.length === 0 
-        ? message.error('Nothing was found for this query! Try again!') 
+        ? <Notification text='Nothing was found for this query! Try again!' />
         : (
           <>
             <Pagination

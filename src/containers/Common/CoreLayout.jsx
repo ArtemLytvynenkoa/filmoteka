@@ -14,7 +14,6 @@ import {
   LoadingOutlined,
 } from '@ant-design/icons';
 import { ErrorBoundary } from 'react-error-boundary';
-import React from 'react';
 import { 
   CenterBox,
   Header 

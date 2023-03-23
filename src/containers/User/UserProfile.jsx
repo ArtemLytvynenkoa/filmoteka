@@ -7,7 +7,7 @@ import {
   Form as AntdForm,
 } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
-import { Form } from 'components';
+import { Form, LoadingIndicator } from 'components';
 import errorMessages from 'errorMessages';
 import {
   auth,
@@ -41,13 +41,9 @@ const UserProfile = () => {
 
   const [user] = useAuthState(auth);
 
-  const [value, loading] = useDocument(
-    getUserRef(user.uid),
-  );
+  const [value, loading] = useDocument(getUserRef(user.uid));
 
   const userData = value?.data();
-
-  form.setFieldsValue(userData);
 
   useEffect(() => {
     if (profileError) {
@@ -65,6 +61,8 @@ const UserProfile = () => {
     }
   }, [emailError, passwordError, profileError]);
 
+  if( loading ) return <LoadingIndicator/>
+
   return (
     <Row
       justify="center"
@@ -76,11 +74,13 @@ const UserProfile = () => {
       <Col span={ 5 }>
         <Form
           form={ form }
-          isLoading={ isProfileUpdeting || isEmailUpdeting || loading }
-          // initialValues={ {
-          //   name: user?.displayName,
-          //   email: user?.email,
-          // } }
+          isLoading={ isProfileUpdeting || isEmailUpdeting }
+          initialValues={ {
+            userName: user?.displayName || userData?.userName,
+            email: user?.email || userData?.email,
+            phoneNumber: userData?.phoneNumber,
+            photoURL: userData?.photoURL,
+          } }
           style={{textAlign: 'center'}}
           fields={ [
             <Item key="userAvatar" name="photoURL" noStyle>

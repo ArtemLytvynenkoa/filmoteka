@@ -11,7 +11,6 @@ import {
   useSelector 
 } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { setActivePage } from 'redux/activePageSlice';
 import { setPageNum } from 'redux/pageNumSlice';
 import { setSearchQuery } from 'redux/searchQuerySlice';
 
@@ -21,10 +20,10 @@ const { Text } = Typography;
 const CentralHeader = () => {
   const dispatch = useDispatch();
 
-  const activePage = useSelector(state => state.activePage.value)
-  const searchQuery = useSelector(state => state.searchQuery.value)
+  const activePage = useSelector(state => state.activePage.value);
+  const searchQuery = useSelector(state => state.searchQuery.value);
 
-  const isSearchVisible = activePage === '/films' || activePage === '/tv';
+  const isSearchVisible = activePage === links.filmsPage || activePage === links.tvPage;
 
   return (
     <div
@@ -48,10 +47,9 @@ const CentralHeader = () => {
             background: 'none',
             justifyContent: 'center'
           } }
-          onClick={ ({ key }) => {
+          onClick={ () => {
             dispatch(setPageNum(1));
             dispatch(setSearchQuery(''));
-            dispatch(setActivePage(key));
           }}
           items={ Object.entries(menus).map(([, value]) => ({
             key: value.url,
@@ -71,21 +69,18 @@ const CentralHeader = () => {
         />
         { isSearchVisible && 
           <Search
+            suffix={false}
             placeholder={ 
               activePage === links.filmsPage
                 ? 'Film search'
                 : 'TV search'
             }
-            defaultValue={ searchQuery }
+            value={ searchQuery }
             color='#ff6b01'
             className='searchInput'
-            // onChange={ e => {
-            //   dispatch(setPageNum(1))
-            //   dispatch(setSearchQuery(e.currentTarget.value.trim()))}
-            // }
-            onSearch={ searchQuery => {
-              dispatch(setPageNum(1))
-              dispatch(setSearchQuery(searchQuery))
+            onChange={ e => {
+              dispatch(setPageNum(1));
+              dispatch(setSearchQuery(e.target.value));
             }}
           />
         }

@@ -11,6 +11,7 @@ import { apiServices } from "services";
 import { setTVGenres } from "redux/tvGenresSlice";
 import links from "links";
 import { List } from "containers";
+import { setActivePage } from "redux/activePageSlice";
 
 const TVList = () => {
   const [ isLoading, setIsLoading] = useState(false);
@@ -20,10 +21,10 @@ const TVList = () => {
   const searchQuery = useSelector(state => state.searchQuery.value);
   const pageNum = useSelector(state => state.pageNum.value);
   const allGenres= useSelector(state => state.tvGenres.value);
-
-
+  
   useEffect(() => {
     apiServices.fetchTVGenres().then(data => dispatch(setTVGenres(data)));
+    dispatch(setActivePage(links.tvPage));
   }, [dispatch]);
 
   useEffect(() => {

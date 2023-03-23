@@ -38,23 +38,20 @@ export const RightHeader = () => {
                   padding: '0.7rem',
                   marginTop: '0.5rem',
                 },
+                onClick:  () => {
+                  dispatch(setActivePage(''))
+                },
                 items: [{
                   key: 'profile',
                   label: (
-                    <Link 
-                      to={ links.userProfilePage }
-                      onClick={ () => dispatch(setActivePage('')) }  
-                    >
+                    <Link to={ links.userProfilePage }>
                       Profile
                     </Link>
                   )
                 }, {
                   key: 'usserList',
                   label: (
-                    <Link 
-                      to={ links.userList }
-                      onClick={ () => dispatch(setActivePage('')) }  
-                    >
+                    <Link to={ links.userList }>
                       User List
                     </Link>
                   )

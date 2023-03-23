@@ -9,6 +9,7 @@ import {
   useDispatch,
   useSelector,
 } from "react-redux";
+import { setActivePage } from "redux/activePageSlice";
 import { setMoviesGenres } from "redux/moviesGenresSlice";
 import { apiServices } from "services";
 
@@ -23,6 +24,7 @@ const FilmList = () => {
 
   useEffect(() => {
     apiServices.fetchMoviesGenres().then(data => dispatch(setMoviesGenres(data)));
+    dispatch(setActivePage(links.filmsPage));
   }, [dispatch]);
 
   useEffect(() => {
