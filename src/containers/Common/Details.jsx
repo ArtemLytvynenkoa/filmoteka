@@ -12,7 +12,9 @@ import {
 } from "antd";
 import { defaultImg } from "images";
 import { 
-  useNavigate, useParams} from "react-router-dom";
+  useNavigate, 
+  useParams
+} from "react-router-dom";
 import { 
   CastTab,
   ReviewsTab,
@@ -22,15 +24,24 @@ import links from "links";
 import { LeftOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
 import { setActivePage } from "redux/activePageSlice";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { addingFilmToQueueList, addingFilmToWachedList, auth } from "myFirebase";
-import { apiServices } from "services";
+import { 
+  addingFilmToQueueList, 
+  addingFilmToWachedList, 
+  auth 
+} from "myFirebase";
 import { LoadingIndicator } from "components";
 
 const { Text, Title } = Typography;
 
-const Details = () => {
+const Details = ({
+  details,
+  cast,
+  reviews,
+  trailerKey,
+  isLoading
+}) => {
   const { tvId, filmId } = useParams();
 
   const dispatch = useDispatch();
@@ -40,48 +51,6 @@ const Details = () => {
   const [ isButtonLoading, setIsButtonLoading] = useState(false);
 
   const [user] = useAuthState(auth);
-
-  const [ isLoading, setIsLoading] = useState(true);
-  const [ details, setDetails ] = useState(null);
-  const [ cast, setCast ] = useState(null);
-  const [ reviews, setReviews ] = useState(null);
-  const [ trailerKey, setTrailerKey ] = useState('');
-
-  useEffect(() => {
-    if (!filmId) return;
-    
-    setIsLoading(true);
-
-    apiServices.fetchMovieDetails(filmId).then(details => setDetails(details));
-    apiServices.fetchMovieCast(filmId).then(({ cast }) => setCast(cast));
-    apiServices.fetchMovieReviews(filmId).then(({ results }) => setReviews(results));
-    apiServices.fetchMovieTrailer(filmId).then( ({ results }) => {
-      const trailerObj = results.find(({ type }) => type === 'Trailer');
-
-      setTrailerKey(trailerObj && trailerObj.key ? trailerObj.key : '')
-    } );
-    
-    setIsLoading(false);
-
-  }, [filmId]);
-
-  useEffect(() => {
-    if (!tvId) return;
-    
-    setIsLoading(true);
-
-    apiServices.fetchTVDetails(tvId).then(details => setDetails(details));
-    apiServices.fetchTVCast(tvId).then(({ cast }) => setCast(cast));
-    apiServices.fetchTVReviews(tvId).then(({ results }) => setReviews(results));
-    apiServices.fetchTVTrailer(tvId).then( ({ results }) => {
-      const trailerObj = results.find(({ type }) => type === 'Trailer');
-
-      setTrailerKey(trailerObj && trailerObj.key ? trailerObj.key : '')
-    } );
-    
-    setIsLoading(false);
-
-  }, [tvId]);
 
   if (isLoading && !details) {
     return <LoadingIndicator />

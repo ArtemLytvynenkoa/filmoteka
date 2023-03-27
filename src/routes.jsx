@@ -9,11 +9,12 @@ import { Provider } from 'react-redux';
 import { store }  from 'redux/store';
 import links from 'links';
 import { 
-  CoreLayout, 
-  Details, 
+  CoreLayout,
+  FilmDetails,
   FilmList, 
   SignIn, 
   SignUp, 
+  TVDetails, 
   TVList, 
   UserProfile 
 } from 'containers';
@@ -36,7 +37,7 @@ export const routes = {
       children: {
         customer: {
           path: '/:filmId',
-          component: Details,
+          component: FilmDetails,
         },
       },
     },
@@ -46,7 +47,7 @@ export const routes = {
       children: {
         customer: {
           path: '/:tvId',
-          component: Details,
+          component: TVDetails,
         },
       },
     },

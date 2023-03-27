@@ -7,7 +7,7 @@ import {
   Form as AntdForm,
 } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
-import { Form, LoadingIndicator } from 'components';
+import { Form } from 'components';
 import errorMessages from 'errorMessages';
 import {
   auth,
@@ -61,8 +61,6 @@ const UserProfile = () => {
     }
   }, [emailError, passwordError, profileError]);
 
-  if( loading ) return <LoadingIndicator/>
-
   return (
     <Row
       justify="center"
@@ -74,7 +72,7 @@ const UserProfile = () => {
       <Col span={ 5 }>
         <Form
           form={ form }
-          isLoading={ isProfileUpdeting || isEmailUpdeting }
+          isLoading={ isProfileUpdeting || isEmailUpdeting || loading}
           initialValues={ {
             userName: user?.displayName || userData?.userName,
             email: user?.email || userData?.email,

@@ -10,7 +10,7 @@ import {
 const { Text } = Typography;
 
 const ReviewsTab = ({ reviews }) => (
-  <Row gutter={ [8, 8] }>
+  <Row gutter={ [16, 16] }>
     { reviews.map(({
       author,
       author_details,
@@ -20,7 +20,7 @@ const ReviewsTab = ({ reviews }) => (
       }) => (
         <Col key={ id } span={ 24 }>
           <Row gutter={ [8, 8] }>
-            <Col>
+            <Col span={ 24 } >
               <Space>
                 <Avatar 
                   src={ `https://image.tmdb.org/t/p/w500${author_details.avatar_path}`}
@@ -31,7 +31,8 @@ const ReviewsTab = ({ reviews }) => (
                 <Tag color="#ff6b01">{ author }</Tag>
               </Space>
             </Col>
-            <Col 
+            <Col
+              span={ 24 } 
               style={{
                 border: '1px solid #ff6b01',
                 borderRadius: '15px',
