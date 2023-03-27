@@ -15,23 +15,27 @@ const List = ({
 }) => {
   const maxItemCount = 10000;
 
+  const totalResults = data.total_results ? data.total_results : data.length;
+  const isNotification = data?.results?.length === 0 || data?.length === 0;
+  const list = data?.results ? data?.results : data;
+
   return (
     <div className="mainContent">
-      { data.results.length === 0 
+      { isNotification
         ? <Notification text='Nothing was found for this query! Try again!' />
         : (
           <>
             <Pagination
               totalResults={ 
-                data.total_results > maxItemCount 
+                totalResults > maxItemCount 
                   ? maxItemCount 
-                  : data.total_results
+                  : totalResults
               }
             />
             <Row 
               gutter={ [ 8, 8 ] } 
             >
-            { data.results.map(({ 
+            { list?.map(({ 
               title,
               name,
               poster_path,
@@ -43,7 +47,7 @@ const List = ({
             }) => (
               <Col span={ 6 } key={ id }>
                 <Card 
-                  title={ title || name }
+                  title={ title ? title : name }
                   posterPath={ poster_path }
                   releaseDate={ release_date || first_air_date}
                   genreIds={ genre_ids }
@@ -53,13 +57,13 @@ const List = ({
                   navigateLink={ navigateLink }
                 />
               </Col>
-            )) }
+            ))}
           </Row>
           <Pagination  
             totalResults={ 
-              data.total_results > maxItemCount 
+              totalResults > maxItemCount 
                 ? maxItemCount 
-                : data.total_results
+                : totalResults
             }
           />
           </>

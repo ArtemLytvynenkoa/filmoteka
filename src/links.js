@@ -1,13 +1,13 @@
 const links = {
   // public
-  main: '/',
+  mainPage: '/',
   filmsPage: '/films',
   tvPage: '/tv',
   signInPage: '/signIn',
   signUpPage: '/signUp',
   // private
   userProfilePage: '/user',
-  userList: '/userList',
+  userListPage: '/userList',
 };
 
 export default links

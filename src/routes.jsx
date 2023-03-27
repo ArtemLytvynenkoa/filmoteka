@@ -16,6 +16,7 @@ import {
   SignUp, 
   TVDetails, 
   TVList, 
+  UserLists, 
   UserProfile 
 } from 'containers';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -56,6 +57,10 @@ export const routes = {
     user: {
       path: links.userProfilePage,
       component: UserProfile,
+    },
+    userList: {
+      path: links.userListPage,
+      component: UserLists,
     },
   },
 };

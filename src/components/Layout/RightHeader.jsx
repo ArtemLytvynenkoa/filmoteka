@@ -51,24 +51,19 @@ export const RightHeader = () => {
                 }, {
                   key: 'usserList',
                   label: (
-                    <Link to={ links.userList }>
+                    <Link to={ links.userListPage }>
                       User List
                     </Link>
                   )
                 }]
             }}
           >
-            {/* <Button
-            type="link"
-            style={ { padding: '0' } }
-            > */}
-                <UserOutlined 
-                  style={{ 
-                    fontSize: '24px',
-                    color: '#ff6b01'
-                  }}
-                />
-            {/* </Button> */}
+            <UserOutlined 
+              style={{ 
+                fontSize: '24px',
+                color: '#ff6b01'
+              }}
+            />
           </Dropdown>
           
           <Button 

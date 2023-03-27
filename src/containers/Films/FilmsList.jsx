@@ -20,7 +20,7 @@ const FilmList = () => {
   const dispatch = useDispatch();
   const searchQuery = useSelector(state => state.searchQuery.value);
   const pageNum = useSelector(state => state.pageNum.value);
-  const allGenres= useSelector(state => state.moviesGenres.value);
+  const allGenres = useSelector(state => state.moviesGenres.value);
 
   useEffect(() => {
     apiServices.fetchMoviesGenres().then(data => dispatch(setMoviesGenres(data)));

@@ -20,7 +20,7 @@ const TVList = () => {
   const dispatch = useDispatch();
   const searchQuery = useSelector(state => state.searchQuery.value);
   const pageNum = useSelector(state => state.pageNum.value);
-  const allGenres= useSelector(state => state.tvGenres.value);
+  const allGenres = useSelector(state => state.tvGenres.value);
   
   useEffect(() => {
     apiServices.fetchTVGenres().then(data => dispatch(setTVGenres(data)));

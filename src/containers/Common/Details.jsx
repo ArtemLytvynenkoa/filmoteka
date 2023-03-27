@@ -267,7 +267,7 @@ const Details = ({
               }}
             />
             <Tabs
-              defaultActiveKey="1"
+              defaultActiveKey="trailer"
               items={[{
                 key: 'trailer',
                 label: 'Trailer',
