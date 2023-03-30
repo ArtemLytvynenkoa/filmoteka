@@ -2,7 +2,7 @@ import {
   Tabs, 
   Typography 
 } from "antd";
-// import { WatchedList } from ".";
+import { WatchedList } from ".";
 
 const { Title } = Typography;
 
@@ -21,7 +21,7 @@ const UserLists = () => (
             Watched
           </Title>
         ),
-        // children: <WatchedList/>,
+        children: <WatchedList/>,
       }, {
         key: 'queue',
         label: (

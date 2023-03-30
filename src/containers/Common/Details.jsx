@@ -91,16 +91,37 @@ const Details = ({
                 if (!user) {
                   message.warning("Login to your profile or register!!!")
                 } else {
-                  try {
-                    await addingFilmToWachedList({
-                      data: details,
-                      uid: user.uid, 
-                      filmId: `${details.id}-${details.name || details.title }`,
-                    });
-
-                    message.success('Done');
-                  } catch (error) {
-                    message.error(error.message);
+                  if (filmId) {
+                    try {
+                      await addingFilmToWachedList({
+                        data: {
+                          ...details,
+                          type: links.filmsPage
+                        },
+                        uid: user.uid, 
+                        id: `${details.id}-${details.name || details.title }`,
+                      });
+  
+                      message.success('Done');
+                    } catch (error) {
+                      message.error(error.message);
+                    }
+                  }
+                  if (tvId) {
+                    try {
+                      await addingFilmToWachedList({
+                        data: {
+                          ...details,
+                          type: links.tvPage
+                        },
+                        uid: user.uid, 
+                        id: `${details.id}-${details.name || details.title }`,
+                      });
+  
+                      message.success('Done');
+                    } catch (error) {
+                      message.error(error.message);
+                    }
                   }
                 }
 
@@ -118,16 +139,37 @@ const Details = ({
                 if (!user) {
                   message.warning("Login to your profile or register!!!")
                 } else {
-                  try {
-                    await addingFilmToQueueList({
-                      data: details,
-                      uid: user.uid, 
-                      filmId: `${details.id}-${details.name || details.title }`,
-                    });
-
-                    message.success('Done');
-                  } catch (error) {
-                    message.error(error.message);
+                  if (filmId) {
+                    try {
+                      await addingFilmToQueueList({
+                        data: {
+                          ...details,
+                          type: links.filmsPage
+                        },
+                        uid: user.uid, 
+                        id: `${details.id}-${details.name || details.title }`,
+                      });
+  
+                      message.success('Done');
+                    } catch (error) {
+                      message.error(error.message);
+                    }
+                  };
+                  if (tvId) {
+                    try {
+                      await addingFilmToQueueList({
+                        data: {
+                          ...details,
+                          type: links.tvPage
+                        },
+                        uid: user.uid, 
+                        id: `${details.id}-${details.name || details.title }`,
+                      });
+  
+                      message.success('Done');
+                    } catch (error) {
+                      message.error(error.message);
+                    }
                   }
                 }
                 setIsButtonLoading(false)

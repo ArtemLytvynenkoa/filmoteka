@@ -10,8 +10,8 @@ export const isFieldDisabled = (field, getFieldValue) => {
   return false;
 };
 
-export const getGenresTextArray = (filmsGenres = [], allGenres) => {
-  const genresName = filmsGenres.map(genreId => {
+export const getGenresTextArray = (genres = [], allGenres) => {
+  const genresName = genres.map(genreId => {
     return allGenres.find(genreObject => genreObject.id === genreId)?.name;
   });
 

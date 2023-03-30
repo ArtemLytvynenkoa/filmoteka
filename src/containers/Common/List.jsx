@@ -5,43 +5,57 @@ import {
 import { 
   Card, 
   Notification, 
-  Pagination 
+  Pagination, 
+  SimplePagination
 } from ".";
 
 const List = ({
   data,
   allGenres,
-  navigateLink
+  navigateLink,
+  simple,
+  handlePrevClick,
+  handleNextClick,
+  isLoading,
 }) => {
   const maxItemCount = 10000;
 
-  const totalResults = data.total_results ? data.total_results : data.length;
-  const isNotification = data?.results?.length === 0 || data?.length === 0;
-  const list = data?.results ? data?.results : data;
-
   return (
     <div className="mainContent">
-      { isNotification
+      { data?.results?.length === 0
         ? <Notification text='Nothing was found for this query! Try again!' />
         : (
           <>
-            <Pagination
-              totalResults={ 
-                totalResults > maxItemCount 
-                  ? maxItemCount 
-                  : totalResults
-              }
-            />
+            { !simple ? (
+              <Pagination
+                totalResults={ 
+                  data?.total_results > maxItemCount 
+                    ? maxItemCount 
+                    : data?.total_results
+                }
+              />) : (
+                <SimplePagination
+                  handlePrevClick={ handlePrevClick }
+                  handleNextClick={ handleNextClick }
+                  isLoading={ isLoading }
+                  totalResults={ 
+                    data?.total_results > maxItemCount 
+                      ? maxItemCount 
+                      : data?.total_results
+                  }
+                />)
+            }
             <Row 
               gutter={ [ 8, 8 ] } 
             >
-            { list?.map(({ 
+            { data?.results?.map(({ 
               title,
               name,
               poster_path,
               release_date,
               first_air_date,
               genre_ids,
+              genres,
               id,
               vote_average,
             }) => (
@@ -50,7 +64,7 @@ const List = ({
                   title={ title ? title : name }
                   posterPath={ poster_path }
                   releaseDate={ release_date || first_air_date}
-                  genreIds={ genre_ids }
+                  genreIds={ genres ? genres.map(({ id }) => id) : genre_ids }
                   id={ id }
                   rating={ vote_average }
                   allGenres={ allGenres }
@@ -59,13 +73,22 @@ const List = ({
               </Col>
             ))}
           </Row>
-          <Pagination  
-            totalResults={ 
-              totalResults > maxItemCount 
-                ? maxItemCount 
-                : totalResults
-            }
-          />
+          { !simple ? (
+            <Pagination
+              totalResults={ 
+                data?.total_results > maxItemCount 
+                  ? maxItemCount 
+                  : data?.total_results
+              }
+            />) : (
+              <SimplePagination
+                totalResults={ 
+                  data?.total_results > maxItemCount 
+                    ? maxItemCount 
+                    : data?.total_results
+                }
+              />)
+          }
           </>
         )
       }

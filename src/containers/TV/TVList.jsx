@@ -23,9 +23,11 @@ const TVList = () => {
   const allGenres = useSelector(state => state.tvGenres.value);
   
   useEffect(() => {
+    if (pageNum !== 1) return;
+
     apiServices.fetchTVGenres().then(data => dispatch(setTVGenres(data)));
     dispatch(setActivePage(links.tvPage));
-  }, [dispatch]);
+  }, [dispatch, pageNum]);
 
   useEffect(() => {
     if (searchQuery) {

@@ -1,9 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import links from "links";
 
 export const activePageSlice = createSlice({
   name: 'activePage',
-  initialState: { value: links.filmsPage },
+  initialState: { value: '' },
   reducers: {
     setActivePage: (state, action) => {
       state.value = action.payload

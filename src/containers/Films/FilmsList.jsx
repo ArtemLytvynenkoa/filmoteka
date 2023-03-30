@@ -23,9 +23,11 @@ const FilmList = () => {
   const allGenres = useSelector(state => state.moviesGenres.value);
 
   useEffect(() => {
+    if (pageNum !== 1) return;
+    
     apiServices.fetchMoviesGenres().then(data => dispatch(setMoviesGenres(data)));
     dispatch(setActivePage(links.filmsPage));
-  }, [dispatch]);
+  }, [dispatch, pageNum]);
 
   useEffect(() => {
     if (searchQuery) {

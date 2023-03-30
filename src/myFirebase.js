@@ -8,6 +8,14 @@ import {
   doc,
   updateDoc,
   deleteDoc,
+  query,
+  limit,
+  getDocs,
+  startAfter,
+  getCountFromServer,
+  endBefore,
+  limitToLast,
+  orderBy,
 } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -30,7 +38,7 @@ export const auth = getAuth(app);
 export const usersRef = collection(db, 'users');
 
 export const getUserRef = userId => doc(getFirestore(app), 'users', userId);
-export const getWachedListRef = uid => collection(db, `users/${uid}/wachedList`);
+export const getWatchedListRef = uid => collection(db, `users/${uid}/wachedList`);
 export const getQueueListRef = uid => collection(db, `users/${uid}/queueList`);
 
 export const setUser = async data => {
@@ -41,18 +49,51 @@ export const updateUser = async (data, id) => {
   await updateDoc(doc(usersRef, id), data);
 };
 
-export const addingFilmToWachedList = async ({ data, uid, filmId }) => {
-  await setDoc(doc(getWachedListRef(uid), filmId), data);
+export const addingFilmToWachedList = async ({ data, uid, id }) => {
+  await setDoc(doc(getWatchedListRef(uid), id), data);
 };
 
-export const deleteFilmFromWachedList = async (uid, filmId) => {
-  await deleteDoc(getWachedListRef(uid, filmId));
+export const deleteFilmFromWachedList = async (uid, id) => {
+  await deleteDoc(getWatchedListRef(uid, id));
 };
 
-export const addingFilmToQueueList = async ({ data, uid, filmId }) => {
-  await setDoc(doc(getQueueListRef(uid), filmId), data);
+export const addingFilmToQueueList = async ({ data, uid, id }) => {
+  await setDoc(doc(getQueueListRef(uid), id), data);
 };
 
-export const deleteFilmFromQueueList = async (uid, filmId) => {
-  await deleteDoc(getQueueListRef(uid, filmId));
+export const deleteFilmFromQueueList = async (uid, id) => {
+  await deleteDoc(getQueueListRef(uid, id));
+};
+
+export const getFirstWatchedList = async ref => {
+  const first = query(ref, limit(20));
+
+  const snapshot = await getCountFromServer(ref);
+  const documentSnapshots = await getDocs(first);
+  return {
+    documentSnapshots,
+    snapshot,
+  }
+};
+
+export const getNextWatchedList = async (ref, lastVisible) => {
+  const next = query(ref, startAfter(lastVisible), limit(20));
+
+  const snapshot = await getCountFromServer(ref);
+  const documentSnapshots = await getDocs(next);
+  return {
+    documentSnapshots,
+    snapshot,
+  }
+};
+
+export const getPrevWatchedList = async (ref, firstVisible) => {
+  const next = query(ref, orderBy('adult'), endBefore(firstVisible), limitToLast(20));
+
+  const snapshot = await getCountFromServer(ref);
+  const documentSnapshots = await getDocs(next);
+  return {
+    documentSnapshots,
+    snapshot,
+  }
 };
