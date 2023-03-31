@@ -3,11 +3,10 @@ import { List } from "containers/Common";
 import links from "links";
 import { 
   auth, 
-  getFirstWatchedList, 
-  getNextWatchedList,
-  getPrevWatchedList,
-  getWatchedListRef 
-} from "myFirebase";
+  getFirstList, 
+  getNextList, 
+  getPrevList, 
+  getQueueListRef} from "myFirebase";
 import {
   useEffect, 
   useState 
@@ -18,12 +17,9 @@ import {
   useSelector 
 } from "react-redux";
 import { setActivePage } from "redux/activePageSlice";
-import { setMoviesGenres } from "redux/moviesGenresSlice";
 import { setPageNum } from "redux/pageNumSlice";
-import { setTVGenres } from "redux/tvGenresSlice";
-import { apiServices } from "services";
 
-const WatchedList = () => {
+const QueueList = () => {
   const [user] = useAuthState(auth);
 
   const pageNum = useSelector(state => state.pageNum.value);
@@ -40,9 +36,6 @@ const WatchedList = () => {
   useEffect(() => {
     if (pageNum !== 1) return;
 
-    apiServices.fetchTVGenres().then(data => dispatch(setTVGenres(data)));
-    apiServices.fetchMoviesGenres().then(data => dispatch(setMoviesGenres(data)));
-
     dispatch(setActivePage(''));
   }, [dispatch, pageNum]);
 
@@ -51,11 +44,13 @@ const WatchedList = () => {
 
     setIsLoading(true);
 
-    getFirstWatchedList(getWatchedListRef(user.uid)).then(({
+    getFirstList(getQueueListRef(user.uid)).then(({
       documentSnapshots,
       snapshot
     }) => {
-      setLastVisible(documentSnapshots.docs[19]);
+      const index = documentSnapshots.docs.length - 1;
+
+      setLastVisible(documentSnapshots.docs[index]);
       setList({
         total_results: snapshot.data().count,
         results: documentSnapshots.docs.map( item => item.data())
@@ -68,15 +63,16 @@ const WatchedList = () => {
   const handleNextClick = async() => {
     setIsLoading(true);
 
-    await getNextWatchedList(getWatchedListRef(user.uid), lastVisible).then(({
+    await getNextList(getQueueListRef(user.uid), lastVisible).then(({
       documentSnapshots,
       snapshot
     }) => {
       setFirstVisible(documentSnapshots.docs[0]);
 
-      if (documentSnapshots.docs.length === 20) {
-        setLastVisible(documentSnapshots.docs[19]);
-      };
+      const index = documentSnapshots.docs.length - 1;
+      // if (documentSnapshots.docs.length === 20) {
+        setLastVisible(documentSnapshots.docs[index]);
+      // };
 
       setList({
         total_results: snapshot.data().count,
@@ -92,14 +88,16 @@ const WatchedList = () => {
   const handlePrevClick = async() => {
     setIsLoading(true);
 
-    await getPrevWatchedList(getWatchedListRef(user.uid), firstVisible).then(({
+    await getPrevList(getQueueListRef(user.uid), firstVisible).then(({
       documentSnapshots,
       snapshot
     }) => {
-      if (pageNum !== 1) {
+      // if (pageNum !== 1) {
+        const index = documentSnapshots.docs.length - 1;
+        
         setFirstVisible(documentSnapshots.docs[0]);
-      }
-        setLastVisible(documentSnapshots.docs[19]);
+      // }
+        setLastVisible(documentSnapshots.docs[index]);
 
       setList({
         total_results: snapshot.data().count,
@@ -124,8 +122,7 @@ const WatchedList = () => {
       handleNextClick={ handleNextClick }
       isLoading={ isLoading }
     />
-    // <div>Hello</div>
   );
 };
 
-export default WatchedList;
+export default QueueList;

@@ -21,9 +21,7 @@ const SimplePagination = ({
       style={{ margin: '25px 0'}}
     >
       <Button
-        onClick={ () =>  {
-          handlePrevClick();
-        }}
+        onClick={ () =>  handlePrevClick()}
         disabled={ pageNum === 1 }
         style={{ backgroundColor: 'transparent' }}
       >
@@ -39,9 +37,7 @@ const SimplePagination = ({
           </Tag>
         </Space>
       <Button
-        onClick={ () =>  {
-          handleNextClick();
-        }}
+        onClick={ () => handleNextClick()}
         disabled={ pageNum ===  Math.ceil(totalResults/20)}
         style={{ backgroundColor: 'transparent' }}
       >

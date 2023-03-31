@@ -1,4 +1,4 @@
-import { Details } from "containers/Common";
+import { Details } from "containers";
 import { 
   useEffect, 
   useState 

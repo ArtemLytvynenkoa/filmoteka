@@ -23,7 +23,7 @@ const List = ({
   return (
     <div className="mainContent">
       { data?.results?.length === 0
-        ? <Notification text='Nothing was found for this query! Try again!' />
+        ? <Notification text='Nothing was found! Try again!' />
         : (
           <>
             { !simple ? (

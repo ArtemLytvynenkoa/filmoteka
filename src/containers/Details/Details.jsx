@@ -7,16 +7,16 @@ import {
   Space,
   Tabs,
   Tag,
-  Typography, 
-  message
-} from "antd";
+  Typography} from "antd";
 import { defaultImg } from "images";
 import { 
+  useLocation,
   useNavigate, 
   useParams
 } from "react-router-dom";
 import { 
   CastTab,
+  CustomButtons,
   ReviewsTab,
   TrailerTab 
 } from "containers";
@@ -24,13 +24,6 @@ import links from "links";
 import { LeftOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
 import { setActivePage } from "redux/activePageSlice";
-import { useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { 
-  addingFilmToQueueList, 
-  addingFilmToWachedList, 
-  auth 
-} from "myFirebase";
 import { LoadingIndicator } from "components";
 
 const { Text, Title } = Typography;
@@ -48,9 +41,7 @@ const Details = ({
 
   const navigate = useNavigate();
 
-  const [ isButtonLoading, setIsButtonLoading] = useState(false);
-
-  const [user] = useAuthState(auth);
+  const location = useLocation();
 
   if (isLoading && !details) {
     return <LoadingIndicator />
@@ -61,12 +52,12 @@ const Details = ({
       <Row 
         justify="space-between"
         align="middle"
+        style={{
+          margin: '20px 0 0',
+        }}
       >
         <Col>
           <Button
-            style={{
-              margin: '20px 0 0',
-            }}
             type="link"
             onClick={ () => {
               navigate( filmId ? links.filmsPage : links.tvPage)
@@ -81,103 +72,7 @@ const Details = ({
           </Button>
         </Col>
         <Col>
-        <Space>
-            <Button 
-              type="primary"
-              loading={ isButtonLoading }
-              onClick={ async () => {
-                setIsButtonLoading(true)
-
-                if (!user) {
-                  message.warning("Login to your profile or register!!!")
-                } else {
-                  if (filmId) {
-                    try {
-                      await addingFilmToWachedList({
-                        data: {
-                          ...details,
-                          type: links.filmsPage
-                        },
-                        uid: user.uid, 
-                        id: `${details.id}-${details.name || details.title }`,
-                      });
-  
-                      message.success('Done');
-                    } catch (error) {
-                      message.error(error.message);
-                    }
-                  }
-                  if (tvId) {
-                    try {
-                      await addingFilmToWachedList({
-                        data: {
-                          ...details,
-                          type: links.tvPage
-                        },
-                        uid: user.uid, 
-                        id: `${details.id}-${details.name || details.title }`,
-                      });
-  
-                      message.success('Done');
-                    } catch (error) {
-                      message.error(error.message);
-                    }
-                  }
-                }
-
-                setIsButtonLoading(false)
-              }}
-            >
-              ADD TO WATCHED
-            </Button>
-            <Button 
-              type="primary"
-              loading={ isButtonLoading }
-              onClick={ async () => {
-                setIsButtonLoading(true)
-
-                if (!user) {
-                  message.warning("Login to your profile or register!!!")
-                } else {
-                  if (filmId) {
-                    try {
-                      await addingFilmToQueueList({
-                        data: {
-                          ...details,
-                          type: links.filmsPage
-                        },
-                        uid: user.uid, 
-                        id: `${details.id}-${details.name || details.title }`,
-                      });
-  
-                      message.success('Done');
-                    } catch (error) {
-                      message.error(error.message);
-                    }
-                  };
-                  if (tvId) {
-                    try {
-                      await addingFilmToQueueList({
-                        data: {
-                          ...details,
-                          type: links.tvPage
-                        },
-                        uid: user.uid, 
-                        id: `${details.id}-${details.name || details.title }`,
-                      });
-  
-                      message.success('Done');
-                    } catch (error) {
-                      message.error(error.message);
-                    }
-                  }
-                }
-                setIsButtonLoading(false)
-              }}
-            >
-              ADD TO QUEUE
-            </Button>
-          </Space>
+          <CustomButtons details={ details }/>
         </Col>
       </Row>
       <Row

@@ -12,11 +12,17 @@ import links from 'links';
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { 
+  useDispatch, 
+  useSelector 
+} from 'react-redux';
 import { setActivePage } from 'redux/activePageSlice';
+import { setPageNum } from 'redux/pageNumSlice';
 
 export const RightHeader = () => {
   const [user] = useAuthState(auth);
+
+  const activePage = useSelector(state => state.activePage.value);
 
   const dispatch = useDispatch()
 
@@ -39,7 +45,8 @@ export const RightHeader = () => {
                   marginTop: '0.5rem',
                 },
                 onClick:  () => {
-                  dispatch(setActivePage(''))
+                  dispatch(setActivePage(links.userProfilePage))
+                  dispatch(setPageNum(1))
                 },
                 items: [{
                   key: 'profile',
@@ -69,11 +76,14 @@ export const RightHeader = () => {
           <Button 
             type="primary"
             onClick={ () => {
-              dispatch(setActivePage(links.filmsPage))
               signOut(auth)
             } }
           >
-            <Link to={ links.filmsPage }>Sign out</Link>
+            {
+              activePage === links.userProfilePage ? 
+              <Link to={ links.filmsPage }>Sign out</Link> :
+              'Sign out'
+            }
           </Button>
         </Space>
       }
