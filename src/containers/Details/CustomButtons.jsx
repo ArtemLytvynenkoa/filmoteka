@@ -57,8 +57,7 @@ const CustomButtons = ({
       message.error(errorMessages[queueError.code]);
     }
   }, [queueError, watchedError]);
-
-  console.log();
+  
   return (
     <Space>
       <Button 
