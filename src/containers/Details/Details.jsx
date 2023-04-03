@@ -7,7 +7,8 @@ import {
   Space,
   Tabs,
   Tag,
-  Typography} from "antd";
+  Typography
+} from "antd";
 import { defaultImg } from "images";
 import { 
   useLocation,
@@ -174,7 +175,7 @@ const Details = ({
                           : null 
                       }
                       preview={false}
-                      width={ details?.production_companies.length > 1 ? 150 : 300}
+                      width={ details?.production_companies.length > 1 ? 100 : 300}
                       onClick={() => details?.homepage && window.open(details?.homepage)}
                       style={{ 
                         cursor: "pointer",

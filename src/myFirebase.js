@@ -40,8 +40,8 @@ export const usersRef = collection(db, 'users');
 export const getUserRef = userId => doc(getFirestore(app), 'users', userId);
 export const getWatchedListRef = uid => collection(db, `users/${uid}/wachedList`);
 export const getQueueListRef = uid => collection(db, `users/${uid}/queueList`);
-export const getWatchedItemRef = (uid, id) =>doc(getFirestore(app), `users/${uid}/wachedList`, id);
-export const getQueueItemRef = (uid, id) =>doc(getFirestore(app), `users/${uid}/queueList`, id);
+export const getWatchedItemRef = (uid, id) => doc(getFirestore(app), `users/${uid}/wachedList`, id);
+export const getQueueItemRef = (uid, id) => doc(getFirestore(app), `users/${uid}/queueList`, id);
 
 export const setUser = async data => {
   await setDoc(doc(usersRef, data.uid), data);
@@ -56,7 +56,7 @@ export const addingItemToWachedList = async ({ data, uid, id }) => {
 };
 
 export const deleteItemFromWachedList = async (uid, id) => {
-  await deleteDoc(getWatchedListRef(uid, id));
+  await deleteDoc(getWatchedItemRef(uid, id));
 };
 
 export const addingItemToQueueList = async ({ data, uid, id }) => {
@@ -64,7 +64,7 @@ export const addingItemToQueueList = async ({ data, uid, id }) => {
 };
 
 export const deleteItemFromQueueList = async (uid, id) => {
-  await deleteDoc(getQueueListRef(uid, id));
+  await deleteDoc(getQueueItemRef(uid, id));
 };
 
 export const getFirstList = async ref => {
@@ -90,7 +90,7 @@ export const getNextList = async (ref, lastVisible) => {
 };
 
 export const getPrevList = async (ref, firstVisible) => {
-  const next = query(ref, orderBy('adult'), endBefore(firstVisible), limitToLast(20));
+  const next = query(ref, orderBy('id'), endBefore(firstVisible), limitToLast(20));
 
   const snapshot = await getCountFromServer(ref);
   const documentSnapshots = await getDocs(next);
