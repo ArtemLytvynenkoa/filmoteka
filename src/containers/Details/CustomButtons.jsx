@@ -4,7 +4,6 @@ import {
   Button, 
   message 
 } from "antd";
-import links from "links";
 import { 
   auth, 
   addingItemToWachedList, 
@@ -19,23 +18,30 @@ import {
   useState 
 } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useParams } from "react-router-dom";
 import errorMessages from "errorMessages";
+import { useNavigate, useParams } from "react-router-dom";
+import links from "links";
 
-const CustomButtons = ({ details }) => {
-  const { tvId, filmId } = useParams();
-
+const CustomButtons = ({ 
+  details,
+  cast,
+  reviews,
+  trailerKey,
+}) => {
   const [user] = useAuthState(auth);
 
   const [ isLoading, setIsLoading] = useState(false);
   
+  const { userListId } = useParams();
+
+  const navigate = useNavigate(); 
 
   const [watchedItemValue, isWatchedLoading, watchedError] = useDocument(
-    getWatchedItemRef(user?.uid, `${details?.id}-${details?.title || details?.name}`),
+    getWatchedItemRef(user?.uid, `${details?.id}-${details?.title || details?.name}-watched`),
   );
 
   const [queueItemValue, isQueueLoading, queueError] = useDocument(
-    getQueueItemRef(user?.uid, `${details?.id}-${details?.title || details?.name}`),
+    getQueueItemRef(user?.uid, `${details?.id}-${details?.title || details?.name}-queue`),
   );
   
   const watchedItem = watchedItemValue?.data();
@@ -67,64 +73,37 @@ const CustomButtons = ({ details }) => {
           setIsLoading(true);
 
           if (!watchedItem) {
-            if (filmId) {
-              try {
-                await addingItemToWachedList({
-                  data: {
+            try {
+              await addingItemToWachedList({
+                data: {
+                  details: {
                     ...details,
-                    type: links.filmsPage
+                    type: 'watched'
                   },
-                  uid: user.uid, 
-                  id: `${details.id}-${details.title}`,
-                });
-  
-                message.success('Added to the Watched list!');
-              } catch (error) {
-                message.error(error.message);
-              }
-            };
-  
-            if (tvId) {
-              try {
-                await addingItemToWachedList({
-                  data: {
-                    ...details,
-                    type: links.tvPage
-                  },
-                  uid: user.uid, 
-                  id: `${details.id}-${details.name}`,
-                });
-  
-                message.success('Added to the Watched list!');
-              } catch (error) {
-                message.error(error.message);
-              }
-            };
+                  cast,
+                  reviews,
+                  trailerKey,
+                },
+                uid: user.uid, 
+                id: `${details.id}-${details.title || details.name}-watched`,
+              });
+
+              message.success('Added to the Watched list!');
+            } catch (error) {
+              message.error(error.message);
+            }
           } else {
-            if (filmId) {
-              try {
-                await deleteItemFromWachedList(
-                  user.uid, 
-                  `${details.id}-${details.title}`,
-                );
-  
-                message.success('Removed from the Watched list!');
-              } catch (error) {
-                message.error(error.message);
-              }
-            };
-  
-            if (tvId) {
-              try {
-                await deleteItemFromWachedList(
-                  user.uid,
-                  `${details.id}-${details.name}`,
-                );
-  
-                message.success('Removed from the Watched list!');
-              } catch (error) {
-                message.error(error.message);
-              }
+            try {
+              await deleteItemFromWachedList(
+                user.uid, 
+                `${details.id}-${details.title || details.name}-watched`,
+              );
+
+              message.success('Removed from the Watched list!');
+
+              userListId && navigate(links.userListPage);
+            } catch (error) {
+              message.error(error.message);
             };
           };
 
@@ -145,65 +124,38 @@ const CustomButtons = ({ details }) => {
           setIsLoading(true);
 
           if (!queueItem) {
-            if (filmId) {
-              try {
-                await addingItemToQueueList({
-                  data: {
+            try {
+              await addingItemToQueueList({
+                data: {
+                  details: {
                     ...details,
-                    type: links.filmsPage
+                    type: "queue"
                   },
-                  uid: user.uid, 
-                  id: `${details.id}-${details.title}`,
-                });
-  
-                message.success('Added to the Queue list!');
-              } catch (error) {
-                message.error(error.message);
-              }
-            };
-  
-            if (tvId) {
-              try {
-                await addingItemToQueueList({
-                  data: {
-                    ...details,
-                    type: links.tvPage
-                  },
-                  uid: user.uid, 
-                  id: `${details.id}-${details.name}`,
-                });
-  
-                message.success('Added to the Queue list!');
-              } catch (error) {
-                message.error(error.message);
-              }
-            };
+                  cast,
+                  reviews,
+                  trailerKey,
+                },
+                uid: user.uid, 
+                id: `${details.id}-${details.title || details.name}-queue`,
+              });
+
+              message.success('Added to the Queue list!');
+            } catch (error) {
+              message.error(error.message);
+            }
           } else {
-            if (filmId) {
-              try {
-                await deleteItemFromQueueList(
-                  user.uid, 
-                  `${details.id}-${details.title}`,
-                );
-  
-                message.success('Removed from the Queue list!');
-              } catch (error) {
-                message.error(error.message);
-              }
-            };
-  
-            if (tvId) {
-              try {
-                await deleteItemFromQueueList(
-                  user.uid,
-                  `${details.id}-${details.name}`,
-                );
-  
-                message.success('Removed from the Queue list!');
-              } catch (error) {
-                message.error(error.message);
-              }
-            };
+            try {
+              await deleteItemFromQueueList(
+                user.uid, 
+                `${details.id}-${details.title || details.name}-queue`,
+              );
+
+              message.success('Removed from the Queue list!');
+
+              userListId && navigate(links.userListPage);
+            } catch (error) {
+              message.error(error.message);
+            }
           };
 
           setIsLoading(false);

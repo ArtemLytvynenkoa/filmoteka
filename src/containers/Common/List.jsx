@@ -16,7 +16,6 @@ const List = ({
   simple,
   handlePrevClick,
   handleNextClick,
-  isLoading,
 }) => {
   const maxItemCount = 10000;
 
@@ -37,7 +36,6 @@ const List = ({
                 <SimplePagination
                   handlePrevClick={ handlePrevClick }
                   handleNextClick={ handleNextClick }
-                  isLoading={ isLoading }
                   totalResults={ 
                     data?.total_results > maxItemCount 
                       ? maxItemCount 
@@ -58,6 +56,7 @@ const List = ({
               genres,
               id,
               vote_average,
+              type
             }) => (
               <Col span={ 6 } key={ id }>
                 <Card 
@@ -69,6 +68,7 @@ const List = ({
                   rating={ vote_average }
                   allGenres={ allGenres }
                   navigateLink={ navigateLink }
+                  type={ type }
                 />
               </Col>
             ))}

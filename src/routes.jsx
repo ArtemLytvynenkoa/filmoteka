@@ -16,6 +16,7 @@ import {
   SignUp, 
   TVDetails, 
   TVList, 
+  UserListDetails, 
   UserLists, 
   UserProfile 
 } from 'containers';
@@ -61,6 +62,12 @@ export const routes = {
     userList: {
       path: links.userListPage,
       component: UserLists,
+      children: {
+        customer: {
+          path: '/:userListId',
+          component: UserListDetails,
+        },
+      },
     },
   },
 };

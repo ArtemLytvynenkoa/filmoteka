@@ -92,13 +92,10 @@ const QueueList = () => {
       documentSnapshots,
       snapshot
     }) => {
-      // if (pageNum !== 1) {
-        const index = documentSnapshots.docs.length - 1;
-        
-        setFirstVisible(documentSnapshots.docs[0]);
-      // }
-        setLastVisible(documentSnapshots.docs[index]);
-
+      const index = documentSnapshots.docs.length - 1;
+      
+      setFirstVisible(documentSnapshots.docs[0]);
+      setLastVisible(documentSnapshots.docs[index]);
       setList({
         total_results: snapshot.data().count,
         results: documentSnapshots.docs.map( item => item.data())
@@ -110,17 +107,21 @@ const QueueList = () => {
     setIsLoading(false)
   }; 
 
-  if (isLoading) return <LoadingIndicator/>
+  if (isLoading || !list) {
+    return <LoadingIndicator/>
+  }
 
   return (
     <List 
-      data={ list }
+      data={ {
+        ...list, 
+        results: list?.results?.map(({ details }) => details)
+      } }
       allGenres={ [...tvGenres, ...moviesGenres] }
       navigateLink={ links.userListPage }
       simple={ true }
       handlePrevClick={ handlePrevClick }
       handleNextClick={ handleNextClick }
-      isLoading={ isLoading }
     />
   );
 };

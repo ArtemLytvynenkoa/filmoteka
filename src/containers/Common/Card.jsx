@@ -5,6 +5,7 @@ import {
   Typography,
 } from "antd";
 import { defaultImg } from "images";
+import links from "links";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setActivePage } from "redux/activePageSlice";
@@ -23,11 +24,14 @@ const Card = ({
   rating,
   id,
   allGenres,
-  navigateLink
+  navigateLink,
+  type
 }) => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
+
+  const navLink = navigateLink !== links.userListPage ? `${navigateLink}/${id}` : `${navigateLink}/${id}-${title}-${type}`
 
   return (
     <Badge
@@ -41,7 +45,7 @@ const Card = ({
         }}
         onClick={ () => {
           dispatch(setActivePage(''))
-          navigate(`${navigateLink}/${id}`)
+          navigate(navLink)
         } }
       >
         <img 

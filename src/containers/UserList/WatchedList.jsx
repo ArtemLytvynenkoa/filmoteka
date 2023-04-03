@@ -112,17 +112,19 @@ const WatchedList = () => {
     setIsLoading(false)
   }; 
 
-  if (isLoading) return <LoadingIndicator/>
+  if (isLoading || !list) return <LoadingIndicator/>
 
   return (
     <List 
-      data={ list }
+      data={ {
+        ...list, 
+        results: list?.results?.map(({ details }) => details)
+      } }
       allGenres={ [...tvGenres, ...moviesGenres] }
       navigateLink={ links.userListPage }
       simple={ true }
       handlePrevClick={ handlePrevClick }
       handleNextClick={ handleNextClick }
-      isLoading={ isLoading }
     />
   );
 };

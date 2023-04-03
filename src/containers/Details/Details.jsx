@@ -10,8 +10,7 @@ import {
   Typography
 } from "antd";
 import { defaultImg } from "images";
-import { 
-  useLocation,
+import {
   useNavigate, 
   useParams
 } from "react-router-dom";
@@ -42,8 +41,6 @@ const Details = ({
 
   const navigate = useNavigate();
 
-  const location = useLocation();
-
   if (isLoading && !details) {
     return <LoadingIndicator />
   };
@@ -73,7 +70,12 @@ const Details = ({
           </Button>
         </Col>
         <Col>
-          <CustomButtons details={ details }/>
+          <CustomButtons 
+            details={ details }
+            cast={ cast }
+            reviews={ reviews }
+            trailerKey={ trailerKey }
+          />
         </Col>
       </Row>
       <Row
