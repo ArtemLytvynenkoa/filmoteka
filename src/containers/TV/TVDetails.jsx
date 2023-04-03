@@ -1,4 +1,5 @@
 import { Details } from "containers";
+import links from "links";
 import { 
   useEffect, 
   useState 
@@ -40,6 +41,7 @@ const TVDetails = () => {
       reviews={ reviews }
       trailerKey={ trailerKey }
       isLoading={ isLoading }
+      navigateLink={ links.tvPage }
     />
   )
 };

@@ -15,7 +15,7 @@ const Form = ({
   footer,
   form,
   initialValues,
-  buttonText = 'Зберегти',
+  buttonText = 'Save',
   onValuesChange,
   isSubmitButtonVisible = true,
   isLoading,

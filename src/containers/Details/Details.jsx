@@ -20,7 +20,6 @@ import {
   ReviewsTab,
   TrailerTab 
 } from "containers";
-import links from "links";
 import { LeftOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
 import { setActivePage } from "redux/activePageSlice";
@@ -33,9 +32,10 @@ const Details = ({
   cast,
   reviews,
   trailerKey,
-  isLoading
+  isLoading,
+  navigateLink
 }) => {
-  const { tvId, filmId } = useParams();
+  const { tvId } = useParams();
 
   const dispatch = useDispatch();
 
@@ -58,15 +58,13 @@ const Details = ({
           <Button
             type="link"
             onClick={ () => {
-              navigate( filmId ? links.filmsPage : links.tvPage)
-              dispatch(setActivePage(filmId ? links.filmsPage : links.tvPage))
+              navigate( navigateLink )
+              dispatch(setActivePage(navigateLink))
             } }
           >
             <LeftOutlined /> 
             { ' ' }
-            {
-              filmId ? 'Back to Films' : 'Back to TV'
-            }
+            Back
           </Button>
         </Col>
         <Col>

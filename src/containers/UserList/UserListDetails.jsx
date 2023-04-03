@@ -1,6 +1,7 @@
 import { message } from "antd";
 import { Details } from "containers/Details";
 import errorMessages from "errorMessages";
+import links from "links";
 import { 
   auth, 
   getQueueItemRef, 
@@ -32,8 +33,6 @@ const UserListDetails = () => {
     }
   }, [error]);
 
-  console.log(value);
-
   return (
     <Details 
       details={ data?.details }
@@ -41,8 +40,8 @@ const UserListDetails = () => {
       reviews={ data?.reviews }
       trailerKey={ data?.trailerKey }
       isLoading={ isLoading }
+      navigateLink={ links.userListPage }
     />
-    // <div>Hello</div>
   )
 };
 

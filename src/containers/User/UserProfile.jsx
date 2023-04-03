@@ -7,7 +7,7 @@ import {
   Form as AntdForm,
 } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
-import { Form } from 'components';
+import { Form, LoadingIndicator } from 'components';
 import errorMessages from 'errorMessages';
 import {
   auth,
@@ -61,8 +61,11 @@ const UserProfile = () => {
     }
   }, [emailError, passwordError, profileError]);
 
+  if(loading) return <LoadingIndicator />
+
   return (
     <Row
+      gutter={[16, 16]}
       justify="center"
       style={ {
         height: '100vh',
@@ -79,7 +82,7 @@ const UserProfile = () => {
             phoneNumber: userData?.phoneNumber,
             photoURL: userData?.photoURL,
           } }
-          style={{textAlign: 'center'}}
+          style={{ textAlign: 'center' }}
           fields={ [
             <Item key="userAvatar" name="photoURL" noStyle>
               <UserAvatarUpload userName={ userData?.userName } />
@@ -102,7 +105,7 @@ const UserProfile = () => {
                   userName: values.userName,
                   photoURL: values.photoURL,
                 }, user.uid);
-                message.success('Готово');
+                message.success('Done');
               }
             } catch (error) {
               message.error(error.message);
@@ -114,7 +117,7 @@ const UserProfile = () => {
           block
           onClick={ () => setPasswordChangeVisible(!isPasswordChangeVisible) }
         >
-          { !isPasswordChangeVisible ? 'Змінити пароль' : 'Відмінити' }
+          { !isPasswordChangeVisible ? 'Change password' : 'Cancel' }
         </Button>
         { isPasswordChangeVisible &&
           <>

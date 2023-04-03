@@ -106,7 +106,7 @@ const UserAvatarUpload = ({ onChange, value, userName }) => {
           type="primary"
           loading={ uploading }
         >
-          Завантажити фото
+          Upload photo
         </Button>
       </Space>
     </Upload>
