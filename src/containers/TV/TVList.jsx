@@ -1,4 +1,7 @@
-import { LoadingIndicator } from "components";
+import { 
+  LoadingIndicator, 
+  List 
+} from "components";
 import { 
   useState, 
   useEffect 
@@ -10,7 +13,6 @@ import {
 import { apiServices } from "services";
 import { setTVGenres } from "redux/tvGenresSlice";
 import links from "links";
-import { List } from "containers";
 import { setActivePage } from "redux/activePageSlice";
 
 const TVList = () => {

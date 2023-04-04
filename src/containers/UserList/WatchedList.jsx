@@ -1,5 +1,7 @@
-import { LoadingIndicator } from "components";
-import { List } from "containers/Common";
+import { 
+  LoadingIndicator,
+  List 
+} from "components";
 import links from "links";
 import { 
   auth, 
@@ -17,7 +19,6 @@ import {
   useDispatch, 
   useSelector 
 } from "react-redux";
-import { setActivePage } from "redux/activePageSlice";
 import { setMoviesGenres } from "redux/moviesGenresSlice";
 import { setPageNum } from "redux/pageNumSlice";
 import { setTVGenres } from "redux/tvGenresSlice";

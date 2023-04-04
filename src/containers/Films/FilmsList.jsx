@@ -1,5 +1,7 @@
-import { LoadingIndicator } from "components";
-import { List } from "containers";
+import { 
+  LoadingIndicator, 
+  List 
+} from "components";
 import links from "links";
 import { 
   useState, 

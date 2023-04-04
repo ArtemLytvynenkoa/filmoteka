@@ -1,5 +1,7 @@
-import { LoadingIndicator } from "components";
-import { List } from "containers/Common";
+import { 
+  LoadingIndicator,
+  List 
+} from "components";
 import links from "links";
 import { 
   auth, 

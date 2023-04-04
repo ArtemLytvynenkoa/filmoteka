@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Route,
   Routes,
@@ -8,8 +7,7 @@ import {
 import { Provider } from 'react-redux';
 import { store }  from 'redux/store';
 import links from 'links';
-import { 
-  CoreLayout,
+import {
   FilmDetails,
   FilmList, 
   SignIn, 
@@ -22,6 +20,7 @@ import {
 } from 'containers';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from 'myFirebase';
+import { CoreLayout } from 'components';
 
 export const routes = {
   public: {

@@ -12,17 +12,12 @@ import links from 'links';
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
-import { 
-  useDispatch, 
-  useSelector 
-} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setActivePage } from 'redux/activePageSlice';
 import { setPageNum } from 'redux/pageNumSlice';
 
 export const RightHeader = () => {
   const [user] = useAuthState(auth);
-
-  const activePage = useSelector(state => state.activePage.value);
 
   const dispatch = useDispatch()
 

@@ -3,11 +3,11 @@ import {
   Row, 
 } from "antd";
 import { 
-  Card, 
-  Notification, 
+  Card,
   Pagination, 
   SimplePagination
 } from ".";
+import { NotificationBlock } from "components";
 
 const List = ({
   data,
@@ -22,7 +22,7 @@ const List = ({
   return (
     <div className="mainContent">
       { data?.results?.length === 0
-        ? <Notification text='Nothing was found! Try again!' />
+        ? <NotificationBlock text='Nothing was found! Try again!' />
         : (
           <>
             { !simple ? (
