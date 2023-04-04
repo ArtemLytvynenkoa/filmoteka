@@ -16,7 +16,6 @@ import {
   useDispatch, 
   useSelector 
 } from "react-redux";
-import { setActivePage } from "redux/activePageSlice";
 import { setPageNum } from "redux/pageNumSlice";
 
 const QueueList = () => {
@@ -35,8 +34,6 @@ const QueueList = () => {
 
   useEffect(() => {
     if (pageNum !== 1) return;
-
-    dispatch(setActivePage(''));
   }, [dispatch, pageNum]);
 
   useEffect(() => {

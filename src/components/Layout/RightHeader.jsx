@@ -79,11 +79,7 @@ export const RightHeader = () => {
               signOut(auth)
             } }
           >
-            {
-              activePage === links.userProfilePage ? 
-              <Link to={ links.filmsPage }>Sign out</Link> :
-              'Sign out'
-            }
+            Sign out
           </Button>
         </Space>
       }

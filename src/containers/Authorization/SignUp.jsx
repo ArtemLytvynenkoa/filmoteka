@@ -26,8 +26,6 @@ import {
 } from 'react-firebase-hooks/auth';
 import errorMessages from 'errorMessages';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { setActivePage } from 'redux/activePageSlice';
-import { useDispatch } from 'react-redux';
 
 const SignUp = () => {
   const [user, loading] = useAuthState(auth);
@@ -38,8 +36,6 @@ const SignUp = () => {
   const [values, isCollectionloading] = useCollectionData(
     usersRef,
   );
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (error) {
@@ -68,8 +64,6 @@ const SignUp = () => {
         phoneNumber: user.phoneNumber,
       });
     }
-
-    dispatch(setActivePage(links.filmsPage))
 
     return <Navigate to={ links.filmsPage } replace />;
   }

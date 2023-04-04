@@ -21,16 +21,12 @@ import {
 } from 'antd';
 import errorMessages from 'errorMessages';
 import links from 'links';
-import { setActivePage } from 'redux/activePageSlice';
-import { useDispatch } from 'react-redux';
 
 const SignIn = () => {
   const [user, loading] = useAuthState(auth);
 
   const [signInWithEmailAndPassword,, isUserLoading, error] = useSignInWithEmailAndPassword(auth);
   const [signInWithGoogle, , isGoogleUserLoading, googleSignInError] = useSignInWithGoogle(auth);
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (error) {
@@ -50,8 +46,6 @@ const SignIn = () => {
   }
 
   if (user) {
-    dispatch(setActivePage(links.filmsPage))
-
     return <Navigate to={ links.filmsPage } />;
   }
 

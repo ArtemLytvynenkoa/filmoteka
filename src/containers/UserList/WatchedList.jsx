@@ -42,8 +42,6 @@ const WatchedList = () => {
 
     apiServices.fetchTVGenres().then(data => dispatch(setTVGenres(data)));
     apiServices.fetchMoviesGenres().then(data => dispatch(setMoviesGenres(data)));
-
-    dispatch(setActivePage(''));
   }, [dispatch, pageNum]);
 
   useEffect(() => {

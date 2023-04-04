@@ -79,7 +79,7 @@ const PrivateRoute = ({ component: Component }) => {
     return <Component />;
   }
 
-  return <Navigate to={ links.signIn } />;
+  return <Navigate to={ links.filmsPage } />;
 };
 
 const getPublicRoutes = (routes, parentPath = '') => (
