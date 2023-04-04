@@ -41,6 +41,8 @@ const Details = ({
 
   const navigate = useNavigate();
 
+  console.log(details);
+
   if (isLoading && !details) {
     return <LoadingIndicator />
   };
@@ -112,18 +114,12 @@ const Details = ({
             <Row gutter={ [ 8, 8 ] } 
               align="middle"
             >
-              <Col span={ 6 }>
-                <Space direction="vertical" >
-                  <Text type="secondary">Rating/Votes</Text>
-                  <Text type="secondary">Popularity</Text>
-                  <Text type="secondary">Original Title</Text>
-                  <Text type="secondary">Genre</Text>
-                  { tvId && <Text type="secondary">Seasons/Episodes</Text> }
-                </Space>
-              </Col>
-              <Col span={ 6 }>
-                <Space direction="vertical" >
-                  <Text>
+              <Col span={ 12 }>
+                <Row gutter={ [ 8, 8 ] }>
+                  <Col span={ 12 }>
+                    <Text type="secondary">Rating/Votes</Text>
+                  </Col>
+                  <Col span={ 12 }>
                     <Tag
                       color="#ff6b01"
                     >
@@ -136,27 +132,47 @@ const Details = ({
                     >
                       { details?.vote_count }
                     </Tag>
-                  </Text>
-                  <Text strong>{ details?.popularity }</Text>
-                  <Text strong>{ details?.original_name }</Text>
-                  <Text strong>{ details?.genres.map(({ name }) => name).join(', ') }</Text>
+                  </Col>
+                  <Col span={ 12 }>
+                    <Text type="secondary">Popularity</Text>
+                  </Col>
+                  <Col span={ 12 }>
+                    <Text strong>{ details?.popularity }</Text>
+                  </Col>
+                  <Col span={ 12 }>
+                    <Text type="secondary">Original Title</Text>
+                  </Col>
+                  <Col span={ 12 }>
+                    <Text strong>{ details?.original_name || details?.original_title }</Text>
+                  </Col>
+                  <Col span={ 12 }>
+                    <Text type="secondary">Genre</Text>
+                  </Col>
+                  <Col span={ 12 }>
+                    <Text strong>{ details?.genres.map(({ name }) => name).join(', ') }</Text>
+                  </Col>
                   { tvId && (
-                    <Text>
-                      <Tag
-                        color="#ff6b01"
-                      >
-                        { details?.number_of_seasons }
-                      </Tag>
-                      /
-                      { ' ' }
-                      <Tag
-                        color="gray"
-                      >
-                        { details?.number_of_episodes}
-                      </Tag>
-                    </Text>)
-                  }
-                </Space>
+                    <>
+                      <Col span={ 12 }>
+                        <Text type="secondary">Seasons/Episodes</Text>
+                      </Col> 
+                      <Col span={ 12 }>
+                        <Tag
+                          color="#ff6b01"
+                        >
+                          { details?.number_of_seasons }
+                        </Tag>
+                        /
+                        { ' ' }
+                        <Tag
+                          color="gray"
+                        >
+                          { details?.number_of_episodes}
+                        </Tag>
+                      </Col>
+                    </>
+                  )}
+                </Row>
               </Col>
               <Col
                 span={ 12 }
