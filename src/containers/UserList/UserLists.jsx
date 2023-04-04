@@ -2,24 +2,30 @@ import {
   Tabs, 
   Typography 
 } from "antd";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setPageNum } from "redux/pageNumSlice";
 import { 
   QueueList, 
   WatchedList 
 } from ".";
+import { setUserListActiveKey } from "redux/userListActiveKeySlice";
 
 const { Title } = Typography;
 
 const UserLists = () => {
   const dispatch = useDispatch();
 
+  const userListActiveKey = useSelector(state => state.userListActiveKey.value)
+
   return (
     <div className="mainContent">
       <Tabs
-        defaultActiveKey="trailer"
+        defaultActiveKey={ userListActiveKey } 
         centered
-        onChange={ () => dispatch(setPageNum(1)) }
+        onChange={ activeKey => {
+          dispatch(setPageNum(1));
+          dispatch(setUserListActiveKey(activeKey))
+        } }
         items={[{
           key: 'watched',
           label: (
