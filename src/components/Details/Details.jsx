@@ -41,8 +41,6 @@ const Details = ({
 
   const navigate = useNavigate();
 
-  console.log(details);
-
   if (isLoading && !details) {
     return <LoadingIndicator />
   };
