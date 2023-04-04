@@ -35,7 +35,7 @@ const Card = ({
 
   return (
     <Badge
-      count={ rating }
+      count={ rating.toFixed(1) }
       offset={ [-20, 15] }
     >
       <Space direction="vertical"

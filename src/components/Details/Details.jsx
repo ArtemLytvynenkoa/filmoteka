@@ -123,7 +123,7 @@ const Details = ({
                     <Tag
                       color="#ff6b01"
                     >
-                      { details?.vote_average }
+                      { details?.vote_average.toFixed(1) }
                     </Tag>
                     /
                     { ' ' }
@@ -191,7 +191,7 @@ const Details = ({
                           : null 
                       }
                       preview={false}
-                      width={ details?.production_companies.length > 1 ? 100 : 300}
+                      width={ 100 }
                       onClick={() => details?.homepage && window.open(details?.homepage)}
                       style={{ 
                         cursor: "pointer",

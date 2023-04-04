@@ -90,7 +90,7 @@ export const getNextList = async (ref, lastVisible) => {
 };
 
 export const getPrevList = async (ref, firstVisible) => {
-  const next = query(ref, orderBy('id'), endBefore(firstVisible), limitToLast(20));
+  const next = query(ref, orderBy('details'), endBefore(firstVisible), limitToLast(20));
 
   const snapshot = await getCountFromServer(ref);
   const documentSnapshots = await getDocs(next);
