@@ -1,5 +1,5 @@
 import { message } from "antd";
-import { Details } from "containers/Details";
+import { Details } from "components";
 import errorMessages from "errorMessages";
 import links from "links";
 import { 

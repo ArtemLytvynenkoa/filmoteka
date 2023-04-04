@@ -19,7 +19,7 @@ import {
   CustomButtons,
   ReviewsTab,
   TrailerTab 
-} from "containers";
+} from "components";
 import { LeftOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
 import { setActivePage } from "redux/activePageSlice";

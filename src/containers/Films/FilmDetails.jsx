@@ -1,4 +1,4 @@
-import { Details } from "containers";
+import { Details } from "components";
 import links from "links";
 import { 
   useEffect, 
