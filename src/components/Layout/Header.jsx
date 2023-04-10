@@ -2,37 +2,55 @@ import React from 'react';
 import {
   RightHeader,
   LeftHeader,
+  Filter,
 } from 'components';
-import './styles.scss'
 import CentralHeader from './CentralHeader';
-import { Col, Row } from 'antd';
+import { 
+  Col, 
+  Row, 
+  Space
+} from 'antd';
+import { useSelector } from 'react-redux';
+import links from 'links';
+import './styles.scss'
 
-const Header = ({ className }) => (
-  <header
-    className={`header ${className}`}
-    style={ {
-      maxWidth: '1600px',
-      maxHeight: '230px',
-      height: '230px',
-      minHeight: '230px',
-      padding: '0 15rem',
-    } }
-  >
-    <Row style={{alignItems: 'end', justifyContent: 'space-around', height: '100%'}}>
-      <Col flex="1" style={{height: '100%'}}>
-        <LeftHeader />
-      </Col>
-      <Col flex="1" style={{height: '100%'}}>
-        <CentralHeader />
-      </Col>
-      <Col flex="1" style={{height: '100%'}}>
-        <RightHeader />
-      </Col>
-    </Row>
-    
-    
-    
-  </header>
-);
+const Header = ({ className }) => {
+  const { isOpen } = useSelector(state => state.filter.value);
+  const activePage = useSelector(state => state.activePage.value);
+
+  const isSearchVisible = activePage === links.filmsPage || activePage === links.tvPage;
+
+  return (
+    <header
+      className={`header ${className}`}
+      style={ {
+        width: '100%',
+        maxWidth: '1600px',
+        height: '230px',
+        padding: '1rem 15rem',
+        margin: '0 auto',
+        backgroundColor: '#000'
+      } }
+    >
+      <Space 
+        direction="vertical" 
+        size={ 20 }
+        style={{ width: '100%' }}
+      >
+        <Row align="bottom">
+          <Col flex="1" >
+            <LeftHeader />
+          </Col>
+          <Col flex="1">
+            <CentralHeader />
+          </Col>
+          <Col flex="1">
+            <RightHeader />
+          </Col>
+        </Row>
+        { isOpen && isSearchVisible && <Filter /> }
+      </Space>
+    </header> 
+)};
 
 export default Header;

@@ -11,9 +11,9 @@ import {
   useSelector,
 } from "react-redux";
 import { apiServices } from "services";
-import { setTVGenres } from "redux/tvGenresSlice";
 import links from "links";
 import { setActivePage } from "redux/activePageSlice";
+import { setTVGenres } from "redux/genresSlice";
 
 const TVList = () => {
   const [ isLoading, setIsLoading] = useState(false);
@@ -22,7 +22,10 @@ const TVList = () => {
   const dispatch = useDispatch();
   const searchQuery = useSelector(state => state.searchQuery.value);
   const pageNum = useSelector(state => state.pageNum.value);
-  const allGenres = useSelector(state => state.tvGenres.value);
+  const { tvGenres } = useSelector(state => state.genres.value);
+  const { filters } = useSelector(state => state.filter.value);
+
+  const isFilters = Object.values(filters).some( item => item );
   
   useEffect(() => {
     if (pageNum !== 1) return;
@@ -39,20 +42,33 @@ const TVList = () => {
       return setIsLoading(false);
     };
 
-    if (!searchQuery) {
+    if (!searchQuery && isFilters ) {
+      setIsLoading(true);
+ 
+      apiServices.fetchFilterTV({
+        pageNum: pageNum,
+        genre: filters?.genre,
+        year: filters?.year,
+        vote: filters?.vote,
+      }).then(data => setTV(data));
+
+      return setIsLoading(false);
+    }
+
+    if (!searchQuery && !isFilters) {
       setIsLoading(true);
 
       apiServices.fetchPopularTV(pageNum).then(data => setTV(data));
       return setIsLoading(false);
     }
-  }, [pageNum, searchQuery]);
+  }, [filters, isFilters, pageNum, searchQuery]);
 
   if (isLoading || !TV) return <LoadingIndicator />;
 
   return (
     <List 
       data={ TV }
-      allGenres={ allGenres }
+      allGenres={ tvGenres }
       navigateLink={ links.tvPage }
     />
   )

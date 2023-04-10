@@ -6,11 +6,16 @@ import {
 } from 'antd';
 import links from 'links';
 import menus from 'menus';
+import { useState } from 'react';
 import { 
   useDispatch,
   useSelector 
 } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { 
+  resetFilters, 
+  setFilterIsOpen 
+} from 'redux/filterSlice';
 import { setPageNum } from 'redux/pageNumSlice';
 import { setSearchQuery } from 'redux/searchQuerySlice';
 
@@ -20,8 +25,9 @@ const { Text } = Typography;
 const CentralHeader = () => {
   const dispatch = useDispatch();
 
+  const [searchValue, setSearchValue] = useState('')
+
   const activePage = useSelector(state => state.activePage.value);
-  const searchQuery = useSelector(state => state.searchQuery.value);
 
   const isSearchVisible = activePage === links.filmsPage || activePage === links.tvPage;
 
@@ -29,9 +35,7 @@ const CentralHeader = () => {
     <div
       style={ {
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '100%',
+        justifyContent: 'center'
       } }
     >
       <Space 
@@ -40,7 +44,7 @@ const CentralHeader = () => {
       >
         <Menu
           mode="horizontal"
-          selectedKeys={[activePage]}
+          selectedKeys={[ activePage ]}
           style={ {
             boxShadow: 'none',
             borderBottom: 'none',
@@ -49,12 +53,14 @@ const CentralHeader = () => {
           } }
           onClick={ () => {
             dispatch(setPageNum(1));
+            dispatch(resetFilters());
             dispatch(setSearchQuery(''));
+            dispatch(setFilterIsOpen(false));
+            setSearchValue('')
           }}
           items={ Object.entries(menus).map(([, value]) => ({
             key: value.url,
             label: (
-              <>
               <Link 
                 to={ value.url } 
                 key={ value.title }
@@ -63,25 +69,27 @@ const CentralHeader = () => {
                   { value.title }
                 </Text>
               </Link>
-              </>
             ),
           })) }
         />
         { isSearchVisible && 
           <Search
-            suffix={false}
             placeholder={ 
               activePage === links.filmsPage
                 ? 'Film search'
                 : 'TV search'
             }
-            value={ searchQuery }
+            value={ searchValue }
             color='#ff6b01'
             className='searchInput'
-            onChange={ e => {
+            onChange={ e => setSearchValue(e.target.value) }
+            onSearch={ value => {
               dispatch(setPageNum(1));
-              dispatch(setSearchQuery(e.target.value));
-            }}
+              dispatch(setSearchQuery(value));
+              dispatch(resetFilters());
+              dispatch(setFilterIsOpen(false))
+              setSearchValue('')
+            } }
           />
         }
       </Space>

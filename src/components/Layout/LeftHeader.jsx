@@ -15,9 +15,7 @@ export const LeftHeader = () => {
     <div
       style={ {
         display: 'flex',
-        alignItems: 'center',
-        textAlign: 'center',
-        height: '100%',
+        textAlign: 'center'
       } }
       onClick={ () => dispatch(setActivePage(links.filmsPage)) }
     >
@@ -25,7 +23,10 @@ export const LeftHeader = () => {
         <img src={ logo } alt='logo' width='100px'/>
         <Title 
           level={ 1 } 
-          style={{ color: '#ff6b01' }}
+          style={{ 
+            color: '#ff6b01',
+            margin: '0'
+          }}
         >
           Filmoteka
         </Title>

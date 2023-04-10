@@ -12,7 +12,7 @@ import {
   useSelector,
 } from "react-redux";
 import { setActivePage } from "redux/activePageSlice";
-import { setMoviesGenres } from "redux/moviesGenresSlice";
+import { setMoviesGenres } from "redux/genresSlice";
 import { apiServices } from "services";
 
 const FilmList = () => {
@@ -22,7 +22,10 @@ const FilmList = () => {
   const dispatch = useDispatch();
   const searchQuery = useSelector(state => state.searchQuery.value);
   const pageNum = useSelector(state => state.pageNum.value);
-  const allGenres = useSelector(state => state.moviesGenres.value);
+  const { moviesGenres } = useSelector(state => state.genres.value);
+  const { filters } = useSelector(state => state.filter.value);
+
+  const isFilters = Object.values(filters).some( item => item );
 
   useEffect(() => {
     if (pageNum !== 1) return;
@@ -36,23 +39,38 @@ const FilmList = () => {
       setIsLoading(true);
  
       apiServices.fetchSearchMovies({ searchQuery, pageNum}).then(data => setMovies(data));
+
       return setIsLoading(false);
     };
 
-    if (!searchQuery) {
+    if (!searchQuery && isFilters ) {
+      setIsLoading(true);
+ 
+      apiServices.fetchFilterMovies({
+        pageNum: pageNum,
+        genre: filters?.genre,
+        year: filters?.year,
+        vote: filters?.vote,
+      }).then(data => setMovies(data));
+
+      return setIsLoading(false);
+    }
+
+    if (!searchQuery && !isFilters) {
       setIsLoading(true);
 
       apiServices.fetchPopularMovies(pageNum).then(data =>  setMovies(data));
+
       return setIsLoading(false);
     }
-  }, [pageNum, searchQuery]);
+  }, [filters, isFilters, pageNum, searchQuery]);
 
   if (isLoading || !movies) return <LoadingIndicator />;
 
   return (
     <List
       data={ movies }
-      allGenres={ allGenres }
+      allGenres={ moviesGenres }
       navigateLink={ links.filmsPage }
     />
   )

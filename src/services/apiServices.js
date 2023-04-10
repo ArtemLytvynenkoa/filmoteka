@@ -1,8 +1,8 @@
 const API_KEY = '9e0534c53eaa3e6b360c0df64c81dcbe';
 const BASE_URL = 'https://api.themoviedb.org/3/';
 
-const fetchTrendingMovies = async pageNum => {
-  const url = `${BASE_URL}trending/all/da?api_key=${API_KEY}&language=en-US&page=${pageNum}`;
+const fetchTrendingMovies = async () => {
+  const url = `${BASE_URL}trending/all/da?api_key=${API_KEY}&language=en-US&page=1`;
   try {
     const result = await fetch(url);
 
@@ -237,6 +237,76 @@ const fetchTVGenres = async () => {
   };
 };
 
+const fetchFilterMovies = async ({
+  pageNum,
+  genre,
+  year,
+  // originalLanguage,
+  vote
+}) => {
+  const searchParams = new URLSearchParams({
+    api_key: API_KEY,
+    language: 'en-US',
+    sort_by: 'popularity.desc',
+    page: pageNum,
+    include_adult: true,
+    with_genres: genre,
+    primary_release_year: year,
+    // with_original_language: originalLanguage
+  });
+
+  const url = `${BASE_URL}discover/movie?${searchParams}&vote_average.gte=${vote}`;;
+
+  try {
+    const result = await fetch(url);
+
+    if (!result.ok) {
+      throw new Error(result.status);
+    };
+
+    const data = await result.json();
+
+    return data;
+  } catch (error) {
+    console.log(error);
+  };
+};
+
+const fetchFilterTV = async ({
+  pageNum,
+  genre,
+  year,
+  // originalLanguage,
+  vote
+}) => {
+  const searchParams = new URLSearchParams({
+    api_key: API_KEY,
+    language: 'en-US',
+    sort_by: 'popularity.desc',
+    page: pageNum,
+    include_adult: true,
+    with_genres: genre,
+    first_air_date_year: year,
+    // with_original_language: originalLanguage
+  });
+
+  const url = `${BASE_URL}discover/tv?${searchParams}&vote_average.gte=${vote}`;;
+
+  try {
+    const result = await fetch(url);
+
+    if (!result.ok) {
+      throw new Error(result.status);
+    };
+
+    const data = await result.json();
+
+    return data;
+  } catch (error) {
+    console.log(error);
+  };
+};
+
 export const apiServices = {
   fetchTrendingMovies,
   fetchPopularMovies,
@@ -253,4 +323,6 @@ export const apiServices = {
   fetchTVDetails,
   fetchTVReviews,
   fetchTVTrailer,
+  fetchFilterMovies,
+  fetchFilterTV,
 }

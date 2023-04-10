@@ -18,7 +18,7 @@ export const getGenresTextArray = (genres = [], allGenres) => {
   if (genresName.length === 0 ) return "Other"
   
   return genresName.join(', ');
-}
+};
 
 export const getReleaseDate = releaseDate => {
   const date = new Date(releaseDate);
@@ -28,4 +28,26 @@ export const getReleaseDate = releaseDate => {
   };
   
   return date.getFullYear();
-}
+};
+
+export const getSelectYearOptions = () => {
+  const startYear = 1907;
+  const endYear = new Date().getFullYear();
+  let options = [];
+
+  for (let i = endYear; i >= startYear; i -= 1) {
+    options.push({ value: i, label: i });  
+  };
+
+  return options;
+};
+
+export const getSelectVoteOptions = () => {
+  let options = [];
+
+  for (let i = 10; i >= 1; i -= 1) {
+    options.push({ value: i, label: i === 10 ? 10 : `${i}+` });  
+  };
+
+  return options;
+};

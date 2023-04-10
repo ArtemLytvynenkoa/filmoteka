@@ -1,10 +1,21 @@
 .header  {
   background-image: url(../../images/desctop1x.jpg);
-  // margin-left: auto;
-  // margin-right: auto;
+  background-size: cover;
 }
 
-.searchInput .ant-input-wrapper .ant-input {
+.searchInput .ant-input-wrapper .ant-input,
+.filter 
+.ant-select-show-search:where(.css-dev-only-do-not-override-1feo5xd).ant-select:not(.ant-select-customize-input) 
+.ant-select-selector,
+.filter .ant-select .ant-select-selector {
+  background-color: #f5b98e45;
+  border: 2px solid #ff6b01;
+  color: #ff6b01
+}
+
+.filter
+.ant-select
+.ant-select-selector {
   background-color: #f5b98e45;
   border: 2px solid #ff6b01;
   color: #ff6b01

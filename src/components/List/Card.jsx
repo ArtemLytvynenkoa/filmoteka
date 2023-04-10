@@ -35,7 +35,7 @@ const Card = ({
 
   return (
     <Badge
-      count={ rating.toFixed(1) }
+      count={ rating?.toFixed(1) }
       offset={ [-20, 15] }
     >
       <Space direction="vertical"
@@ -65,7 +65,7 @@ const Card = ({
             tooltip: true
           }}
         >
-          { title.toUpperCase() }
+          { title?.toUpperCase() }
         </Text>
         <Space size={ 0 }>
           <Text 

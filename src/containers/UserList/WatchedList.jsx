@@ -19,17 +19,15 @@ import {
   useDispatch, 
   useSelector 
 } from "react-redux";
-import { setMoviesGenres } from "redux/moviesGenresSlice";
+import { setMoviesGenres, setTVGenres } from "redux/genresSlice";
 import { setPageNum } from "redux/pageNumSlice";
-import { setTVGenres } from "redux/tvGenresSlice";
 import { apiServices } from "services";
 
 const WatchedList = () => {
   const [user] = useAuthState(auth);
 
   const pageNum = useSelector(state => state.pageNum.value);
-  const moviesGenres = useSelector(state => state.moviesGenres.value);
-  const tvGenres = useSelector(state => state.tvGenres.value);
+  const { moviesGenres, tvGenres } = useSelector(state => state.genres.value);
 
   const [list, setList] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
