@@ -10,6 +10,7 @@ import links from 'links';
 import {
   FilmDetails,
   FilmList, 
+  MainPage, 
   SignIn, 
   SignUp, 
   TVDetails, 
@@ -31,6 +32,10 @@ export const routes = {
     signUpPage: {
       path: links.signUpPage,
       component: SignUp,
+    },
+    mainPage: {
+      path: links.mainPage,
+      component: MainPage,
     },
     filmsPage: {
       path: links.filmsPage,
@@ -132,7 +137,7 @@ const AppRoutes = () => (
         <Routes>
           { getPublicRoutes(routes.public) }
           { getPrivateRoutes(routes.private) }
-          <Route path="*" element={ <FilmList /> } />
+          <Route path="*" element={ <MainPage /> } />
         </Routes>
       </CoreLayout>
     </Provider>

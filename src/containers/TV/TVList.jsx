@@ -26,13 +26,13 @@ const TVList = () => {
   const { filters } = useSelector(state => state.filter.value);
 
   const isFilters = Object.values(filters).some( item => item );
-  
+
   useEffect(() => {
-    if (pageNum !== 1) return;
+    if (!tvGenres.length > 0) return;
 
     apiServices.fetchTVGenres().then(data => dispatch(setTVGenres(data)));
     dispatch(setActivePage(links.tvPage));
-  }, [dispatch, pageNum]);
+  }, [dispatch, tvGenres]);
 
   useEffect(() => {
     if (searchQuery) {

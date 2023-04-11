@@ -11,6 +11,7 @@ import {
 } from "antd";
 import { defaultImg } from "images";
 import {
+  useLocation,
   useNavigate, 
   useParams
 } from "react-router-dom";
@@ -24,6 +25,8 @@ import { LeftOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
 import { setActivePage } from "redux/activePageSlice";
 import { LoadingIndicator } from "components";
+import links from "links";
+import { setPageNum } from "redux/pageNumSlice";
 
 const { Text, Title } = Typography;
 
@@ -40,6 +43,8 @@ const Details = ({
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
+
+  const location = useLocation();
 
   if (isLoading && !details) {
     return <LoadingIndicator />
@@ -58,8 +63,9 @@ const Details = ({
           <Button
             type="link"
             onClick={ () => {
-              navigate( navigateLink )
-              dispatch(setActivePage(navigateLink))
+              navigate( location.state.from );
+              dispatch(setActivePage(navigateLink));
+              location.state.from === links.userListPage && dispatch(setPageNum(1))
             } }
           >
             <LeftOutlined /> 

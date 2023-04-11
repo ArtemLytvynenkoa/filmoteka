@@ -26,13 +26,13 @@ const FilmList = () => {
   const { filters } = useSelector(state => state.filter.value);
 
   const isFilters = Object.values(filters).some( item => item );
-
+  
   useEffect(() => {
-    if (pageNum !== 1) return;
-    
+    if (moviesGenres.length > 0) return;
+
     apiServices.fetchMoviesGenres().then(data => dispatch(setMoviesGenres(data)));
     dispatch(setActivePage(links.filmsPage));
-  }, [dispatch, pageNum]);
+  }, [dispatch, moviesGenres]);
 
   useEffect(() => {
     if (searchQuery) {

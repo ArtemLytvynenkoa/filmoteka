@@ -17,9 +17,9 @@ export const LeftHeader = () => {
         display: 'flex',
         textAlign: 'center'
       } }
-      onClick={ () => dispatch(setActivePage(links.filmsPage)) }
+      onClick={ () => dispatch(setActivePage(links.mainPage)) }
     >
-      <Link to={ links.filmsPage }>
+      <Link to={ links.mainPage }>
         <img src={ logo } alt='logo' width='100px'/>
         <Title 
           level={ 1 } 

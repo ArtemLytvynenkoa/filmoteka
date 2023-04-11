@@ -24,8 +24,7 @@ const QueueList = () => {
   const [user] = useAuthState(auth);
 
   const pageNum = useSelector(state => state.pageNum.value);
-  const moviesGenres = useSelector(state => state.moviesGenres.value);
-  const tvGenres = useSelector(state => state.tvGenres.value);
+  const { moviesGenres, tvGenres } = useSelector(state => state.genres.value);
 
   const [list, setList] = useState(null);
   const [isLoading, setIsLoading] = useState(false);

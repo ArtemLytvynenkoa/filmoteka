@@ -26,6 +26,13 @@
   min-height: 100vh;
 } 
 
-.mainContent {
+.ant-layout-content .mainPage {
+  padding: 20px 0;
+  text-align: center;
+  min-height: 100vh;
+} 
+
+.mainContent,
+.mainPage  {
   width: 100%;
 }
