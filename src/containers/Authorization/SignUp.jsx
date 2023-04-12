@@ -65,7 +65,7 @@ const SignUp = () => {
       });
     }
 
-    return <Navigate to={ links.filmsPage } replace />;
+    return <Navigate to={ links.mainPage } replace />;
   }
 
   return (

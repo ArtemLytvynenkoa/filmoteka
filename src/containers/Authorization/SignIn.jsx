@@ -46,7 +46,7 @@ const SignIn = () => {
   }
 
   if (user) {
-    return <Navigate to={ links.filmsPage } />;
+    return <Navigate to={ links.mainPage } />;
   }
 
   return (
