@@ -28,10 +28,11 @@ const TVList = () => {
   const isFilters = Object.values(filters).some( item => item );
 
   useEffect(() => {
+    dispatch(setActivePage(links.tvPage));
+    
     if (!tvGenres.length > 0) return;
 
     apiServices.fetchTVGenres().then(data => dispatch(setTVGenres(data)));
-    dispatch(setActivePage(links.tvPage));
   }, [dispatch, tvGenres]);
 
   useEffect(() => {

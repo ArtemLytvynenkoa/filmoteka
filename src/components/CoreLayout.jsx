@@ -19,7 +19,7 @@ import {
   Header 
 } from 'components';
 
-Spin.setDefaultIndicator(<LoadingOutlined style={ { fontSize: 24 } } spin />);
+Spin.setDefaultIndicator(<LoadingOutlined style={ { fontSize: 34 } } spin />);
 
 const { Content } = Layout;
 const { Group } = Button;

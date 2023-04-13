@@ -1,9 +1,11 @@
 import {
   FilterOutlined,
+  LoginOutlined,
+  LogoutOutlined,
+  UserAddOutlined,
   UserOutlined,
 } from '@ant-design/icons';
 import {
-  Button,
   Dropdown,
   Space,
 } from 'antd';
@@ -28,6 +30,12 @@ export const RightHeader = () => {
 
   const isSearchVisible = activePage === links.filmsPage || activePage === links.tvPage;
 
+  const style = { 
+    fontSize: '24px',
+    color: '#ff6b01',
+    padding: '10px 0'
+  };
+
   return (
     <div
       style={ {
@@ -36,77 +44,76 @@ export const RightHeader = () => {
       } }
     >
       { user &&
-        <Space size={ 20 }>
+        <Space size={ 10 }>
           { isSearchVisible &&
             <FilterOutlined
               onClick={ () => dispatch(setFilterIsOpen(!isOpen)) }
-              style={{ 
-                fontSize: '24px',
-                color: '#ff6b01'
-              }}
+              className='header-icons'
+              style={ style }
             />
           }
           <Dropdown
             trigger={ ['hover'] }
             menu={{
-                theme: "dark",
-                style: {
-                  padding: '0.7rem',
-                  marginTop: '0.5rem',
-                },
-                onClick:  () => {
-                  dispatch(setActivePage(links.userProfilePage))
-                  dispatch(setPageNum(1))
-                },
-                items: [{
-                  key: 'profile',
-                  label: (
-                    <Link to={ links.userProfilePage }>
-                      Profile
-                    </Link>
-                  )
-                }, {
-                  key: 'usserList',
-                  label: (
-                    <Link to={ links.userListPage }>
-                      User List
-                    </Link>
-                  )
-                }]
+              theme: "dark",
+              style: {
+                padding: '0.7rem',
+                marginTop: '0.5rem',
+              },
+              onClick:  () => {
+                dispatch(setActivePage(links.userProfilePage))
+                dispatch(setPageNum(1))
+              },
+              items: [{
+                key: 'profile',
+                label: (
+                  <Link to={ links.userProfilePage }>
+                    Profile
+                  </Link>
+                )
+              }, {
+                key: 'usserList',
+                label: (
+                  <Link to={ links.userListPage }>
+                    User List
+                  </Link>
+                )
+              }]
             }}
           >
             <UserOutlined 
-              style={{ 
-                fontSize: '24px',
-                color: '#ff6b01'
-              }}
+              style={ style }
             />
           </Dropdown>
-          
-          <Button 
-            type="primary"
+          <LogoutOutlined 
             onClick={ () => {
               signOut(auth)
             } }
-          >
-            Sign out
-          </Button>
+            style={ style }
+          />
         </Space>
       }
       { !user && 
         <Space>
-          <Button 
-            type="primary"
-            onClick={ () => dispatch(setActivePage('')) }
-          >
-            <Link to={ links.signInPage }>Sign in</Link>
-          </Button>
-          <Button 
-            type="primary"
-            onClick={ () => dispatch(setActivePage('')) }
-          >
-            <Link to={ links.signUpPage }>Sign Up</Link>
-          </Button>
+          { isSearchVisible &&
+            <FilterOutlined
+              onClick={ () => dispatch(setFilterIsOpen(!isOpen)) }
+              className='header-icons'
+              style={ style }
+            />
+          }
+          <Link to={ links.signInPage }>
+            <LoginOutlined 
+              onClick={ () => dispatch(setActivePage('')) }
+              style={ style }
+            />
+          </Link>
+          <Link to={ links.signUpPage }>
+            <UserAddOutlined 
+              onClick={ () => dispatch(setActivePage('')) }
+              style={ style }
+            />
+          </Link>
         </Space>
       }
     </div>

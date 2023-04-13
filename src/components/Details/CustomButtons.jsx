@@ -87,7 +87,7 @@ const CustomButtons = ({
                 id: `${details.id}-${details.title || details.name}-watched`,
               });
 
-              message.success('Added to the Watched list!');
+              message.success('Added to Watched list!');
             } catch (error) {
               message.error(error.message);
             }
@@ -98,7 +98,7 @@ const CustomButtons = ({
                 `${details.id}-${details.title || details.name}-watched`,
               );
 
-              message.success('Removed from the Watched list!');
+              message.success('Removed from Watched list!');
 
               userListId && navigate(links.userListPage);
             } catch (error) {
@@ -138,7 +138,7 @@ const CustomButtons = ({
                 id: `${details.id}-${details.title || details.name}-queue`,
               });
 
-              message.success('Added to the Queue list!');
+              message.success('Added to Queue list!');
             } catch (error) {
               message.error(error.message);
             }
@@ -149,7 +149,7 @@ const CustomButtons = ({
                 `${details.id}-${details.title || details.name}-queue`,
               );
 
-              message.success('Removed from the Queue list!');
+              message.success('Removed from Queue list!');
 
               userListId && navigate(links.userListPage);
             } catch (error) {

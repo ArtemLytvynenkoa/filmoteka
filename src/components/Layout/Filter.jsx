@@ -1,8 +1,10 @@
 import { 
   Space, 
   Select,
-  Button
+  Button,
+  Drawer
 } from "antd";
+import { useResize } from "hooks";
 import links from "links";
 import { useState } from "react";
 import { 
@@ -13,7 +15,8 @@ import {
   setFilterGenres, 
   setFilterYear, 
   setFilterVote, 
-  resetFilters
+  resetFilters,
+  setFilterIsOpen
 } from 'redux/filterSlice';
 import { setPageNum } from "redux/pageNumSlice";
 import { setSearchQuery } from "redux/searchQuerySlice";
@@ -29,83 +32,101 @@ const selectStyle = {
 const Filter = () => {
   const { moviesGenres, tvGenres } = useSelector(state => state.genres.value);
   const activePage = useSelector(state => state.activePage.value);
+  const { isOpen } = useSelector(state => state.filter.value);
 
-  const [genres, setGenres] = useState({
-    value: '',
-    label: 'All Rate'
-  });
+  const [genres, setGenres] = useState({ value: '', label: 'All Rate' });
   const [year, setYear] = useState('');
   const [vote, setVote] = useState('');
+
+  const windowWidth = useResize();
 
   const dispatch = useDispatch(); 
 
   const allGenres = activePage === links.filmsPage ? moviesGenres : tvGenres;
 
   return (
-    <Space className="filter" style={{ width: '100%', justifyContent: 'center' }} >
-      <Select
-        value={ genres.label }
-        style={ selectStyle }
-        placeholder="Select Ganres"
-        onChange={ (_, options) => setGenres(options)}
-        options={[{
-          value: '',
-          label: 'All Genre'
-        },
-          ...allGenres?.map(({ name, id }) => ( { value: id, label: name } ))
-        ]}
-      />
-      <Select
-        value={ year }
-        placeholder="Select Year"
-        style={ selectStyle }
-        onChange={ value => setYear(value) }
-        options={[{
-          value: '',
-          label: 'All Year'
-        },
-          ...getSelectYearOptions()
-        ]}
-      />
-      <Select
-        value={ vote }
-        placeholder="Select Vote"
-        style={ selectStyle }
-        onChange={ value => setVote(value) }
-        options={[{
-          value: '',
-          label: 'All Rate'
-        },
-          ...getSelectVoteOptions()
-        ]}
-      />
-      <Button
-        type="primary"
-        onClick={ () => {
-          dispatch(setSearchQuery(''));
-          dispatch(setFilterGenres(genres.value));
-          dispatch(setFilterYear(year));
-          dispatch(setFilterVote(vote));
-          dispatch(setPageNum(1));
-      }}
-      >
-        Filter out
-      </Button>
-      <Button
-        type="primary"
-        onClick={ () => {
-          dispatch(resetFilters());
-          setGenres({
+    <Drawer
+      className='tablet-drawer'
+      title="Filter" 
+      placement={ (windowWidth < 850) ? 'right' : 'top' }
+      onClose={() => dispatch(setFilterIsOpen(!isOpen))} 
+      open={isOpen}
+      width={ (windowWidth < 850) && 300 }
+    >
+      <Space 
+        className="filter"
+        direction={ (windowWidth < 850) ? 'vertical' : 'horizontal' }
+        style={{ 
+          width: '100%', 
+          justifyContent: 'center',
+          textAlign: 'center' 
+        }} >
+        <Select
+          value={ genres.label }
+          style={ selectStyle }
+          placeholder="Select Ganres"
+          onChange={ (_, options) => setGenres(options)}
+          options={[{
+            value: '',
+            label: 'All Genre'
+          },
+            ...allGenres?.map(({ name, id }) => ( { value: id, label: name } ))
+          ]}
+        />
+        <Select
+          value={ year }
+          placeholder="Select Year"
+          style={ selectStyle }
+          onChange={ value => setYear(value) }
+          options={[{
+            value: '',
+            label: 'All Year'
+          },
+            ...getSelectYearOptions()
+          ]}
+        />
+        <Select
+          value={ vote }
+          placeholder="Select Vote"
+          style={ selectStyle }
+          onChange={ value => setVote(value) }
+          options={[{
             value: '',
             label: 'All Rate'
-          });
-          setYear('');
-          setVote('');
-        } }
-      >
-        Reset filter
-      </Button>
-    </Space>
+          },
+            ...getSelectVoteOptions()
+          ]}
+        />
+        <Space>
+          <Button
+            type="primary"
+            onClick={ () => {
+              dispatch(setSearchQuery(''));
+              dispatch(setFilterGenres(genres.value));
+              dispatch(setFilterYear(year));
+              dispatch(setFilterVote(vote));
+              dispatch(setPageNum(1));
+          }}
+          >
+            Filter out
+          </Button>
+          <Button
+            type="primary"
+            onClick={ () => {
+              dispatch(resetFilters());
+              setGenres({
+                value: '',
+                label: 'All Rate'
+              });
+              setYear('');
+              setVote('');
+            } }
+          >
+            Reset filter
+          </Button>
+        </Space>
+      </Space>
+    </Drawer>
   );
 };
 

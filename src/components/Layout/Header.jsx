@@ -3,6 +3,7 @@ import {
   RightHeader,
   LeftHeader,
   Filter,
+  SearchInput
 } from 'components';
 import CentralHeader from './CentralHeader';
 import { 
@@ -14,30 +15,20 @@ import { useSelector } from 'react-redux';
 import links from 'links';
 import './styles.scss'
 
-const Header = ({ className }) => {
-  const { isOpen } = useSelector(state => state.filter.value);
+const Header = () => {
   const activePage = useSelector(state => state.activePage.value);
 
   const isSearchVisible = activePage === links.filmsPage || activePage === links.tvPage;
 
   return (
-    <header
-      className={`header ${className}`}
-      style={ {
-        width: '100%',
-        maxWidth: '1600px',
-        height: '230px',
-        padding: '1rem 15rem',
-        margin: '0 auto',
-        backgroundColor: '#000'
-      } }
-    >
+    <header className='header'>
       <Space 
-        direction="vertical" 
-        size={ 20 }
-        style={{ width: '100%' }}
+        direction="vertical"
+        className='header-space'
       >
-        <Row align="bottom">
+        <Row 
+          align={ isSearchVisible ? 'middle' : 'bottom' }
+        >
           <Col flex="1" >
             <LeftHeader />
           </Col>
@@ -48,7 +39,8 @@ const Header = ({ className }) => {
             <RightHeader />
           </Col>
         </Row>
-        { isOpen && isSearchVisible && <Filter /> }
+        { isSearchVisible && <SearchInput />  }
+        { isSearchVisible && <Filter/>  }
       </Space>
     </header> 
 )};

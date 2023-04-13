@@ -28,11 +28,13 @@ const FilmList = () => {
   const isFilters = Object.values(filters).some( item => item );
   
   useEffect(() => {
+    dispatch(setActivePage(links.filmsPage));
+    
     if (moviesGenres.length > 0) return;
 
     apiServices.fetchMoviesGenres().then(data => dispatch(setMoviesGenres(data)));
-    dispatch(setActivePage(links.filmsPage));
-  }, [dispatch, moviesGenres]);
+    
+  }, [dispatch, moviesGenres, pageNum]);
 
   useEffect(() => {
     if (searchQuery) {
