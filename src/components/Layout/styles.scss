@@ -105,17 +105,10 @@
   max-width: 1600px;
   margin: 0 auto;
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.58), rgba(0, 0, 0, 0.58)),
-    url(../../images/filter-bg.avif);
+    url(../../images/filter-bg.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-
-  @media screen and (min-device-pixel-ratio: 2),
-    (-webkit-min-device-pixel-ratio: 2),
-    (min-resolution: 192dpi),
-    (min-resolution: 2dppx) {
-    background-image: url(../../images/filter-bg.avif);
-  }
 
   @media screen and (min-width: 850px) {
     height: 230px;
