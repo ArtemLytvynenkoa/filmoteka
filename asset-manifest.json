@@ -1,10 +1,11 @@
 {
   "files": {
-    "main.css": "/filmoteka/static/css/main.dd23be23.css",
-    "main.js": "/filmoteka/static/js/main.2403cef4.js",
+    "main.css": "/filmoteka/static/css/main.5c4c4b4e.css",
+    "main.js": "/filmoteka/static/js/main.ade81528.js",
     "static/media/main-bg.jpeg": "/filmoteka/static/media/main-bg.2c381255e9e702f83e11.jpeg",
     "static/media/logo.png": "/filmoteka/static/media/logo.4a624def7656ea1bd57c.png",
     "static/media/default-img.png": "/filmoteka/static/media/default-img.dc6b65302d17c4b7d655.png",
+    "static/media/filter-bg.jpg": "/filmoteka/static/media/filter-bg.e81fd5ee7bfb3201cb51.jpg",
     "static/media/desctop2x.jpg": "/filmoteka/static/media/desctop2x.25271c380f2475429c1e.jpg",
     "static/media/tablet2x.jpg": "/filmoteka/static/media/tablet2x.1f4d233d38a866c6919b.jpg",
     "static/media/2desctop2x.jpg": "/filmoteka/static/media/2desctop2x.424848b8e5e6a268f276.jpg",
@@ -14,18 +15,17 @@
     "static/media/2desctop1x.jpg": "/filmoteka/static/media/2desctop1x.91937467cb7538dfcba1.jpg",
     "static/media/tablet1x.jpg": "/filmoteka/static/media/tablet1x.b28be4de0ce1e225023d.jpg",
     "static/media/2tablet1x.jpg": "/filmoteka/static/media/2tablet1x.1addd9983dce9d147288.jpg",
-    "static/media/filter-bg.avif": "/filmoteka/static/media/filter-bg.3f26860f0dc60fbfc85d.avif",
     "static/media/slick.svg": "/filmoteka/static/media/slick.2630a3e3eab21c607e21.svg",
     "static/media/slick.eot": "/filmoteka/static/media/slick.a4e97f5a2a64f0ab1323.eot",
     "static/media/slick.ttf": "/filmoteka/static/media/slick.c94f7671dcc99dce43e2.ttf",
     "static/media/slick.woff": "/filmoteka/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/filmoteka/index.html",
     "static/media/index.cjs": "/filmoteka/static/media/index.bab733886d4c9bd36de5.cjs",
-    "main.dd23be23.css.map": "/filmoteka/static/css/main.dd23be23.css.map",
-    "main.2403cef4.js.map": "/filmoteka/static/js/main.2403cef4.js.map"
+    "main.5c4c4b4e.css.map": "/filmoteka/static/css/main.5c4c4b4e.css.map",
+    "main.ade81528.js.map": "/filmoteka/static/js/main.ade81528.js.map"
   },
   "entrypoints": [
-    "static/css/main.dd23be23.css",
-    "static/js/main.2403cef4.js"
+    "static/css/main.5c4c4b4e.css",
+    "static/js/main.ade81528.js"
   ]
 }
