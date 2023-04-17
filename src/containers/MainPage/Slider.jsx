@@ -24,7 +24,7 @@ const CustomSlider = ({
       dots={ windowWidth > 700 }
       centerMode={ true }
       infinite={ true }
-      autoplaySpeed={ 2000 }
+      autoplaySpeed={ 2500 }
       autoplay={ true }
       speed={ 500 }
       slidesToShow={ numberOfSlides }
@@ -53,7 +53,7 @@ const CustomSlider = ({
                 alt={ title || name }
                 style={{
                   width: '115px',
-                  // height: '450px',
+                  height: '175px',
                   borderRadius: '10px',
                   cursor: 'pointer'
                 }}

@@ -1,0 +1,181 @@
+.card-image {
+  width: 200px;
+  height: 300px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.ant-typography.ant-typography-ellipsis.ant-typography-single-line.card-movie-name {
+  width: 200px;
+}
+
+.ant-typography.ant-typography-ellipsis.ant-typography-single-line.ant-typography-ellipsis-single-line {
+  color: #ff6b01;
+  max-width: 200px * 0.7;
+}
+
+@media screen and (min-width: (400px)) {
+  .card-image { 
+    width: 275px;
+    height: 425px;
+  }
+
+  .ant-typography.ant-typography-ellipsis.ant-typography-single-line.card-movie-name {
+    width: 275px;
+  }
+
+  .ant-typography.ant-typography-ellipsis.ant-typography-single-line.ant-typography-ellipsis-single-line {
+    max-width: 275px * 0.8;
+  }
+}
+
+@media screen and (min-width: (500px)) {
+  .card-image { 
+    width: 350px;
+    height: 500px;
+  }
+
+  .ant-typography.ant-typography-ellipsis.ant-typography-single-line.card-movie-name {
+    width: 350px;
+  }
+
+  .ant-typography.ant-typography-ellipsis.ant-typography-single-line.ant-typography-ellipsis-single-line {
+    max-width: 350px * 0.9;
+  }
+}
+
+@media screen and (min-width: (576px)) {
+  .card-image { 
+    width: 225px;
+    height: 325px;
+  }
+
+  .ant-typography.ant-typography-ellipsis.ant-typography-single-line.card-movie-name {
+    width: 225px;
+  }
+
+  .ant-typography.ant-typography-ellipsis.ant-typography-single-line.ant-typography-ellipsis-single-line {
+    max-width: 225px * 0.75;
+  }
+}
+
+@media screen and (min-width: (650px)) {
+  .card-image { 
+    width: 260px;
+    height: 380px;
+  }
+
+  .ant-typography.ant-typography-ellipsis.ant-typography-single-line.card-movie-name {
+    width: 260px;
+  }
+
+  .ant-typography.ant-typography-ellipsis.ant-typography-single-line.ant-typography-ellipsis-single-line {
+    max-width: 260px * 0.8;
+  }
+}
+
+@media screen and (min-width: (700px)) {
+  .card-image { 
+    width: 275px;
+    height: 425px;
+  }
+
+  .ant-typography.ant-typography-ellipsis.ant-typography-single-line.card-movie-name {
+    width: 275px;
+  }
+  
+  .ant-typography.ant-typography-ellipsis.ant-typography-single-line.ant-typography-ellipsis-single-line {
+    max-width: 275px * 0.8;
+  }
+}
+
+@media screen and (min-width: (850px)) {
+  .card-image { 
+    width: 350px;
+    height: 500px;
+  }
+  
+  .ant-typography.ant-typography-ellipsis.ant-typography-single-line.card-movie-name {
+    width: 350px;
+  }
+
+  .ant-typography.ant-typography-ellipsis.ant-typography-single-line.ant-typography-ellipsis-single-line {
+    max-width: 350px * 0.9;
+  }
+}
+
+@media screen and (min-width: (992px)) {
+  .card-image { 
+    width: 200px;
+    height: 300px;
+  }
+  
+  .ant-typography.ant-typography-ellipsis.ant-typography-single-line.card-movie-name {
+    width: 200px;
+  }
+
+  .ant-typography.ant-typography-ellipsis.ant-typography-single-line.ant-typography-ellipsis-single-line {
+    max-width: 200px * 0.7;
+  }
+}
+
+@media screen and (min-width: (1050px)) {
+  .card-image { 
+    width: 225px;
+    height: 325px;
+  }
+  
+  .ant-typography.ant-typography-ellipsis.ant-typography-single-line.card-movie-name {
+    width: 225px;
+  }
+
+  .ant-typography.ant-typography-ellipsis.ant-typography-single-line.ant-typography-ellipsis-single-line {
+    max-width: 225px * 0.75;
+  }
+}
+
+  @media screen and (min-width: (1200px)) {
+    .card-image { 
+      width: 260px;
+      height: 380px;
+    }
+    
+    .ant-typography.ant-typography-ellipsis.ant-typography-single-line.card-movie-name {
+      width: 260px;
+    }
+
+    .ant-typography.ant-typography-ellipsis.ant-typography-single-line.ant-typography-ellipsis-single-line {
+      max-width: 260px * 0.8;
+    }
+  }
+
+  @media screen and (min-width: (1400px)) {
+    .card-image { 
+      width: 300px;
+      height: 475px;
+    }
+
+    .ant-typography.ant-typography-ellipsis.ant-typography-single-line.card-movie-name {
+      width: 300px;
+    }
+    
+    .ant-typography.ant-typography-ellipsis.ant-typography-single-line.ant-typography-ellipsis-single-line {
+      max-width: 300px * 0.9;
+    }
+  }
+
+@media screen and (min-width: (1600px)){
+  .card-image { 
+    width: 350px;
+    height: 500px;
+  }
+
+  .ant-typography.ant-typography-ellipsis.ant-typography-single-line.card-movie-name {
+    width: 350px;
+  }
+  
+  .ant-typography.ant-typography-ellipsis.ant-typography-single-line.ant-typography-ellipsis-single-line {
+    max-width: 350px * 0.9;
+  }
+  
+}

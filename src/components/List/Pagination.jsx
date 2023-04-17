@@ -1,8 +1,8 @@
-import { Pagination as AndPagination } from "antd"
+import { Pagination as AndPagination } from "antd";
 import { 
   useDispatch,
   useSelector 
-} from "react-redux"
+} from "react-redux";
 import { setPageNum } from "redux/pageNumSlice";
 
 const Pagination = ({
@@ -14,6 +14,7 @@ const Pagination = ({
 
   return (
     <AndPagination
+      responsive
       style={ { margin: '50px 0' } }
       current={ pageNum }
       total={ totalResults }

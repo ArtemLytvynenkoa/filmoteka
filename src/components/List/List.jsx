@@ -58,7 +58,12 @@ const List = ({
               vote_average,
               type
             }) => (
-              <Col span={ 6 } key={ id }>
+              <Col 
+                key={ id }
+                xs={ 24 }
+                sm={ 12 }
+                lg={ 6 }
+              >
                 <Card 
                   title={ title ? title : name }
                   posterPath={ poster_path }

@@ -13,6 +13,7 @@ import {
   getGenresTextArray, 
   getReleaseDate 
 } from "utils";
+import './styles.scss';
 
 const { Text } = Typography;
 
@@ -36,32 +37,28 @@ const Card = ({
       count={ rating?.toFixed(1) }
       offset={ [-20, 15] }
     >
-      <Link
-        to={ navLink } 
-        state={{ from: navigateLink }}
+      <Space 
+        direction="vertical"
+        style={{
+          textAlign: 'start'
+        }}
+        onClick={ () => {
+          dispatch(setActivePage(''))
+        } }
       >
-        <Space direction="vertical"
-          style={{
-            textAlign: 'start',
-            cursor: 'pointer',
-          }}
-          onClick={ () => {
-            dispatch(setActivePage(''))
-          } }
+        <Link
+          to={ navLink } 
+          state={{ from: navigateLink }}
         >
-          <img 
-            src={posterPath ? `https://image.tmdb.org/t/p/w500${posterPath}` : defaultImg} 
-            alt={title}
-            style={{
-              maxWidth: '300px',
-              height: '450px',
-              borderRadius: '10px',
-            }}
+          <img
+            className="card-image"
+            src={ posterPath ? `https://image.tmdb.org/t/p/w500${posterPath}` : defaultImg } 
+            alt={ title }
           />
+        </Link>
+        <Space direction="vertical" >
           <Text
-            style={{
-              width: '300px'
-            }} 
+            className="card-movie-name"
             copyable
             ellipsis={{
               tooltip: true
@@ -70,11 +67,7 @@ const Card = ({
             { title?.toUpperCase() }
           </Text>
           <Space size={ 0 }>
-            <Text 
-              style={{ 
-                color: '#ff6b01',
-                maxWidth: '250px'
-              }}
+            <Text
               ellipsis={{
               tooltip: true
               }}
@@ -87,16 +80,12 @@ const Card = ({
                 backgroundColor: '#ff6b01'
               }}
             />
-            <Text 
-              style={{ 
-                color: '#ff6b01'
-              }}
-            >
+            <Text style={{ color: '#ff6b01' }}>
               { getReleaseDate(releaseDate) }
             </Text>
           </Space>
-        </Space>          
-      </Link>
+        </Space>
+      </Space>
     </Badge>
   );
 };
