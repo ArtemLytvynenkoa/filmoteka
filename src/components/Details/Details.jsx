@@ -27,6 +27,8 @@ import { setActivePage } from "redux/activePageSlice";
 import { LoadingIndicator } from "components";
 import links from "links";
 import { setPageNum } from "redux/pageNumSlice";
+import "./details.scss";
+import { useResize } from "hooks";
 
 const { Text, Title } = Typography;
 
@@ -46,6 +48,8 @@ const Details = ({
 
   const location = useLocation();
 
+  const windowWidth = useResize();
+
   if (isLoading && !details) {
     return <LoadingIndicator />
   };
@@ -56,11 +60,16 @@ const Details = ({
         justify="space-between"
         align="middle"
         style={{
-          margin: '20px 0 0',
+          margin: '20px 0 10px',
         }}
       >
-        <Col>
+        <Col 
+          xs={ 24 }
+          sm={ 12 }
+          style={{ textAlign: 'start'}}
+        >
           <Button
+            style={{ padding: '0' }}
             type="link"
             onClick={ () => {
               navigate( location.state.from );
@@ -73,7 +82,11 @@ const Details = ({
             Back
           </Button>
         </Col>
-        <Col>
+        <Col
+          xs={ 24 }
+          sm={ 12 }
+          style={{ textAlign: windowWidth >= 576 && 'end' }}
+        >
           <CustomButtons 
             details={ details }
             cast={ cast }
@@ -86,11 +99,11 @@ const Details = ({
         gutter={[20, 20]}
         style={{
           padding: '0 0 50px',
-          width: '100%'
         }}
       >
         <Col flex="1">
-          <Image 
+          <Image
+            className="details-img"
             alt={ details?.title || details?.name}
             src={ 
               details?.poster_path 
@@ -98,15 +111,11 @@ const Details = ({
                 : defaultImg 
             }
             // preview={false}
-            width={ 400 }
-            height={ 550 }
-            style={{ borderRadius: '15px' }}
           />
         </Col>
         <Col flex="3">
-          
           <Space direction="vertical" style={{ width: '100%',  textAlign: "start" }}>
-            <Title type="secondary">
+            <Title type="secondary" level={ 3 }>
               { details?.title || details?.name }
             </Title>
             <Divider 
@@ -118,7 +127,10 @@ const Details = ({
             <Row gutter={ [ 8, 8 ] } 
               align="middle"
             >
-              <Col span={ 12 }>
+              <Col 
+                xs={ 24 }
+                md={ 12 }
+              >
                 <Row gutter={ [ 8, 8 ] }>
                   <Col span={ 12 }>
                     <Text type="secondary">Rating/Votes</Text>
@@ -179,7 +191,8 @@ const Details = ({
                 </Row>
               </Col>
               <Col
-                span={ 12 }
+                xs={ 24 }
+                md={ 12 }
                 style={{
                   textAlign: "center",
                 }}

@@ -30,7 +30,7 @@ const TVList = () => {
   useEffect(() => {
     dispatch(setActivePage(links.tvPage));
     
-    if (!tvGenres.length > 0) return;
+    if (tvGenres.length > 0) return;
 
     apiServices.fetchTVGenres().then(data => dispatch(setTVGenres(data)));
   }, [dispatch, tvGenres]);
@@ -40,6 +40,7 @@ const TVList = () => {
       setIsLoading(true);
  
       apiServices.fetchSearchTV({ searchQuery, pageNum}).then(data => setTV(data));
+
       return setIsLoading(false);
     };
 
@@ -60,6 +61,7 @@ const TVList = () => {
       setIsLoading(true);
 
       apiServices.fetchPopularTV(pageNum).then(data => setTV(data));
+
       return setIsLoading(false);
     }
   }, [filters, isFilters, pageNum, searchQuery]);

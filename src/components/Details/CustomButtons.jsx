@@ -2,7 +2,8 @@ import { useDocument } from "react-firebase-hooks/firestore";
 import { 
   Space, 
   Button, 
-  message 
+  message, 
+  Typography
 } from "antd";
 import { 
   auth, 
@@ -19,8 +20,14 @@ import {
 } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import errorMessages from "errorMessages";
-import { useNavigate, useParams } from "react-router-dom";
+import { 
+  useNavigate, 
+  useParams 
+} from "react-router-dom";
 import links from "links";
+import { DeleteOutlined } from "@ant-design/icons";
+
+const { Text } = Typography;
 
 const CustomButtons = ({ 
   details,
@@ -60,7 +67,8 @@ const CustomButtons = ({
   
   return (
     <Space>
-      <Button 
+      <Button
+        className="btn custom-btn"
         type="primary"
         disabled={ isWatchedLoading }
         loading={ isLoading }
@@ -109,9 +117,13 @@ const CustomButtons = ({
           setIsLoading(false);
         }}
       >
-        { watchedItem ? 'REMOVE FROM WATCHED' : 'ADD TO WATCHED' }
+        { watchedItem 
+          ? <Text className="button-text"><DeleteOutlined /> FROM WATCHED</Text>
+          : <Text className="button-text">ADD TO WATCHED</Text>
+        }
       </Button>
-      <Button 
+      <Button
+        className="btn custom-btn"
         type="primary"
         disabled={ isQueueLoading }
         loading={ isLoading }
@@ -160,7 +172,10 @@ const CustomButtons = ({
           setIsLoading(false);
         }}
       >
-        { queueItem ? 'REMOVE FROM QUEUE' : 'ADD TO QUEUE' }
+        { queueItem 
+          ? <Text className="button-text"><DeleteOutlined /> FROM QUEUE</Text>
+          : <Text className="button-text">ADD TO QUEUE</Text>
+        }
       </Button>
     </Space>
   );
