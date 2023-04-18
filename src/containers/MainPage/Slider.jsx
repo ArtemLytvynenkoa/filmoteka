@@ -36,14 +36,7 @@ const CustomSlider = ({
         name,
         id,
         }) => (
-          <div
-            key={ id }
-            style={{
-              padding: '0 5px',
-              cursor: 'pointer',
-              borderRadius: '10px',
-            }}
-          >
+          <div key={ id }>
             <Link 
               to={ `${navigateLink}/${id}` } 
               state={{ from: links.mainPage }}
