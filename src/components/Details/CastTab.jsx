@@ -16,13 +16,13 @@ const CastTab = ({ cast }) => (
   >
     {
       cast.map(({ 
-        cast_id,
+        id,
         name,
         profile_path,
         character
       }) => (
         <Col  
-          key={ cast_id }
+          key={ id }
           xs={ 24 }
           sm={ 12 }
           md={ 8 }
@@ -31,7 +31,7 @@ const CastTab = ({ cast }) => (
         >
           <Space 
             direction="vertical"
-            style={{ textAlign: 'start' }}
+            className="cast-space"
           >
             <Image
               className="cast-img"
@@ -39,7 +39,7 @@ const CastTab = ({ cast }) => (
               src={ profile_path ? `https://image.tmdb.org/t/p/w500${profile_path}` : defaultImg }
             />
             <Text type="secondary">Name:</Text>
-            <Text strong>{name}</Text>
+            <Text strong copyable>{name}</Text>
             <Text type="secondary">Character:</Text>
             <Text strong>{character}</Text>
           </Space>
