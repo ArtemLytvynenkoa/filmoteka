@@ -13,7 +13,7 @@ import {
 } from 'antd';
 import { useSelector } from 'react-redux';
 import links from 'links';
-import './styles.scss'
+import './layout.scss'
 
 const Header = () => {
   const activePage = useSelector(state => state.activePage.value);
