@@ -4,7 +4,7 @@ export const filterSlice = createSlice({
   name: 'filter',
   initialState: { value: {
     filters: {
-      genres: '',
+      genre: '',
       year: '',
       vote: '',
     },
@@ -12,7 +12,7 @@ export const filterSlice = createSlice({
   } },
   reducers: {
     setFilterGenres: (state, action) => {
-      state.value.filters.genres = action.payload
+      state.value.filters.genre = action.payload
     },
     setFilterYear: (state, action) => {
       state.value.filters.year = action.payload
@@ -25,7 +25,7 @@ export const filterSlice = createSlice({
     },
     resetFilters: state => {
       state.value.filters = {
-        genres: '',
+        genre: '',
         year: '',
         vote: '',
       }
