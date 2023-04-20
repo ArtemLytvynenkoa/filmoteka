@@ -30,6 +30,11 @@ import UserAvatarUpload from './UserAvatarUpload';
 
 const { Item } = AntdForm;
 
+const formStyle = { 
+  margin: '0 auto',
+  maxWidth: '300px'
+};
+
 const UserProfile = () => {
   const [isPasswordChangeVisible, setPasswordChangeVisible] = useState(false);
 
@@ -72,7 +77,14 @@ const UserProfile = () => {
         marginTop: '50px',
       } }
     >
-      <Col span={ 5 }>
+      <Col 
+        span={ 24 }
+        style={{ 
+          textAlign: 'center',
+          paddingRight: '20px',
+          paddingLeft: '20px',
+        }}
+      >
         <Form
           form={ form }
           isLoading={ isProfileUpdeting || isEmailUpdeting || loading}
@@ -82,7 +94,7 @@ const UserProfile = () => {
             phoneNumber: userData?.phoneNumber,
             photoURL: userData?.photoURL,
           } }
-          style={{ textAlign: 'center' }}
+          style={ formStyle }
           fields={ [
             <Item key="userAvatar" name="photoURL" noStyle>
               <UserAvatarUpload userName={ userData?.userName } />
@@ -116,6 +128,7 @@ const UserProfile = () => {
           type="primary"
           block
           onClick={ () => setPasswordChangeVisible(!isPasswordChangeVisible) }
+          style={ formStyle }
         >
           { !isPasswordChangeVisible ? 'Change password' : 'Cancel' }
         </Button>
@@ -125,6 +138,7 @@ const UserProfile = () => {
             <Form
               form={ form }
               isLoading={ isPasswordUpdating }
+              style={ formStyle }
               fields={ [
                 profileForm.password,
                 profileForm.confirmPass,

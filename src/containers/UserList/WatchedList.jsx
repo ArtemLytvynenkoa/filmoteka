@@ -124,6 +124,7 @@ const WatchedList = () => {
       simple={ true }
       handlePrevClick={ handlePrevClick }
       handleNextClick={ handleNextClick }
+      userlist={ true }
     />
   );
 };

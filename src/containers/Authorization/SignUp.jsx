@@ -76,12 +76,19 @@ const SignUp = () => {
         marginTop: '50px' 
       } }
     >
-      <Col
-        xs={ 24 }
-        lg={ 6 }
+      <Col span={ 24 }
+        style={{ 
+          textAlign: 'center',
+          paddingRight: '20px',
+          paddingLeft: '20px',
+        }}
       >
         <Form
           form={ form }
+          style={{ 
+            margin: '0 auto',
+            maxWidth: '300px'
+          }}
           isLoading={ isUserLoading }
           buttonText="Sign up"
           initialValues={ { remember: true } }

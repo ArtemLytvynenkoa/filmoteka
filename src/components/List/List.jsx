@@ -16,11 +16,12 @@ const List = ({
   simple,
   handlePrevClick,
   handleNextClick,
+  userlist
 }) => {
   const maxItemCount = 10000;
 
   return (
-    <div className="mainContent">
+    <div className={ !userlist ? "mainContent" : null}>
       { data?.results?.length === 0
         ? <NotificationBlock text='Nothing was found! Try again!' />
         : (
@@ -87,12 +88,14 @@ const List = ({
               }
             />) : (
               <SimplePagination
-                totalResults={ 
-                  data?.total_results > maxItemCount 
-                    ? maxItemCount 
-                    : data?.total_results
-                }
-              />)
+                  handlePrevClick={ handlePrevClick }
+                  handleNextClick={ handleNextClick }
+                  totalResults={ 
+                    data?.total_results > maxItemCount 
+                      ? maxItemCount 
+                      : data?.total_results
+                  }
+                />)
           }
           </>
         )
