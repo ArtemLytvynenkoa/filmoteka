@@ -12,8 +12,7 @@ import {
 import { defaultImg } from "images";
 import {
   useLocation,
-  useNavigate, 
-  useParams
+  useNavigate
 } from "react-router-dom";
 import { 
   CastTab,
@@ -40,8 +39,6 @@ const Details = ({
   isLoading,
   navigateLink
 }) => {
-  const { tvId } = useParams();
-
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -167,7 +164,7 @@ const Details = ({
                   <Col span={ 12 }>
                     <Text strong>{ details?.genres.map(({ name }) => name).join(', ') }</Text>
                   </Col>
-                  { tvId && (
+                  { details?.number_of_seasons && details?.number_of_episodes && (
                     <>
                       <Col span={ 12 }>
                         <Text type="secondary">Seasons/Episodes</Text>
@@ -183,7 +180,7 @@ const Details = ({
                         <Tag
                           color="gray"
                         >
-                          { details?.number_of_episodes}
+                          { details?.number_of_episodes }
                         </Tag>
                       </Col>
                     </>

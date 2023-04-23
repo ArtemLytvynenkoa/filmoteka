@@ -15,7 +15,7 @@ import {
   SignUp, 
   TVDetails, 
   TVList, 
-  UserListDetails, 
+  UserFilmDetails, 
   UserLists, 
   UserProfile 
 } from 'containers';
@@ -68,8 +68,8 @@ export const routes = {
       component: UserLists,
       children: {
         customer: {
-          path: '/:userListId',
-          component: UserListDetails,
+          path: '/:userFilmId',
+          component: UserFilmDetails,
         },
       },
     },
@@ -77,13 +77,15 @@ export const routes = {
 };
 
 const PrivateRoute = ({ component: Component }) => {
-  const [user] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
 
-  if (user) {
+  if (user && !loading) {
     return <Component />;
   }
 
-  return <Navigate to={ links.mainPage } />;
+  if (!user && !loading) {
+    return <Navigate to={ links.mainPage } />;
+  }
 };
 
 const getPublicRoutes = (routes, parentPath = '') => (

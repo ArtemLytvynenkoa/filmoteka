@@ -114,6 +114,7 @@ const Filter = () => {
             type="primary"
             onClick={ () => {
               dispatch(resetFilters());
+              dispatch(setPageNum(1));
               setGenres({
                 value: '',
                 label: 'All Rate'

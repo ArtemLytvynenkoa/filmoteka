@@ -1,5 +1,6 @@
 import { 
   Badge,
+  Button,
   Divider,
   Space,
   Typography,
@@ -14,6 +15,7 @@ import {
   getReleaseDate 
 } from "utils";
 import './styles.scss';
+import { SendOutlined } from "@ant-design/icons";
 
 const { Text } = Typography;
 
@@ -83,6 +85,22 @@ const Card = ({
             <Text style={{ color: '#ff6b01' }}>
               { getReleaseDate(releaseDate) }
             </Text>
+            <Divider 
+              type="vertical"
+              style={{
+                backgroundColor: '#ff6b01'
+              }}
+            />
+            <Button
+              type="link"
+              className="card-button"
+              onClick={ e => {
+                e.stopPropagation();
+                window.open(navLink);
+              } }
+            >
+              <SendOutlined />
+            </Button>
           </Space>
         </Space>
       </Space>

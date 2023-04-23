@@ -13,14 +13,14 @@ import { useDocument } from "react-firebase-hooks/firestore";
 
 const { useParams } = require("react-router-dom");
 
-const UserListDetails = () => {
+const UserFilmDetails = () => {
   const [user] = useAuthState(auth);
 
-  const { userListId } = useParams();
+  const { userFilmId } = useParams();
 
-  const ref = userListId.split('-')[2] === 'watched' 
-    ? getWatchedItemRef(user.uid, userListId) 
-    : getQueueItemRef(user.uid, userListId);
+  const ref = userFilmId.split('-')[2] === 'watched' 
+    ? getWatchedItemRef(user.uid, userFilmId) 
+    : getQueueItemRef(user.uid, userFilmId);
 
   const [value, isLoading, error] = useDocument(ref);
 
@@ -45,4 +45,4 @@ const UserListDetails = () => {
   )
 };
 
-export default UserListDetails;
+export default UserFilmDetails;

@@ -26,6 +26,8 @@ import {
 } from "react-router-dom";
 import links from "links";
 import { DeleteOutlined } from "@ant-design/icons";
+import { setPageNum } from "redux/pageNumSlice";
+import { useDispatch } from "react-redux";
 
 const { Text } = Typography;
 
@@ -39,7 +41,9 @@ const CustomButtons = ({
 
   const [ isLoading, setIsLoading] = useState(false);
   
-  const { userListId } = useParams();
+  const { userFilmId } = useParams();
+
+  const dispatch = useDispatch();
 
   const navigate = useNavigate(); 
 
@@ -55,6 +59,8 @@ const CustomButtons = ({
   const queueItem = queueItemValue?.data();
 
   useEffect(() => {
+    if (!user) return;
+    
     if (watchedError) {
       // console.log(error.code);
       message.error(errorMessages[watchedError.code]);
@@ -63,7 +69,7 @@ const CustomButtons = ({
       // console.log(googleSignInError.code);
       message.error(errorMessages[queueError.code]);
     }
-  }, [queueError, watchedError]);
+  }, [queueError, user, watchedError]);
   
   return (
     <Space>
@@ -108,7 +114,9 @@ const CustomButtons = ({
 
               message.success('Removed from Watched list!');
 
-              userListId && navigate(links.userListPage);
+              dispatch(setPageNum(1))
+
+              userFilmId && navigate(links.userListPage);
             } catch (error) {
               message.error(error.message);
             };
@@ -163,7 +171,9 @@ const CustomButtons = ({
 
               message.success('Removed from Queue list!');
 
-              userListId && navigate(links.userListPage);
+              dispatch(setPageNum(1))
+
+              userFilmId && navigate(links.userListPage);
             } catch (error) {
               message.error(error.message);
             }
