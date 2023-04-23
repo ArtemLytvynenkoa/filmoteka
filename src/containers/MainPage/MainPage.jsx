@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setMoviesGenres, setTVGenres } from "redux/genresSlice";
 import links from "links";
 import { Divider, Typography } from "antd";
+import { setActivePage } from "redux/activePageSlice";
 
 const { Title } = Typography;
 
@@ -40,6 +41,10 @@ const MainPage = () => {
       setIsLoading(false);
     };
   }, [movies, tv])
+
+  useEffect(() => {
+    dispatch(setActivePage(''))
+  }, [dispatch])
 
   if (isLoading || !movies) return <LoadingIndicator />;
 
@@ -74,9 +79,6 @@ const MainPage = () => {
         }}
       />
     </div>
-    // <div>
-    //   hello
-    // </div>
   );
 };
 

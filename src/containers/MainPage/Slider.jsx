@@ -3,9 +3,10 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { defaultImg } from "images";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
 import { useResize } from "hooks";
 import links from "links";
+import { setActivePage } from "redux/activePageSlice";
+import { useDispatch } from "react-redux";
 
 const CustomSlider = ({ 
   items,
@@ -15,9 +16,7 @@ const CustomSlider = ({
 
   const numberOfSlides = Math.round(Math.floor(windowWidth / 150));
 
-  useEffect(() => {
-
-  }, [])
+  const dispatch = useDispatch();
 
   return (
     <Slider 
@@ -36,7 +35,12 @@ const CustomSlider = ({
         name,
         id,
         }) => (
-          <div key={ id }>
+          <div 
+            key={ id }
+            onClick={ () => {
+              dispatch(setActivePage(''))
+            } }
+          >
             <Link 
               to={ `${navigateLink}/${id}` } 
               state={{ from: links.mainPage }}
